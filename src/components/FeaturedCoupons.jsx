@@ -1,20 +1,6 @@
-const coupons = [
-  {
-    store: "Amazon",
-    code: "SAVE20",
-    discount: "20% OFF"
-  },
-  {
-    store: "Noon",
-    code: "NOON50",
-    discount: "50 SAR OFF"
-  },
-  {
-    store: "SHEIN",
-    code: "SHEIN25",
-    discount: "25% OFF"
-  }
-];
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 function copyCode(code) {
   navigator.clipboard.writeText(code);
@@ -22,6 +8,27 @@ function copyCode(code) {
 }
 
 export default function FeaturedCoupons() {
+  const [coupons, setCoupons] = useState([]);
+
+  useEffect(() => {
+    async function loadCoupons() {
+      const querySnapshot = await getDocs(collection(db, "coupons"));
+
+      const data = [];
+
+      querySnapshot.forEach((doc) => {
+        data.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+
+      setCoupons(data);
+    }
+
+    loadCoupons();
+  }, []);
+
   return (
     <section
       style={{
@@ -50,7 +57,7 @@ export default function FeaturedCoupons() {
       >
         {coupons.map((coupon) => (
           <div
-            key={coupon.code}
+            key={coupon.id}
             style={{
               background: "#fff",
               borderRadius: "16px",
