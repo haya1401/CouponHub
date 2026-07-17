@@ -7,6 +7,7 @@ import FeaturedCoupons from "./components/FeaturedCoupons";
 
 import Stores from "./pages/Stores";
 import AdminLogin from "./pages/AdminLogin";
+import Dashboard from "./pages/Dashboard";
 function Home() {
   return (
     <>
