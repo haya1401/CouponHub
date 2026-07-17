@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <header
@@ -27,18 +28,26 @@ export default function Header() {
             gap: "25px"
           }}
         >
-        <nav>
-  <Link to="/">الرئيسية</Link>
+          <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+            الرئيسية
+          </Link>
 
-  <Link to="/stores">المتاجر</Link>
+          <Link to="/stores" style={{ color: "#fff", textDecoration: "none" }}>
+            المتاجر
+          </Link>
 
-  <Link to="/coupons">الكوبونات</Link>
+          <Link to="/coupons" style={{ color: "#fff", textDecoration: "none" }}>
+            الكوبونات
+          </Link>
 
-  <Link to="/categories">التصنيفات</Link>
+          <Link to="/categories" style={{ color: "#fff", textDecoration: "none" }}>
+            التصنيفات
+          </Link>
 
-  <Link to="/contact">اتصل بنا</Link>
-</nav>  
-        
+          <Link to="/contact" style={{ color: "#fff", textDecoration: "none" }}>
+            اتصل بنا
+          </Link>
+        </nav>
       </div>
     </header>
   );
