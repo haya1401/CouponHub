@@ -1,13 +1,26 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function login(e) {
+  async function login(e) {
     e.preventDefault();
 
-    alert("سيتم ربط تسجيل الدخول بـ Firebase في الخطوة التالية");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      alert("✅ تم تسجيل الدخول");
+
+      navigate("/dashboard");
+    } catch (error) {
+      alert("❌ البريد الإلكتروني أو كلمة المرور غير صحيحة");
+    }
   }
 
   return (
@@ -51,6 +64,7 @@ export default function AdminLogin() {
         />
 
         <button
+          type="submit"
           style={{
             width: "100%",
             marginTop: "20px",
