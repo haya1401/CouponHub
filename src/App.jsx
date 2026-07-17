@@ -6,7 +6,7 @@ import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
 
 import Stores from "./pages/Stores";
-
+import AdminLogin from "./pages/AdminLogin";
 function Home() {
   return (
     <>
