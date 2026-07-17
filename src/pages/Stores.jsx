@@ -1,96 +1,104 @@
-const stores = [
-  {
-    name: "Amazon",
-    coupons: 25,
-    logo: "🛒"
-  },
-  {
-    name: "Noon",
-    coupons: 18,
-    logo: "🟡"
-  },
-  {
-    name: "SHEIN",
-    coupons: 30,
-    logo: "👗"
-  },
-  {
-    name: "AliExpress",
-    coupons: 40,
-    logo: "📦"
-  }
-];
+import { useEffect, useState } from "react";
+import Header from "../components/Header";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function Stores() {
+
+  const [stores, setStores] = useState([]);
+
+  useEffect(() => {
+    const fetchStores = async () => {
+      const querySnapshot = await getDocs(
+        collection(db, "stores")
+      );
+
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setStores(data);
+    };
+
+    fetchStores();
+  }, []);
+
+
   return (
-    <section
-      style={{
-        padding: "60px 20px"
-      }}
-    >
+    <>
+      <Header />
 
-      <h1
+      <section
         style={{
-          textAlign: "center",
-          marginBottom: "40px"
-        }}
-      >
-        🚀 صفحة المتاجر الجديدة
-      </h1>
-
-
-      <div
-        style={{
-          display:"grid",
-          gridTemplateColumns:
-          "repeat(auto-fit,minmax(220px,1fr))",
-          gap:"25px"
+          padding: "60px 20px"
         }}
       >
 
-        {stores.map((store)=>(
-          <div
-            key={store.name}
-            style={{
-              background:"#fff",
-              padding:"25px",
-              borderRadius:"16px",
-              textAlign:"center",
-              boxShadow:"0 8px 20px rgba(0,0,0,.08)"
-            }}
-          >
-
-            <div style={{fontSize:"45px"}}>
-              {store.logo}
-            </div>
-
-            <h2>
-              {store.name}
-            </h2>
-
-            <p>
-              {store.coupons} كوبون متوفر
-            </p>
+        <h1
+          style={{
+            textAlign: "center",
+            marginBottom: "40px"
+          }}
+        >
+          🏪 جميع المتاجر
+        </h1>
 
 
-            <button
+        <div
+          style={{
+            display:"grid",
+            gridTemplateColumns:
+            "repeat(auto-fit,minmax(220px,1fr))",
+            gap:"25px"
+          }}
+        >
+
+          {stores.map((store)=>(
+
+            <div
+              key={store.id}
               style={{
-                background:"#2563eb",
-                color:"#fff",
-                border:"none",
-                padding:"12px 25px",
-                borderRadius:"10px"
+                background:"#fff",
+                padding:"25px",
+                borderRadius:"16px",
+                textAlign:"center",
+                boxShadow:"0 8px 20px rgba(0,0,0,.08)"
               }}
             >
-              عرض الكوبونات
-            </button>
+
+              <div style={{fontSize:"45px"}}>
+                {store.logo}
+              </div>
+
+              <h2>
+                {store.name}
+              </h2>
+
+              <p>
+                {store.coupons} كوبون متوفر
+              </p>
 
 
-          </div>
-        ))}
+              <button
+                style={{
+                  background:"#2563eb",
+                  color:"#fff",
+                  border:"none",
+                  padding:"12px 25px",
+                  borderRadius:"10px"
+                }}
+              >
+                عرض الكوبونات
+              </button>
 
-      </div>
+            </div>
 
-    </section>
+          ))}
+
+        </div>
+
+      </section>
+    </>
   );
 }
