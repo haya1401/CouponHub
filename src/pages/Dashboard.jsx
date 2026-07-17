@@ -29,7 +29,10 @@ export default function Dashboard() {
 
   async function saveCoupon(e) {
     e.preventDefault();
-
+   if (!store.trim() || !code.trim() || !discount.trim()) {
+  alert("يرجى تعبئة جميع الحقول");
+  return;
+}
     try {
       await addDoc(collection(db, "coupons"), {
         store,
