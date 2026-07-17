@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function Dashboard() {
