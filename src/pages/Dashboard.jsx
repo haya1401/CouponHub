@@ -7,6 +7,26 @@ export default function Dashboard() {
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
   const [coupons, setCoupons] = useState([]);
+
+  async function loadCoupons() {
+    try {
+      const snapshot = await getDocs(collection(db, "coupons"));
+
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setCoupons(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    loadCoupons();
+  }, []);
+
   async function saveCoupon(e) {
     e.preventDefault();
 
@@ -16,7 +36,7 @@ export default function Dashboard() {
         code,
         discount,
         active: true,
-        createdAt: Date.now()
+        createdAt: Date.now(),
       });
 
       alert("✅ تم إضافة الكوبون بنجاح");
@@ -24,6 +44,9 @@ export default function Dashboard() {
       setStore("");
       setCode("");
       setDiscount("");
+
+      // إعادة تحميل الكوبونات بعد الإضافة
+      loadCoupons();
     } catch (err) {
       console.error(err);
       alert("❌ حدث خطأ أثناء إضافة الكوبون");
@@ -35,7 +58,7 @@ export default function Dashboard() {
       style={{
         maxWidth: "700px",
         margin: "40px auto",
-        padding: "20px"
+        padding: "20px",
       }}
     >
       <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
@@ -51,7 +74,7 @@ export default function Dashboard() {
           style={{
             width: "100%",
             padding: "12px",
-            marginBottom: "15px"
+            marginBottom: "15px",
           }}
         />
 
@@ -63,7 +86,7 @@ export default function Dashboard() {
           style={{
             width: "100%",
             padding: "12px",
-            marginBottom: "15px"
+            marginBottom: "15px",
           }}
         />
 
@@ -75,7 +98,7 @@ export default function Dashboard() {
           style={{
             width: "100%",
             padding: "12px",
-            marginBottom: "20px"
+            marginBottom: "20px",
           }}
         />
 
@@ -89,12 +112,40 @@ export default function Dashboard() {
             border: "none",
             borderRadius: "10px",
             cursor: "pointer",
-            fontSize: "16px"
+            fontSize: "16px",
           }}
         >
           ➕ إضافة الكوبون
         </button>
       </form>
+
+      <hr style={{ margin: "40px 0" }} />
+
+      <h2>📋 جميع الكوبونات</h2>
+
+      {coupons.length === 0 ? (
+        <p>لا توجد كوبونات.</p>
+      ) : (
+        coupons.map((coupon) => (
+          <div
+            key={coupon.id}
+            style={{
+              border: "1px solid #ddd",
+              borderRadius: "10px",
+              padding: "15px",
+              marginTop: "15px",
+            }}
+          >
+            <h3>{coupon.store}</h3>
+            <p>
+              <strong>الكود:</strong> {coupon.code}
+            </p>
+            <p>
+              <strong>الخصم:</strong> {coupon.discount}
+            </p>
+          </div>
+        ))
+      )}
     </div>
   );
 }
