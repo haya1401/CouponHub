@@ -45,7 +45,6 @@ export default function Dashboard() {
       setCode("");
       setDiscount("");
 
-      // إعادة تحميل الكوبونات بعد الإضافة
       loadCoupons();
     } catch (err) {
       console.error(err);
@@ -136,12 +135,20 @@ export default function Dashboard() {
               marginTop: "15px",
             }}
           >
-            <h3>{coupon.store}</h3>
+            <h3>{coupon.store || "❌ لا يوجد اسم متجر"}</h3>
+
             <p>
-              <strong>الكود:</strong> {coupon.code}
+              <strong>الكود:</strong>{" "}
+              {coupon.code || "❌ لا يوجد كود"}
             </p>
+
             <p>
-              <strong>الخصم:</strong> {coupon.discount}
+              <strong>الخصم:</strong>{" "}
+              {coupon.discount || "❌ لا يوجد خصم"}
+            </p>
+
+            <p style={{ color: "#888", fontSize: "12px" }}>
+              ID: {coupon.id}
             </p>
           </div>
         ))
