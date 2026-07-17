@@ -35,7 +35,7 @@ export default function Stores() {
           marginBottom: "40px"
         }}
       >
-        🏪 جميع المتاجر
+        🚀 صفحة المتاجر الجديدة
       </h1>
 
 
