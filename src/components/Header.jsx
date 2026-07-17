@@ -27,12 +27,18 @@ export default function Header() {
             gap: "25px"
           }}
         >
-          <a href="/">الرئيسية</a>
-          <a href="/stores">المتاجر</a>
-          <a href="/coupons">الكوبونات</a>
-          <a href="/categories">التصنيفات</a>
-          <a href="/contact">اتصل بنا</a>
-        </nav>
+        <nav>
+  <Link to="/">الرئيسية</Link>
+
+  <Link to="/stores">المتاجر</Link>
+
+  <Link to="/coupons">الكوبونات</Link>
+
+  <Link to="/categories">التصنيفات</Link>
+
+  <Link to="/contact">اتصل بنا</Link>
+</nav>  
+        
       </div>
     </header>
   );
