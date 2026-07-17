@@ -7,11 +7,9 @@ import FeaturedCoupons from "./components/FeaturedCoupons";
 
 import Stores from "./pages/Stores";
 
-
 function Home() {
   return (
     <>
-      <Header />
       <Hero />
       <FeaturedCoupons />
       <StoreLogos />
@@ -19,15 +17,15 @@ function Home() {
   );
 }
 
-
 export default function App() {
   return (
-    <Routes>
+    <>
+      <Header />
 
-      <Route path="/" element={<Home />} />
-
-      <Route path="/stores" element={<Stores />} />
-
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/stores" element={<Stores />} />
+      </Routes>
+    </>
   );
 }
