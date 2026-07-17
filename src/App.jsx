@@ -1,9 +1,14 @@
+import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
 
-export default function App() {
+import Stores from "./pages/Stores";
+
+
+function Home() {
   return (
     <>
       <Header />
@@ -11,5 +16,18 @@ export default function App() {
       <FeaturedCoupons />
       <StoreLogos />
     </>
+  );
+}
+
+
+export default function App() {
+  return (
+    <Routes>
+
+      <Route path="/" element={<Home />} />
+
+      <Route path="/stores" element={<Stores />} />
+
+    </Routes>
   );
 }
