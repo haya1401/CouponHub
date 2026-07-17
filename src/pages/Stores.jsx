@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-import Header from "../components/Header";
-
 export default function Stores() {
   const [stores, setStores] = useState([]);
 
@@ -35,69 +33,65 @@ export default function Stores() {
   }, []);
 
   return (
-    <>
-      <Header />
-
-      <section
+    <section
+      style={{
+        padding: "60px 20px",
+      }}
+    >
+      <h1
         style={{
-          padding: "60px 20px",
+          textAlign: "center",
+          marginBottom: "40px",
         }}
       >
-        <h1
-          style={{
-            textAlign: "center",
-            marginBottom: "40px",
-          }}
-        >
-          🏪 جميع المتاجر
-        </h1>
+        🏪 جميع المتاجر
+      </h1>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-            gap: "25px",
-          }}
-        >
-          {stores.map((store) => (
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
+          gap: "25px",
+        }}
+      >
+        {stores.map((store) => (
+          <div
+            key={store.id}
+            style={{
+              background: "#fff",
+              padding: "25px",
+              borderRadius: "16px",
+              textAlign: "center",
+              boxShadow: "0 8px 20px rgba(0,0,0,.08)",
+            }}
+          >
             <div
-              key={store.id}
               style={{
-                background: "#fff",
-                padding: "25px",
-                borderRadius: "16px",
-                textAlign: "center",
-                boxShadow: "0 8px 20px rgba(0,0,0,.08)",
+                fontSize: "45px",
               }}
             >
-              <div
-                style={{
-                  fontSize: "45px",
-                }}
-              >
-                {store.logo}
-              </div>
-
-              <h2>{store.name}</h2>
-
-              <p>{store.couponsCount} كوبون متوفر</p>
-
-              <button
-                style={{
-                  background: "#2563eb",
-                  color: "#fff",
-                  border: "none",
-                  padding: "12px 25px",
-                  borderRadius: "10px",
-                  cursor: "pointer",
-                }}
-              >
-                عرض الكوبونات
-              </button>
+              {store.logo}
             </div>
-          ))}
-        </div>
-      </section>
-    </>
+
+            <h2>{store.name}</h2>
+
+            <p>{store.couponsCount} كوبون متوفر</p>
+
+            <button
+              style={{
+                background: "#2563eb",
+                color: "#fff",
+                border: "none",
+                padding: "12px 25px",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              عرض الكوبونات
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
