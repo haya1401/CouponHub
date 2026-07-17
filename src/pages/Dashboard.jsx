@@ -6,7 +6,7 @@ export default function Dashboard() {
   const [store, setStore] = useState("");
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
-
+  const [coupons, setCoupons] = useState([]);
   async function saveCoupon(e) {
     e.preventDefault();
 
