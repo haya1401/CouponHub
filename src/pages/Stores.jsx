@@ -1,44 +1,49 @@
 import { useEffect, useState } from "react";
-
-import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
+
+import Header from "../components/Header";
 
 export default function Stores() {
 
   const [stores, setStores] = useState([]);
 
   useEffect(() => {
-    const fetchStores = async () => {
+
+    async function loadStores() {
+
       const querySnapshot = await getDocs(
         collection(db, "stores")
       );
 
-      const data = querySnapshot.docs.map((doc) => ({
+      const data = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
 
       setStores(data);
-    };
 
-    fetchStores();
+    }
+
+    loadStores();
+
   }, []);
 
 
   return (
     <>
-      
+      <Header />
 
       <section
         style={{
-          padding: "60px 20px"
+          padding:"60px 20px"
         }}
       >
 
         <h1
           style={{
-            textAlign: "center",
-            marginBottom: "40px"
+            textAlign:"center",
+            marginBottom:"40px"
           }}
         >
           🏪 جميع المتاجر
@@ -67,13 +72,19 @@ export default function Stores() {
               }}
             >
 
-              <div style={{fontSize:"45px"}}>
+              <div
+                style={{
+                  fontSize:"45px"
+                }}
+              >
                 {store.logo}
               </div>
+
 
               <h2>
                 {store.name}
               </h2>
+
 
               <p>
                 {store.coupons} كوبون متوفر
@@ -92,9 +103,11 @@ export default function Stores() {
                 عرض الكوبونات
               </button>
 
+
             </div>
 
           ))}
+
 
         </div>
 
