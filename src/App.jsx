@@ -14,8 +14,8 @@ function Home() {
   return (
     <>
       <Hero />
-      <StoreLogos />
-      <FeaturedCoupons />
+      
+      
       <Categories />
     </>
   );
