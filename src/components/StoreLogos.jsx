@@ -1,25 +1,23 @@
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+const stores = [
+  {
+    name: "Amazon",
+    logo: "/logos/amazon.png",
+  },
+  {
+    name: "Noon",
+    logo: "/logos/noon.png",
+  },
+  {
+    name: "SHEIN",
+    logo: "/logos/shein.png",
+  },
+  {
+    name: "AliExpress",
+    logo: "/logos/aliexpress.png",
+  },
+];
 
 export default function StoreLogos() {
-  const [stores, setStores] = useState([]);
-
-  useEffect(() => {
-    async function loadStores() {
-      const querySnapshot = await getDocs(collection(db, "stores"));
-
-      const data = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setStores(data);
-    }
-
-    loadStores();
-  }, []);
-
   return (
     <section
       style={{
@@ -31,7 +29,6 @@ export default function StoreLogos() {
         style={{
           textAlign: "center",
           marginBottom: "40px",
-          fontSize: "34px",
         }}
       >
         🏪 أشهر المتاجر
@@ -42,13 +39,13 @@ export default function StoreLogos() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
           gap: "20px",
-          maxWidth: "1100px",
+          maxWidth: "1000px",
           margin: "auto",
         }}
       >
         {stores.map((store) => (
           <div
-            key={store.id}
+            key={store.name}
             style={{
               background: "#fff",
               borderRadius: "15px",
@@ -57,22 +54,16 @@ export default function StoreLogos() {
               boxShadow: "0 5px 15px rgba(0,0,0,.08)",
             }}
           >
-            {store.logo?.startsWith("http") ? (
-              <img
-                src={store.logo}
-                alt={store.name}
-                style={{
-                  width: "70px",
-                  height: "70px",
-                  objectFit: "contain",
-                  marginBottom: "15px",
-                }}
-              />
-            ) : (
-              <div style={{ fontSize: "45px" }}>
-                {store.logo}
-              </div>
-            )}
+            <img
+              src={store.logo}
+              alt={store.name}
+              style={{
+                width: "90px",
+                height: "90px",
+                objectFit: "contain",
+                marginBottom: "15px",
+              }}
+            />
 
             <h3>{store.name}</h3>
           </div>
