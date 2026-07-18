@@ -7,37 +7,22 @@ export default function Categories() {
 
   useEffect(() => {
     async function loadCategories() {
-      const querySnapshot = await getDocs(collection(db, "categories"));
+      const snapshot = await getDocs(collection(db, "categories"));
 
-      const data = [];
-
-      querySnapshot.forEach((doc) => {
-        data.push({
+      setCategories(
+        snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        });
-      });
-
-      setCategories(data);
+        }))
+      );
     }
 
     loadCategories();
   }, []);
 
   return (
-    <section
-      style={{
-        padding: "70px 20px",
-        background: "#ffffff",
-      }}
-    >
-      <h2
-        style={{
-          textAlign: "center",
-          marginBottom: "40px",
-          fontSize: "34px",
-        }}
-      >
+    <section style={{ padding: "60px 20px" }}>
+      <h2 style={{ textAlign: "center", marginBottom: "30px" }}>
         📂 تصفح حسب التصنيف
       </h2>
 
@@ -50,20 +35,19 @@ export default function Categories() {
           margin: "auto",
         }}
       >
-        {categories.map((category) => (
+        {categories.map((item) => (
           <div
-            key={category.id}
+            key={item.id}
             style={{
-              background: "#f8fafc",
-              padding: "25px",
+              background: "#fff",
+              padding: "20px",
               borderRadius: "15px",
               textAlign: "center",
-              fontWeight: "bold",
-              fontSize: "18px",
-              boxShadow: "0 5px 12px rgba(0,0,0,.05)",
+              boxShadow: "0 5px 12px rgba(0,0,0,.08)",
             }}
           >
-            {category.icon} {category.name}
+            <div style={{ fontSize: "35px" }}>{item.icon}</div>
+            <h3>{item.name}</h3>
           </div>
         ))}
       </div>
