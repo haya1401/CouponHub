@@ -29,11 +29,16 @@ export default function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/stores" element={<Stores />} />
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/stores" element={<Stores />} />
+  <Route path="/coupons" element={<Coupons />} />
+  <Route path="/categories" element={<CategoriesPage />} />
+  <Route path="/contact" element={<Contact />} />
+  <Route path="/admin" element={<AdminLogin />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+</Routes>
+  
+    
     </>
   );
 }
