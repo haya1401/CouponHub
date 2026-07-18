@@ -65,13 +65,28 @@ export default function Stores() {
               boxShadow: "0 8px 20px rgba(0,0,0,.08)",
             }}
           >
-            <div
-              style={{
-                fontSize: "45px",
-              }}
-            >
-              {store.logo}
-            </div>
+            {store.logo.startsWith("http") ? (
+  <img
+    src={store.logo}
+    alt={store.name}
+    style={{
+      width: "70px",
+      height: "70px",
+      objectFit: "contain",
+      marginBottom: "15px",
+    }}
+  />
+) : (
+  <div
+    style={{
+      fontSize: "50px",
+      marginBottom: "15px",
+    }}
+  >
+    {store.logo}
+  </div>
+)}
+        
 
             <h2>{store.name}</h2>
 
