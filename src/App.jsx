@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
 import Categories from "./components/Categories";
+
 import Coupons from "./pages/Coupons";
 import CategoriesPage from "./pages/Categories";
 import Contact from "./pages/Contact";
@@ -16,8 +17,8 @@ function Home() {
   return (
     <>
       <Hero />
-      
-      
+      <StoreLogos />
+      <FeaturedCoupons />
       <Categories />
     </>
   );
@@ -29,16 +30,14 @@ export default function App() {
       <Header />
 
       <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/stores" element={<Stores />} />
-  <Route path="/coupons" element={<Coupons />} />
-  <Route path="/categories" element={<CategoriesPage />} />
-  <Route path="/contact" element={<Contact />} />
-  <Route path="/admin" element={<AdminLogin />} />
-  <Route path="/dashboard" element={<Dashboard />} />
-</Routes>
-  
-    
+        <Route path="/" element={<Home />} />
+        <Route path="/stores" element={<Stores />} />
+        <Route path="/coupons" element={<Coupons />} />
+        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </>
   );
 }
