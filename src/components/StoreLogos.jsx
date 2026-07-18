@@ -1,41 +1,37 @@
-import { Link } from "react-router-dom";
-
-const stores = [
-  {
-    name: "Amazon",
-    logo: "🛒",
-    slug: "amazon",
-  },
-  {
-    name: "Noon",
-    logo: "🟡",
-    slug: "noon",
-  },
-  {
-    name: "SHEIN",
-    logo: "👗",
-    slug: "shein",
-  },
-  {
-    name: "AliExpress",
-    logo: "📦",
-    slug: "aliexpress",
-  },
-];
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function StoreLogos() {
+  const [stores, setStores] = useState([]);
+
+  useEffect(() => {
+    async function loadStores() {
+      const querySnapshot = await getDocs(collection(db, "stores"));
+
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setStores(data);
+    }
+
+    loadStores();
+  }, []);
+
   return (
     <section
       style={{
-        padding: "70px 20px",
-        background: "#ffffff",
+        padding: "60px 20px",
+        background: "#fff",
       }}
     >
       <h2
         style={{
           textAlign: "center",
-          fontSize: "34px",
           marginBottom: "40px",
+          fontSize: "34px",
         }}
       >
         🏪 أشهر المتاجر
@@ -44,56 +40,41 @@ export default function StoreLogos() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-          gap: "25px",
+          gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
+          gap: "20px",
           maxWidth: "1100px",
           margin: "auto",
         }}
       >
         {stores.map((store) => (
           <div
-            key={store.slug}
+            key={store.id}
             style={{
               background: "#fff",
-              borderRadius: "18px",
-              padding: "30px",
+              borderRadius: "15px",
+              padding: "20px",
               textAlign: "center",
-              boxShadow: "0 8px 20px rgba(0,0,0,.08)",
-              transition: ".3s",
+              boxShadow: "0 5px 15px rgba(0,0,0,.08)",
             }}
           >
-            <div
-              style={{
-                fontSize: "55px",
-                marginBottom: "15px",
-              }}
-            >
-              {store.logo}
-            </div>
+            {store.logo?.startsWith("http") ? (
+              <img
+                src={store.logo}
+                alt={store.name}
+                style={{
+                  width: "70px",
+                  height: "70px",
+                  objectFit: "contain",
+                  marginBottom: "15px",
+                }}
+              />
+            ) : (
+              <div style={{ fontSize: "45px" }}>
+                {store.logo}
+              </div>
+            )}
 
-            <h3
-              style={{
-                marginBottom: "20px",
-                fontSize: "22px",
-              }}
-            >
-              {store.name}
-            </h3>
-
-            <Link
-              to="/stores"
-              style={{
-                display: "inline-block",
-                background: "#2563eb",
-                color: "#fff",
-                padding: "12px 24px",
-                borderRadius: "10px",
-                textDecoration: "none",
-                fontWeight: "bold",
-              }}
-            >
-              عرض الكوبونات
-            </Link>
+            <h3>{store.name}</h3>
           </div>
         ))}
       </div>
