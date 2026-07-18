@@ -36,12 +36,15 @@ export default function Stores() {
     <section
       style={{
         padding: "60px 20px",
+        background: "#f8fafc",
+        minHeight: "100vh",
       }}
     >
       <h1
         style={{
           textAlign: "center",
           marginBottom: "40px",
+          fontSize: "36px",
         }}
       >
         🏪 جميع المتاجر
@@ -52,6 +55,8 @@ export default function Stores() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
           gap: "25px",
+          maxWidth: "1100px",
+          margin: "auto",
         }}
       >
         {stores.map((store) => (
@@ -65,45 +70,30 @@ export default function Stores() {
               boxShadow: "0 8px 20px rgba(0,0,0,.08)",
             }}
           >
-            {store.logo.startsWith("http") ? (
-  <img
-    src={store.logo}
-    alt={store.name}
-    style={{
-      width: "70px",
-      height: "70px",
-      objectFit: "contain",
-      marginBottom: "15px",
-    }}
-  />
-) : (
-  <div
-    style={{
-      fontSize: "50px",
-      marginBottom: "15px",
-    }}
-  >
-    {store.logo}
-  </div>
-)}
-        
+            <img
+              src={store.logo}
+              alt={store.name}
+              onError={(e) => {
+                e.target.src = "/logos/default.png";
+              }}
+              style={{
+                width: "80px",
+                height: "80px",
+                objectFit: "contain",
+                marginBottom: "15px",
+              }}
+            />
 
             <h2>{store.name}</h2>
 
-            <p>{store.couponsCount} كوبون متوفر</p>
-
-            <button
+            <p
               style={{
-                background: "#2563eb",
-                color: "#fff",
-                border: "none",
-                padding: "12px 25px",
-                borderRadius: "10px",
-                cursor: "pointer",
+                color: "#666",
+                marginTop: "10px",
               }}
             >
-              عرض الكوبونات
-            </button>
+              {store.couponsCount} كوبون متوفر
+            </p>
           </div>
         ))}
       </div>
