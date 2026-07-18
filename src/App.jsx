@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
-
+import Categories from "./components/Categories";
 import Stores from "./pages/Stores";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/Dashboard";
