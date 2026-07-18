@@ -5,7 +5,7 @@ import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
 import Categories from "./components/Categories";
-
+import Footer from "./components/Footer";
 import Coupons from "./pages/Coupons";
 import CategoriesPage from "./pages/Categories";
 import Contact from "./pages/Contact";
