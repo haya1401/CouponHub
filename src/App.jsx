@@ -38,6 +38,7 @@ export default function App() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+       <Footer />
     </>
   );
 }
