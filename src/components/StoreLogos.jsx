@@ -1,34 +1,41 @@
+import { Link } from "react-router-dom";
+
 const stores = [
   {
     name: "Amazon",
-    logo: "🛒"
+    logo: "🛒",
+    slug: "amazon",
   },
   {
     name: "Noon",
-    logo: "🟡"
+    logo: "🟡",
+    slug: "noon",
   },
   {
     name: "SHEIN",
-    logo: "👗"
+    logo: "👗",
+    slug: "shein",
   },
   {
     name: "AliExpress",
-    logo: "📦"
-  }
+    logo: "📦",
+    slug: "aliexpress",
+  },
 ];
 
 export default function StoreLogos() {
   return (
     <section
       style={{
-        padding: "60px 20px",
-        background: "#fff"
+        padding: "70px 20px",
+        background: "#ffffff",
       }}
     >
       <h2
         style={{
           textAlign: "center",
-          marginBottom: "40px"
+          fontSize: "34px",
+          marginBottom: "40px",
         }}
       >
         🏪 أشهر المتاجر
@@ -37,30 +44,56 @@ export default function StoreLogos() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit,minmax(180px,1fr))",
-          gap: "20px",
-          maxWidth: "1000px",
-          margin: "auto"
+          gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
+          gap: "25px",
+          maxWidth: "1100px",
+          margin: "auto",
         }}
       >
         {stores.map((store) => (
           <div
-            key={store.name}
+            key={store.slug}
             style={{
               background: "#fff",
-              borderRadius: "15px",
-              padding: "20px",
+              borderRadius: "18px",
+              padding: "30px",
               textAlign: "center",
-              boxShadow:
-                "0 5px 15px rgba(0,0,0,.08)"
+              boxShadow: "0 8px 20px rgba(0,0,0,.08)",
+              transition: ".3s",
             }}
           >
-            <div style={{ fontSize: "45px" }}>
+            <div
+              style={{
+                fontSize: "55px",
+                marginBottom: "15px",
+              }}
+            >
               {store.logo}
             </div>
 
-            <h3>{store.name}</h3>
+            <h3
+              style={{
+                marginBottom: "20px",
+                fontSize: "22px",
+              }}
+            >
+              {store.name}
+            </h3>
+
+            <Link
+              to="/stores"
+              style={{
+                display: "inline-block",
+                background: "#2563eb",
+                color: "#fff",
+                padding: "12px 24px",
+                borderRadius: "10px",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              عرض الكوبونات
+            </Link>
           </div>
         ))}
       </div>
