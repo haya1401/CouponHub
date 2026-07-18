@@ -1,27 +1,41 @@
-const categories = [
-  "🛍️ الأزياء",
-  "💻 الإلكترونيات",
-  "📱 الجوالات",
-  "✈️ السفر",
-  "🍔 المطاعم",
-  "🏠 المنزل",
-  "🎮 الألعاب",
-  "💄 التجميل"
-];
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Categories() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function loadCategories() {
+      const querySnapshot = await getDocs(collection(db, "categories"));
+
+      const data = [];
+
+      querySnapshot.forEach((doc) => {
+        data.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+
+      setCategories(data);
+    }
+
+    loadCategories();
+  }, []);
+
   return (
     <section
       style={{
         padding: "70px 20px",
-        background: "#ffffff"
+        background: "#ffffff",
       }}
     >
       <h2
         style={{
           textAlign: "center",
           marginBottom: "40px",
-          fontSize: "34px"
+          fontSize: "34px",
         }}
       >
         📂 تصفح حسب التصنيف
@@ -33,25 +47,23 @@ export default function Categories() {
           gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
           gap: "20px",
           maxWidth: "1100px",
-          margin: "auto"
+          margin: "auto",
         }}
       >
-        {categories.map((item) => (
+        {categories.map((category) => (
           <div
-            key={item}
+            key={category.id}
             style={{
               background: "#f8fafc",
               padding: "25px",
               borderRadius: "15px",
               textAlign: "center",
-              cursor: "pointer",
               fontWeight: "bold",
               fontSize: "18px",
-              transition: ".3s",
-              boxShadow: "0 5px 12px rgba(0,0,0,.05)"
+              boxShadow: "0 5px 12px rgba(0,0,0,.05)",
             }}
           >
-            {item}
+            {category.icon} {category.name}
           </div>
         ))}
       </div>
