@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -16,6 +17,26 @@ import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/Dashboard";
 
 function Home() {
+
+  useEffect(() => {
+
+    document.title =
+      "CouponHub | أفضل كوبونات الخصم والعروض الحصرية";
+
+    const description =
+      document.querySelector(
+        'meta[name="description"]'
+      );
+
+    if (description) {
+      description.setAttribute(
+        "content",
+        "اكتشف أحدث كوبونات الخصم وأكواد التخفيض والعروض الحصرية من أشهر المتاجر المحلية والعالمية عبر CouponHub."
+      );
+    }
+
+  }, []);
+
   return (
     <>
       <Hero />
@@ -32,13 +53,22 @@ export default function App() {
       <Header />
 
       <Routes>
-        <Route path="/" element={<Home />} />
 
-        <Route path="/stores" element={<Stores />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-        <Route path="/coupons" element={<Coupons />} />
+        <Route
+          path="/stores"
+          element={<Stores />}
+        />
 
-        {/* صفحة كوبونات متجر معين */}
+        <Route
+          path="/coupons"
+          element={<Coupons />}
+        />
+
         <Route
           path="/coupons/:store"
           element={<StoreCoupons />}
@@ -63,9 +93,11 @@ export default function App() {
           path="/dashboard"
           element={<Dashboard />}
         />
+
       </Routes>
 
       <Footer />
+
     </>
   );
 }
