@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
+
 export default function Stores() {
   const [stores, setStores] = useState([]);
 
@@ -90,10 +91,26 @@ export default function Stores() {
               style={{
                 color: "#666",
                 marginTop: "10px",
+                marginBottom: "20px",
               }}
             >
               {store.couponsCount} كوبون متوفر
             </p>
+
+            <Link
+              to={`/coupons/${store.name}`}
+              style={{
+                display: "inline-block",
+                background: "#2563eb",
+                color: "#fff",
+                padding: "12px 25px",
+                borderRadius: "10px",
+                textDecoration: "none",
+                fontWeight: "bold",
+              }}
+            >
+              عرض الكوبونات
+            </Link>
           </div>
         ))}
       </div>
