@@ -36,6 +36,7 @@ export default function FeaturedCoupons() {
 
   return (
     <section
+      id="featured-coupons"
       style={{
         padding: "70px 20px",
         background: "#f8fafc",
