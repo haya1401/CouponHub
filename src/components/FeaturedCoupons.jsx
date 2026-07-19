@@ -9,6 +9,7 @@ function copyCode(code) {
 
 export default function FeaturedCoupons() {
   const [coupons, setCoupons] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function loadCoupons() {
@@ -19,7 +20,7 @@ export default function FeaturedCoupons() {
       querySnapshot.forEach((doc) => {
         data.push({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         });
       });
 
@@ -29,18 +30,22 @@ export default function FeaturedCoupons() {
     loadCoupons();
   }, []);
 
+  const filteredCoupons = coupons.filter((coupon) =>
+    coupon.store.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <section
       style={{
         padding: "70px 20px",
-        background: "#f8fafc"
+        background: "#f8fafc",
       }}
     >
       <h2
         style={{
           textAlign: "center",
-          marginBottom: "40px",
-          fontSize: "34px"
+          marginBottom: "25px",
+          fontSize: "34px",
         }}
       >
         ⭐ أفضل الكوبونات
@@ -48,21 +53,43 @@ export default function FeaturedCoupons() {
 
       <div
         style={{
+          maxWidth: "500px",
+          margin: "0 auto 40px",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="🔍 ابحث باسم المتجر..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "15px",
+            borderRadius: "12px",
+            border: "1px solid #ddd",
+            fontSize: "16px",
+            outline: "none",
+          }}
+        />
+      </div>
+
+      <div
+        style={{
           maxWidth: "1100px",
           margin: "auto",
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-          gap: "25px"
+          gap: "25px",
         }}
       >
-        {coupons.map((coupon) => (
+        {filteredCoupons.map((coupon) => (
           <div
             key={coupon.id}
             style={{
               background: "#fff",
               borderRadius: "16px",
               padding: "25px",
-              boxShadow: "0 8px 20px rgba(0,0,0,.08)"
+              boxShadow: "0 8px 20px rgba(0,0,0,.08)",
             }}
           >
             <h3>{coupon.store}</h3>
@@ -70,7 +97,7 @@ export default function FeaturedCoupons() {
             <h1
               style={{
                 color: "#2563eb",
-                margin: "20px 0"
+                margin: "20px 0",
               }}
             >
               {coupon.discount}
@@ -83,7 +110,7 @@ export default function FeaturedCoupons() {
                 borderRadius: "10px",
                 textAlign: "center",
                 fontWeight: "bold",
-                letterSpacing: "2px"
+                letterSpacing: "2px",
               }}
             >
               {coupon.code}
@@ -100,7 +127,7 @@ export default function FeaturedCoupons() {
                 background: "#2563eb",
                 color: "#fff",
                 cursor: "pointer",
-                fontSize: "16px"
+                fontSize: "16px",
               }}
             >
               📋 نسخ الكوبون
@@ -108,6 +135,18 @@ export default function FeaturedCoupons() {
           </div>
         ))}
       </div>
+
+      {filteredCoupons.length === 0 && (
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "40px",
+            color: "#666",
+          }}
+        >
+          لا توجد كوبونات مطابقة للبحث.
+        </p>
+      )}
     </section>
   );
 }
