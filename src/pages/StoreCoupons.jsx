@@ -11,13 +11,57 @@ import {
 import { db } from "../firebase";
 
 
-function copyCode(code) {
 
-  navigator.clipboard.writeText(code);
+// نسخ الكود وفتح رابط الأفلييت
+async function copyCode(code, affiliate) {
 
-  alert(`تم نسخ الكود: ${code}`);
+  let newWindow = null;
+
+
+  if (
+    affiliate &&
+    affiliate.startsWith("http")
+  ) {
+
+    newWindow = window.open(
+      "about:blank",
+      "_blank"
+    );
+
+  }
+
+
+
+  try {
+
+    await navigator.clipboard.writeText(code);
+
+    alert(`✅ تم نسخ الكود: ${code}`);
+
+
+  } catch (error) {
+
+    console.error(
+      "خطأ النسخ:",
+      error
+    );
+
+  }
+
+
+
+  if (
+    newWindow &&
+    affiliate
+  ) {
+
+    newWindow.location.href = affiliate;
+
+  }
+
 
 }
+
 
 
 
@@ -80,6 +124,9 @@ export default function StoreCoupons() {
 
           ...doc.data(),
 
+          affiliate:
+            doc.data().affiliate || ""
+
         }))
 
       );
@@ -94,6 +141,7 @@ export default function StoreCoupons() {
 
 
   }, [store]);
+
 
 
 
@@ -135,6 +183,8 @@ export default function StoreCoupons() {
 
 
 
+
+
       <p
 
         style={{
@@ -158,6 +208,7 @@ export default function StoreCoupons() {
 
 
 
+
       <div
 
         style={{
@@ -172,6 +223,7 @@ export default function StoreCoupons() {
         }}
 
       >
+
 
 
 
@@ -202,10 +254,14 @@ export default function StoreCoupons() {
 
             <h2>
 
-              {coupon.title || 
-              `خصم ${coupon.discount}`}
+              {
+                coupon.title ||
+                `خصم ${coupon.discount}`
+              }
 
             </h2>
+
+
 
 
 
@@ -216,6 +272,7 @@ export default function StoreCoupons() {
               {coupon.discount}
 
             </p>
+
 
 
 
@@ -249,11 +306,23 @@ export default function StoreCoupons() {
 
 
 
+
+
             <button
 
+
               onClick={() =>
-                copyCode(coupon.code)
+
+                copyCode(
+
+                  coupon.code,
+
+                  coupon.affiliate
+
+                )
+
               }
+
 
               style={{
 
@@ -281,6 +350,39 @@ export default function StoreCoupons() {
 
 
 
+
+
+
+            {
+              coupon.affiliate && (
+
+                <p
+
+                  style={{
+
+                    marginTop:"10px",
+
+                    fontSize:"12px",
+
+                    color:"#16a34a",
+
+                    textAlign:"center"
+
+                  }}
+
+                >
+
+                  🔗 رابط شراء مباشر
+
+                </p>
+
+              )
+            }
+
+
+
+
+
           </div>
 
 
@@ -289,6 +391,8 @@ export default function StoreCoupons() {
 
 
       </div>
+
+
 
 
 
