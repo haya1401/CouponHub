@@ -11,33 +11,27 @@ import {
 
 import { db } from "../../firebase";
 
-
 export default function CouponManager() {
 
-
   const [coupons, setCoupons] = useState([]);
-
 
   const [form, setForm] = useState({
 
     title: "",
     code: "",
     store: "",
-    discount: ""
+    discount: "",
+    affiliate: ""
 
   });
 
-
   const [editId, setEditId] = useState(null);
-
-
 
   async function loadCoupons() {
 
     const snapshot = await getDocs(
       collection(db, "coupons")
     );
-
 
     const data = snapshot.docs.map(item => ({
 
@@ -47,21 +41,15 @@ export default function CouponManager() {
 
     }));
 
-
     setCoupons(data);
 
   }
-
-
 
   useEffect(() => {
 
     loadCoupons();
 
   }, []);
-
-
-
 
   function handleChange(e) {
 
@@ -75,11 +63,7 @@ export default function CouponManager() {
 
   }
 
-
-
-
   async function saveCoupon() {
-
 
     if (
       !form.title ||
@@ -87,111 +71,83 @@ export default function CouponManager() {
       !form.store
     ) return;
 
-
-
-    if(editId){
-
+    if (editId) {
 
       await updateDoc(
 
-        doc(db,"coupons",editId),
+        doc(db, "coupons", editId),
 
         form
 
       );
-
 
       setEditId(null);
 
-
-
     } else {
-
 
       await addDoc(
 
-        collection(db,"coupons"),
+        collection(db, "coupons"),
 
         form
 
       );
 
-
     }
-
-
 
     setForm({
 
-      title:"",
-      code:"",
-      store:"",
-      discount:""
+      title: "",
+      code: "",
+      store: "",
+      discount: "",
+      affiliate: ""
 
     });
 
-
     loadCoupons();
-
 
   }
 
-
-
-
-  async function deleteCoupon(id){
-
+  async function deleteCoupon(id) {
 
     await deleteDoc(
 
-      doc(db,"coupons",id)
+      doc(db, "coupons", id)
 
     );
-
 
     loadCoupons();
 
   }
 
-
-
-
-
-  function editCoupon(item){
-
+  function editCoupon(item) {
 
     setForm({
 
-      title:item.title || "",
+      title: item.title || "",
 
-      code:item.code || "",
+      code: item.code || "",
 
-      store:item.store || "",
+      store: item.store || "",
 
-      discount:item.discount || ""
+      discount: item.discount || "",
+
+      affiliate: item.affiliate || ""
 
     });
 
-
     setEditId(item.id);
 
-
   }
-
-
-
-
 
   return (
 
     <div className="manager">
 
-
       <h2>
         إدارة الكوبونات
       </h2>
-
-
 
       <input
 
@@ -205,8 +161,6 @@ export default function CouponManager() {
 
       />
 
-
-
       <input
 
         name="code"
@@ -218,8 +172,6 @@ export default function CouponManager() {
         placeholder="كود الخصم"
 
       />
-
-
 
       <input
 
@@ -233,8 +185,6 @@ export default function CouponManager() {
 
       />
 
-
-
       <input
 
         name="discount"
@@ -247,7 +197,17 @@ export default function CouponManager() {
 
       />
 
+      <input
 
+        name="affiliate"
+
+        value={form.affiliate}
+
+        onChange={handleChange}
+
+        placeholder="رابط الأفلييت"
+
+      />
 
       <button onClick={saveCoupon}>
 
@@ -255,44 +215,43 @@ export default function CouponManager() {
 
       </button>
 
-
-
-
       <hr />
-
-
 
       {
 
         coupons.map(coupon => (
-
 
           <div
             key={coupon.id}
             className="item"
           >
 
-
             <b>
               {coupon.title}
             </b>
-
 
             <span>
               {coupon.code}
             </span>
 
-
             <span>
               {coupon.store}
             </span>
-
 
             <span>
               {coupon.discount}
             </span>
 
-
+            <div
+              style={{
+                fontSize: "12px",
+                color: "#666",
+                marginTop: "6px",
+                wordBreak: "break-all"
+              }}
+            >
+              {coupon.affiliate}
+            </div>
 
             <button
 
@@ -306,8 +265,6 @@ export default function CouponManager() {
 
             </button>
 
-
-
             <button
 
               onClick={() =>
@@ -320,19 +277,14 @@ export default function CouponManager() {
 
             </button>
 
-
-
           </div>
-
 
         ))
 
       }
 
-
     </div>
 
   );
-
 
 }
