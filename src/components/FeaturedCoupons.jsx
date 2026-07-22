@@ -14,17 +14,19 @@ async function copyCode(code, affiliate) {
 
   }
 
-  alert("✅ تم نسخ كود الخصم بنجاح");
+  alert("✅ تم نسخ الكود: " + code);
 
-  if (affiliate) {
+  if (!affiliate) {
 
-    window.open(
-      affiliate,
-      "_blank",
-      "noopener,noreferrer"
-    );
+    alert("❌ لا يوجد رابط أفلييت لهذا الكوبون");
+
+    return;
 
   }
+
+  alert("🔗 سيتم فتح الرابط:\n" + affiliate);
+
+  window.open(affiliate, "_blank");
 
 }
 
@@ -52,6 +54,8 @@ export default function FeaturedCoupons() {
 
       });
 
+      console.log("جميع الكوبونات:", data);
+
       setCoupons(data);
 
     }
@@ -61,7 +65,7 @@ export default function FeaturedCoupons() {
   }, []);
 
   const filteredCoupons = coupons.filter((coupon) =>
-    coupon.store.toLowerCase().includes(search.toLowerCase())
+    (coupon.store || "").toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -154,35 +158,22 @@ export default function FeaturedCoupons() {
               {coupon.code}
             </div>
 
-<button
-  onClick={() => {
-
-    console.log("الكوبون:", coupon);
-
-    console.log("الكود:", coupon.code);
-
-    console.log("رابط الأفلييت:", coupon.affiliate);
-
-    copyCode(
-      coupon.code,
-      coupon.affiliate
-    );
-
-  }}
-  style={{
-    width: "100%",
-    marginTop: "18px",
-    padding: "14px",
-    border: "none",
-    borderRadius: "10px",
-    background: "#2563eb",
-    color: "#fff",
-    cursor: "pointer",
-    fontSize: "16px",
-  }}
->
-  📋 نسخ الكوبون
-</button>
+            <button
+              onClick={() => copyCode(coupon.code, coupon.affiliate)}
+              style={{
+                width: "100%",
+                marginTop: "18px",
+                padding: "14px",
+                border: "none",
+                borderRadius: "10px",
+                background: "#2563eb",
+                color: "#fff",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
+              📋 نسخ الكوبون
+            </button>
 
           </div>
 
