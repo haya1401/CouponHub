@@ -11,28 +11,7 @@ import { db } from "../firebase";
 
 async function copyCode(code, affiliate) {
 
-
-  try {
-
-
-    await navigator.clipboard.writeText(code);
-
-
-    alert("✅ تم نسخ الكود: " + code);
-
-
-
-  } catch (error) {
-
-
-    console.error("خطأ النسخ:", error);
-
-
-    alert("تم نسخ الكود: " + code);
-
-
-  }
-
+  let newWindow = null;
 
 
   if (
@@ -40,21 +19,37 @@ async function copyCode(code, affiliate) {
     affiliate.startsWith("http")
   ) {
 
-
-    window.open(
-      affiliate,
-      "_blank",
-      "noopener,noreferrer"
+    newWindow = window.open(
+      "about:blank",
+      "_blank"
     );
 
+  }
 
-  } else {
 
 
-    console.log(
-      "لا يوجد رابط أفلييت لهذا الكوبون"
-    );
+  try {
 
+    await navigator.clipboard.writeText(code);
+
+    alert("✅ تم نسخ الكود: " + code);
+
+
+  } catch (error) {
+
+    console.error("خطأ النسخ:", error);
+
+
+  }
+
+
+
+  if (
+    newWindow &&
+    affiliate
+  ) {
+
+    newWindow.location.href = affiliate;
 
   }
 
