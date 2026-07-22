@@ -2,32 +2,62 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-function copyCode(code) {
-  navigator.clipboard.writeText(code);
-  alert(`تم نسخ الكود: ${code}`);
+async function copyCode(code, affiliate) {
+
+  try {
+
+    await navigator.clipboard.writeText(code);
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+  alert("✅ تم نسخ كود الخصم بنجاح");
+
+  if (affiliate) {
+
+    window.open(
+      affiliate,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  }
+
 }
 
 export default function FeaturedCoupons() {
+
   const [coupons, setCoupons] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
+
     async function loadCoupons() {
-      const querySnapshot = await getDocs(collection(db, "coupons"));
+
+      const querySnapshot = await getDocs(
+        collection(db, "coupons")
+      );
 
       const data = [];
 
       querySnapshot.forEach((doc) => {
+
         data.push({
           id: doc.id,
           ...doc.data(),
         });
+
       });
 
       setCoupons(data);
+
     }
 
     loadCoupons();
+
   }, []);
 
   const filteredCoupons = coupons.filter((coupon) =>
@@ -35,6 +65,7 @@ export default function FeaturedCoupons() {
   );
 
   return (
+
     <section
       id="featured-coupons"
       style={{
@@ -42,6 +73,7 @@ export default function FeaturedCoupons() {
         background: "#f8fafc",
       }}
     >
+
       <h2
         style={{
           textAlign: "center",
@@ -58,6 +90,7 @@ export default function FeaturedCoupons() {
           margin: "0 auto 40px",
         }}
       >
+
         <input
           type="text"
           placeholder="🔍 ابحث باسم المتجر..."
@@ -72,6 +105,7 @@ export default function FeaturedCoupons() {
             outline: "none",
           }}
         />
+
       </div>
 
       <div
@@ -83,7 +117,9 @@ export default function FeaturedCoupons() {
           gap: "25px",
         }}
       >
+
         {filteredCoupons.map((coupon) => (
+
           <div
             key={coupon.id}
             style={{
@@ -93,6 +129,7 @@ export default function FeaturedCoupons() {
               boxShadow: "0 8px 20px rgba(0,0,0,.08)",
             }}
           >
+
             <h3>{coupon.store}</h3>
 
             <h1
@@ -118,7 +155,12 @@ export default function FeaturedCoupons() {
             </div>
 
             <button
-              onClick={() => copyCode(coupon.code)}
+              onClick={() =>
+                copyCode(
+                  coupon.code,
+                  coupon.affiliate
+                )
+              }
               style={{
                 width: "100%",
                 marginTop: "18px",
@@ -133,11 +175,15 @@ export default function FeaturedCoupons() {
             >
               📋 نسخ الكوبون
             </button>
+
           </div>
+
         ))}
+
       </div>
 
       {filteredCoupons.length === 0 && (
+
         <p
           style={{
             textAlign: "center",
@@ -147,7 +193,11 @@ export default function FeaturedCoupons() {
         >
           لا توجد كوبونات مطابقة للبحث.
         </p>
+
       )}
+
     </section>
+
   );
+
 }
