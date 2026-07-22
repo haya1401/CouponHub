@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import {
   collection,
   getDocs,
-  query,
-  where,
 } from "firebase/firestore";
 
 import { db } from "../firebase";
@@ -14,6 +12,10 @@ import { db } from "../firebase";
 
 // نسخ الكود وفتح رابط الأفلييت
 async function copyCode(code, affiliate) {
+
+  console.log("الكود:", code);
+  console.log("رابط الأفلييت:", affiliate);
+
 
   let newWindow = null;
 
@@ -36,10 +38,12 @@ async function copyCode(code, affiliate) {
 
     await navigator.clipboard.writeText(code);
 
-    alert(`✅ تم نسخ الكود: ${code}`);
+    alert(
+      `✅ تم نسخ الكود: ${code}`
+    );
 
 
-  } catch (error) {
+  } catch(error) {
 
     console.error(
       "خطأ النسخ:",
@@ -56,6 +60,16 @@ async function copyCode(code, affiliate) {
   ) {
 
     newWindow.location.href = affiliate;
+
+  } else {
+
+    if(!affiliate){
+
+      console.log(
+        "لا يوجد رابط أفلييت لهذا الكوبون"
+      );
+
+    }
 
   }
 
@@ -74,6 +88,7 @@ export default function StoreCoupons() {
 
 
 
+
   useEffect(() => {
 
 
@@ -82,43 +97,19 @@ export default function StoreCoupons() {
 
 
 
-    const description =
-      document.querySelector(
-        'meta[name="description"]'
-      );
-
-
-    if (description) {
-
-      description.setAttribute(
-        "content",
-        `احصل على أحدث كوبونات خصم ${store} وأكواد التخفيض والعروض الحصرية عبر CouponHub.`
-      );
-
-    }
-
-
 
     async function loadCoupons() {
 
 
-      const q = query(
-
-        collection(db, "coupons"),
-
-        where("store", "==", store)
-
-      );
+      const snapshot =
+        await getDocs(
+          collection(db, "coupons")
+        );
 
 
 
-      const snapshot = await getDocs(q);
-
-
-
-      setCoupons(
-
-        snapshot.docs.map((doc) => ({
+      const data =
+        snapshot.docs.map((doc)=>({
 
           id: doc.id,
 
@@ -127,9 +118,34 @@ export default function StoreCoupons() {
           affiliate:
             doc.data().affiliate || ""
 
-        }))
+        }));
 
+
+
+      const filtered =
+        data.filter((coupon)=>
+
+          (coupon.store || "")
+          .trim()
+          .toLowerCase()
+          ===
+          (store || "")
+          .trim()
+          .toLowerCase()
+
+        );
+
+
+
+      console.log(
+        "كوبونات المتجر:",
+        filtered
       );
+
+
+
+      setCoupons(filtered);
+
 
 
     }
@@ -141,6 +157,7 @@ export default function StoreCoupons() {
 
 
   }, [store]);
+
 
 
 
@@ -200,6 +217,7 @@ export default function StoreCoupons() {
       >
 
         استخدم أحدث أكواد الخصم والعروض الخاصة بـ {store}
+
         واحصل على أفضل التخفيضات عبر CouponHub.
 
       </p>
@@ -216,6 +234,7 @@ export default function StoreCoupons() {
           display:"grid",
 
           gridTemplateColumns:
+
           "repeat(auto-fit,minmax(280px,1fr))",
 
           gap:"25px",
@@ -228,7 +247,9 @@ export default function StoreCoupons() {
 
 
 
-        {coupons.map((coupon) => (
+      {
+
+        coupons.map((coupon)=>(
 
 
           <div
@@ -244,6 +265,7 @@ export default function StoreCoupons() {
               padding:"25px",
 
               boxShadow:
+
               "0 8px 20px rgba(0,0,0,.08)",
 
             }}
@@ -310,8 +332,8 @@ export default function StoreCoupons() {
 
             <button
 
+              onClick={()=>
 
-              onClick={() =>
 
                 copyCode(
 
@@ -320,6 +342,7 @@ export default function StoreCoupons() {
                   coupon.affiliate
 
                 )
+
 
               }
 
@@ -352,8 +375,8 @@ export default function StoreCoupons() {
 
 
 
-
             {
+
               coupon.affiliate && (
 
                 <p
@@ -362,21 +385,22 @@ export default function StoreCoupons() {
 
                     marginTop:"10px",
 
+                    textAlign:"center",
+
                     fontSize:"12px",
 
-                    color:"#16a34a",
-
-                    textAlign:"center"
+                    color:"#16a34a"
 
                   }}
 
                 >
 
-                  🔗 رابط شراء مباشر
+                  🔗 رابط أفلييت متوفر
 
                 </p>
 
               )
+
             }
 
 
@@ -386,7 +410,9 @@ export default function StoreCoupons() {
           </div>
 
 
-        ))}
+        ))
+
+      }
 
 
 
@@ -398,25 +424,29 @@ export default function StoreCoupons() {
 
 
 
-      {coupons.length === 0 && (
+      {
+        coupons.length === 0 && (
 
-        <p
+          <p
 
-          style={{
+            style={{
 
-            textAlign:"center",
+              textAlign:"center",
 
-            marginTop:"40px",
+              marginTop:"40px"
 
-          }}
+            }}
 
-        >
+          >
 
-          لا توجد كوبونات متاحة لهذا المتجر حالياً.
+            لا توجد كوبونات متاحة لهذا المتجر حالياً.
 
-        </p>
+          </p>
 
-      )}
+        )
+      }
+
+
 
 
 
