@@ -14,7 +14,7 @@ import { db } from "../firebase";
 async function copyCode(code, affiliate) {
 
   console.log("الكود:", code);
-  console.log("رابط الأفلييت:", affiliate);
+  console.log("affiliate =", affiliate);
 
 
   let newWindow = null;
