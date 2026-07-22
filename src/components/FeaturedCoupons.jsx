@@ -54,7 +54,8 @@ export default function FeaturedCoupons() {
 
       });
 
-      console.log("جميع الكوبونات:", data);
+     console.log("أول كوبون بالتفصيل:", data[0]);
+console.log("جميع الكوبونات:", data); 
 
       setCoupons(data);
 
