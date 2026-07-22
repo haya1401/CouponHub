@@ -11,6 +11,7 @@ import {
 
 import { db } from "../../firebase";
 
+
 export default function CouponManager() {
 
   const [coupons, setCoupons] = useState([]);
@@ -26,6 +27,7 @@ export default function CouponManager() {
   });
 
   const [editId, setEditId] = useState(null);
+
 
   async function loadCoupons() {
 
@@ -45,11 +47,14 @@ export default function CouponManager() {
 
   }
 
+
   useEffect(() => {
 
     loadCoupons();
 
   }, []);
+
+
 
   function handleChange(e) {
 
@@ -63,7 +68,10 @@ export default function CouponManager() {
 
   }
 
+
+
   async function saveCoupon() {
+
 
     if (
       !form.title ||
@@ -71,7 +79,10 @@ export default function CouponManager() {
       !form.store
     ) return;
 
+
+
     if (editId) {
+
 
       await updateDoc(
 
@@ -81,9 +92,13 @@ export default function CouponManager() {
 
       );
 
+
       setEditId(null);
 
+
+
     } else {
+
 
       await addDoc(
 
@@ -93,7 +108,10 @@ export default function CouponManager() {
 
       );
 
+
     }
+
+
 
     setForm({
 
@@ -105,11 +123,18 @@ export default function CouponManager() {
 
     });
 
+
+
     loadCoupons();
+
 
   }
 
+
+
+
   async function deleteCoupon(id) {
+
 
     await deleteDoc(
 
@@ -117,11 +142,17 @@ export default function CouponManager() {
 
     );
 
+
     loadCoupons();
+
 
   }
 
+
+
+
   function editCoupon(item) {
+
 
     setForm({
 
@@ -137,17 +168,129 @@ export default function CouponManager() {
 
     });
 
+
     setEditId(item.id);
+
 
   }
 
+
+
+
+
+  // إصلاح الكوبونات القديمة
+
+  async function fixOldCoupons() {
+
+
+    let count = 0;
+
+
+    for (const coupon of coupons) {
+
+
+      let newData = {};
+
+
+      // إذا كان الرابط موجود داخل store
+
+      if (
+        coupon.store &&
+        coupon.store.startsWith("http")
+      ) {
+
+
+        newData.store = "غير محدد";
+
+        newData.affiliate = coupon.store;
+
+
+      }
+
+
+
+      // إضافة affiliate للكوبونات القديمة
+
+      if (!coupon.hasOwnProperty("affiliate")) {
+
+
+        newData.affiliate = coupon.affiliate || "";
+
+
+      }
+
+
+
+      if (Object.keys(newData).length > 0) {
+
+
+        await updateDoc(
+
+          doc(db, "coupons", coupon.id),
+
+          newData
+
+        );
+
+
+        count++;
+
+
+      }
+
+
+    }
+
+
+
+    alert(
+      "✅ تم إصلاح " + count + " كوبون"
+    );
+
+
+    loadCoupons();
+
+
+  }
+
+
+
+
+
+
+
   return (
 
+
     <div className="manager">
+
 
       <h2>
         إدارة الكوبونات
       </h2>
+
+
+
+      <button
+
+        onClick={fixOldCoupons}
+
+        style={{
+          background:"#16a34a",
+          color:"#fff",
+          padding:"10px",
+          marginBottom:"20px"
+        }}
+
+      >
+
+        🛠 إصلاح الكوبونات القديمة
+
+      </button>
+
+
+
+
 
       <input
 
@@ -161,6 +304,8 @@ export default function CouponManager() {
 
       />
 
+
+
       <input
 
         name="code"
@@ -172,6 +317,8 @@ export default function CouponManager() {
         placeholder="كود الخصم"
 
       />
+
+
 
       <input
 
@@ -185,6 +332,8 @@ export default function CouponManager() {
 
       />
 
+
+
       <input
 
         name="discount"
@@ -196,6 +345,8 @@ export default function CouponManager() {
         placeholder="نسبة الخصم"
 
       />
+
+
 
       <input
 
@@ -209,55 +360,84 @@ export default function CouponManager() {
 
       />
 
+
+
+
       <button onClick={saveCoupon}>
+
 
         {editId ? "تحديث" : "إضافة كوبون"}
 
+
       </button>
 
+
+
+
       <hr />
+
+
+
 
       {
 
         coupons.map(coupon => (
 
+
           <div
+
             key={coupon.id}
+
             className="item"
+
           >
+
+
 
             <b>
               {coupon.title}
             </b>
 
+
+
             <span>
               {coupon.code}
             </span>
+
+
 
             <span>
               {coupon.store}
             </span>
 
+
+
             <span>
               {coupon.discount}
             </span>
 
+
+
             <div
+
               style={{
-                fontSize: "12px",
-                color: "#666",
-                marginTop: "6px",
-                wordBreak: "break-all"
+                fontSize:"12px",
+                color:"#666",
+                wordBreak:"break-all"
               }}
+
             >
-              {coupon.affiliate}
+
+              🔗 {coupon.affiliate || "لا يوجد رابط"}
+
             </div>
+
+
+
 
             <button
 
-              onClick={() =>
-                editCoupon(coupon)
-              }
+              onClick={() => editCoupon(coupon)}
 
             >
 
@@ -265,11 +445,12 @@ export default function CouponManager() {
 
             </button>
 
+
+
+
             <button
 
-              onClick={() =>
-                deleteCoupon(coupon.id)
-              }
+              onClick={() => deleteCoupon(coupon.id)}
 
             >
 
@@ -277,13 +458,19 @@ export default function CouponManager() {
 
             </button>
 
+
+
           </div>
+
 
         ))
 
       }
 
+
+
     </div>
+
 
   );
 
