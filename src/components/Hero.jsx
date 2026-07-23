@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import "./Hero.css";
 
 import {
@@ -10,10 +12,44 @@ import {
 import HeroEffects from "./HeroEffects";
 
 
+
 export default function Hero() {
 
 
+  const [mouse,setMouse] = useState({
+    x:0,
+    y:0
+  });
+
+
+
+  function handleMouseMove(e){
+
+
+    const x =
+    (e.clientX / window.innerWidth - 0.5) * 30;
+
+
+    const y =
+    (e.clientY / window.innerHeight - 0.5) * 30;
+
+
+
+    setMouse({
+
+      x,
+      y
+
+    });
+
+
+  }
+
+
+
+
   function scrollToCoupons(){
+
 
     const section =
       document.getElementById(
@@ -21,26 +57,41 @@ export default function Hero() {
       );
 
 
+
     if(section){
 
+
       section.scrollIntoView({
+
         behavior:"smooth"
+
       });
 
+
     }
+
 
   }
 
 
 
+
+
 return (
 
-<section className="hero">
+
+<section
+className="hero"
+onMouseMove={handleMouseMove}
+>
+
 
 
 {/* العملات المتساقطة */}
 
 <HeroEffects />
+
+
 
 
 
@@ -55,38 +106,97 @@ return (
 
 
 
+
+
+
 {/* الصور الثلاثية الأبعاد */}
 
 
+
 <img
+
 src={coin}
+
 className="floating coin"
+
 alt="gold coin"
+
+style={{
+
+transform:
+`translate(${mouse.x}px,${mouse.y}px)`
+
+}}
+
 />
 
 
 
+
+
 <img
+
 src={coupon}
+
 className="floating coupon"
+
 alt="coupon"
+
+style={{
+
+transform:
+`translate(${mouse.x * -1}px,${mouse.y}px)`
+
+}}
+
 />
 
 
 
+
+
+
 <img
+
 src={gift}
+
 className="floating gift"
+
 alt="gift"
+
+style={{
+
+transform:
+`translate(${mouse.x / 2}px,${mouse.y / 2}px)`
+
+}}
+
 />
+
+
+
 
 
 
 <img
+
 src={shoppingBag}
+
 className="floating bag"
+
 alt="shopping bag"
+
+style={{
+
+transform:
+`translate(${mouse.x * -0.5}px,${mouse.y * -0.5}px)`
+
+}}
+
 />
+
+
+
 
 
 
@@ -103,15 +213,23 @@ alt="shopping bag"
 
 
 
+
+
 <div className="hero-content">
+
+
 
 
 
 <span className="hero-badge">
 
+
 🔥 أكثر من 10000 كوبون خصم
 
+
 </span>
+
+
 
 
 
@@ -120,10 +238,15 @@ alt="shopping bag"
 <h1>
 
 وفر أكثر مع أفضل
+
 <br/>
+
 كوبونات الخصم والعروض
 
+
 </h1>
+
+
 
 
 
@@ -132,8 +255,11 @@ alt="shopping bag"
 <p>
 
 اكتشف أحدث أكواد الخصم والعروض
+
 الحصرية من أشهر المتاجر
+
 العالمية.
+
 
 </p>
 
@@ -142,14 +268,23 @@ alt="shopping bag"
 
 
 
+
+
 <button
+
 className="hero-btn"
+
 onClick={scrollToCoupons}
+
 >
+
 
 🚀 استعرض أفضل الكوبونات
 
+
 </button>
+
+
 
 
 
@@ -161,15 +296,24 @@ onClick={scrollToCoupons}
 
 
 
+
+
 <div>
 
+
 <h2>
+
 500+
+
 </h2>
 
+
 <span>
+
 متجر
+
 </span>
+
 
 </div>
 
@@ -177,17 +321,32 @@ onClick={scrollToCoupons}
 
 
 
+
+
+
+
 <div>
 
+
 <h2>
+
 10000+
+
 </h2>
 
+
 <span>
+
 كوبون
+
 </span>
 
+
 </div>
+
+
+
+
 
 
 
@@ -195,14 +354,29 @@ onClick={scrollToCoupons}
 
 <div>
 
+
 <h2>
+
 24/7
+
 </h2>
 
+
 <span>
+
 تحديث يومي
+
 </span>
 
+
+</div>
+
+
+
+
+
+
+
 </div>
 
 
@@ -212,13 +386,13 @@ onClick={scrollToCoupons}
 </div>
 
 
-
-</div>
 
 
 
 </section>
 
+
 );
+
 
 }
