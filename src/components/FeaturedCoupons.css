@@ -1,119 +1,103 @@
-.featured-section{
-  padding:70px 20px;
-  background:#f8fafc;
+.featured-coupons{
+
+padding:70px 0;
+
+background:#f8fafc;
+
 }
+
+
 
 .featured-title{
-  text-align:center;
-  font-size:34px;
-  margin-bottom:35px;
-  color:#111827;
-  font-weight:800;
+
+text-align:center;
+
+font-size:36px;
+
+font-weight:900;
+
+color:#111827;
+
+margin-bottom:40px;
+
 }
 
-.coupon-search{
-  max-width:500px;
-  margin:0 auto 40px;
-}
 
-.coupon-search input{
-  width:100%;
-  padding:15px;
-  border:1px solid #d1d5db;
-  border-radius:12px;
-  outline:none;
-  font-size:16px;
-}
-
-.coupon-search input:focus{
-  border-color:#2563eb;
-}
 
 .coupon-grid{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:25px;
+
 }
+
+
 
 .coupon-card{
-  background:#fff;
-  border:1px solid #e5e7eb;
-  border-radius:18px;
-  padding:24px;
-  text-align:center;
-  box-shadow:0 6px 20px rgba(0,0,0,.08);
-  transition:.25s;
+
+background:white;
+
+border-radius:20px;
+
+padding:30px;
+
+text-align:center;
+
+border:1px solid #e5e7eb;
+
 }
 
-.coupon-card:hover{
-  transform:translateY(-4px);
-}
 
-.shine{
-  display:none;
-}
 
 .coupon-card h3{
-  font-size:22px;
-  color:#1e3a8a;
-  margin-bottom:15px;
+
+font-size:22px;
+
+margin-bottom:15px;
+
 }
 
-.coupon-card h1{
-  font-size:42px;
-  color:#2563eb;
-  margin:18px 0;
-  font-weight:900;
+
+
+.coupon-card p{
+
+color:#6b7280;
+
+margin-bottom:20px;
+
 }
 
-.coupon-code{
-  background:#eff6ff;
-  border:1px dashed #60a5fa;
-  border-radius:10px;
-  padding:12px;
-  font-weight:bold;
-  color:#1e40af;
-  letter-spacing:2px;
-}
+
 
 .coupon-card button{
-  width:100%;
-  margin-top:18px;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+padding:12px 25px;
+
+border-radius:999px;
+
+font-weight:700;
+
+cursor:pointer;
+
 }
 
-.coupon-card button:hover{
-  background:#1d4ed8;
+
+
+@media(max-width:768px){
+
+.coupon-grid{
+
+grid-template-columns:1fr;
+
 }
-
-.affiliate{
-  margin-top:12px;
-  color:#16a34a;
-  font-size:13px;
-}
-
-.empty{
-  text-align:center;
-  margin-top:35px;
-  color:#6b7280;
-}
-
-@media (max-width:768px){
-
-  .featured-title{
-    font-size:28px;
-  }
-
-  .coupon-card h1{
-    font-size:34px;
-  }
 
 }
