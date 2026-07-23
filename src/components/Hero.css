@@ -30,6 +30,8 @@ color:white;
 
 text-align:center;
 
+perspective:1000px;
+
 }
 
 
@@ -48,7 +50,11 @@ rgba(0,0,0,.15),
 rgba(0,0,0,.35)
 );
 
+z-index:1;
+
 }
+
+
 
 
 
@@ -64,6 +70,8 @@ opacity:.35;
 
 animation:
 pulse 8s infinite;
+
+z-index:2;
 
 }
 
@@ -101,6 +109,8 @@ right:-50px;
 
 
 
+
+
 .hero-content{
 
 position:relative;
@@ -110,6 +120,8 @@ z-index:10;
 max-width:900px;
 
 }
+
+
 
 
 
@@ -135,6 +147,8 @@ font-weight:bold;
 
 
 
+
+
 .hero h1{
 
 font-size:62px;
@@ -147,6 +161,8 @@ margin-bottom:20px;
 
 
 
+
+
 .hero p{
 
 font-size:22px;
@@ -156,6 +172,8 @@ opacity:.9;
 margin-bottom:35px;
 
 }
+
+
 
 
 
@@ -187,6 +205,8 @@ box-shadow:
 
 
 
+
+
 .hero-btn:hover{
 
 transform:
@@ -199,6 +219,8 @@ box-shadow:
 0 25px 45px rgba(0,0,0,.35);
 
 }
+
+
 
 
 
@@ -218,6 +240,8 @@ flex-wrap:wrap;
 
 
 
+
+
 .hero-stats h2{
 
 font-size:38px;
@@ -225,6 +249,8 @@ font-size:38px;
 margin-bottom:5px;
 
 }
+
+
 
 
 
@@ -236,13 +262,14 @@ opacity:.85;
 
 
 
+
+
+
 /* الصور الثلاثية الأبعاد */
 
 .floating{
 
 position:absolute;
-
-width:160px;
 
 height:auto;
 
@@ -256,9 +283,20 @@ drop-shadow(
 0 25px 35px rgba(0,0,0,.45)
 );
 
-z-index:3;
+z-index:5;
+
+
+transition:
+
+transform .25s ease-out;
+
+
+transform-style:preserve-3d;
+
 
 }
+
+
 
 
 
@@ -273,6 +311,8 @@ left:10%;
 width:170px;
 
 }
+
+
 
 
 
@@ -292,6 +332,8 @@ animation-delay:1s;
 
 
 
+
+
 /* الهدية */
 
 .gift{
@@ -305,6 +347,8 @@ width:170px;
 animation-delay:2s;
 
 }
+
+
 
 
 
@@ -324,6 +368,8 @@ animation-delay:3s;
 
 
 
+
+
 /* نسبة الخصم */
 
 .sale{
@@ -340,7 +386,11 @@ color:#FFD54F;
 
 animation-delay:1.5s;
 
+z-index:6;
+
 }
+
+
 
 
 
@@ -357,6 +407,7 @@ rotate(0deg);
 }
 
 
+
 50%{
 
 transform:
@@ -367,7 +418,10 @@ rotate(10deg);
 }
 
 
+
 }
+
+
 
 
 
@@ -383,6 +437,7 @@ scale(1);
 }
 
 
+
 50%{
 
 transform:
@@ -392,11 +447,17 @@ scale(1.2);
 }
 
 
+
 }
 
 
 
+
+
+
+
 @media(max-width:768px){
+
 
 
 .hero h1{
@@ -430,6 +491,8 @@ padding:15px 35px;
 gap:25px;
 
 }
+
+
 
 
 
@@ -470,6 +533,7 @@ width:110px;
 width:150px;
 
 }
+
 
 
 }
