@@ -20,7 +20,7 @@ linear-gradient(
 rgba(15,23,42,.25),
 rgba(15,23,42,.65)
 ),
-url("../assets/hero/hero-background.webp");
+url("../assets/hero/hero-background.png");
 
 background-size:cover;
 
@@ -294,7 +294,6 @@ border-radius:999px;
 cursor:pointer;
 
 background:
-
 linear-gradient(
 135deg,
 #ffd54f,
@@ -304,7 +303,6 @@ linear-gradient(
 color:#111827;
 
 box-shadow:
-
 0 20px 40px rgba(0,0,0,.3);
 
 transition:.35s;
@@ -316,12 +314,10 @@ transition:.35s;
 .hero-btn:hover{
 
 transform:
-
 translateY(-8px)
 scale(1.07);
 
 box-shadow:
-
 0 30px 60px rgba(0,0,0,.4);
 
 }
@@ -355,13 +351,11 @@ padding:22px;
 border-radius:22px;
 
 background:
-
 rgba(255,255,255,.12);
 
 backdrop-filter:blur(15px);
 
 border:
-
 1px solid rgba(255,255,255,.15);
 
 }
@@ -393,7 +387,6 @@ opacity:.9;
 
 @keyframes float{
 
-
 0%,
 100%{
 
@@ -401,20 +394,17 @@ transform:translateY(0);
 
 }
 
-
 50%{
 
 transform:translateY(-30px);
 
 }
 
-
 }
 
 
 
 @keyframes pulse{
-
 
 0%,
 100%{
@@ -423,13 +413,11 @@ transform:scale(1);
 
 }
 
-
 50%{
 
 transform:scale(1.18);
 
 }
-
 
 }
 
@@ -439,9 +427,7 @@ transform:scale(1.18);
 TABLET
 ===================== */
 
-
 @media(max-width:1024px){
-
 
 .hero{
 
@@ -449,13 +435,11 @@ padding:80px 30px;
 
 }
 
-
 .hero h1{
 
 font-size:48px;
 
 }
-
 
 .hero p{
 
@@ -463,13 +447,11 @@ font-size:20px;
 
 }
 
-
 .coin{
 
 width:130px;
 
 }
-
 
 .coupon{
 
@@ -477,21 +459,17 @@ width:180px;
 
 }
 
-
 .gift{
 
 width:140px;
 
 }
 
-
 .bag{
 
 width:180px;
 
 }
-
-
 
 }
 
@@ -501,9 +479,7 @@ width:180px;
 MOBILE
 ===================== */
 
-
 @media(max-width:768px){
-
 
 .hero{
 
@@ -513,8 +489,6 @@ padding:100px 20px 70px;
 
 }
 
-
-
 .hero h1{
 
 font-size:32px;
@@ -523,15 +497,11 @@ line-height:1.45;
 
 }
 
-
-
 .hero p{
 
 font-size:16px;
 
 }
-
-
 
 .hero-btn{
 
@@ -542,8 +512,6 @@ max-width:330px;
 padding:17px;
 
 }
-
-
 
 .hero-stats{
 
@@ -557,8 +525,6 @@ margin-top:45px;
 
 }
 
-
-
 .hero-stats div{
 
 min-width:auto;
@@ -567,15 +533,11 @@ padding:18px;
 
 }
 
-
-
 .hero-stats h2{
 
 font-size:28px;
 
 }
-
-
 
 .coin{
 
@@ -587,8 +549,6 @@ left:2%;
 
 }
 
-
-
 .coupon{
 
 width:110px;
@@ -598,8 +558,6 @@ top:12%;
 right:2%;
 
 }
-
-
 
 .gift{
 
@@ -611,8 +569,6 @@ left:2%;
 
 }
 
-
-
 .bag{
 
 width:120px;
@@ -623,8 +579,6 @@ right:2%;
 
 }
 
-
-
 }
 
 
@@ -633,9 +587,7 @@ right:2%;
 SMALL PHONES
 ===================== */
 
-
 @media(max-width:480px){
-
 
 .hero{
 
@@ -643,13 +595,11 @@ padding:90px 15px 50px;
 
 }
 
-
 .hero h1{
 
 font-size:27px;
 
 }
-
 
 .hero p{
 
@@ -657,15 +607,11 @@ font-size:15px;
 
 }
 
-
-
 .hero-stats{
 
 grid-template-columns:1fr;
 
 }
-
-
 
 .coin,
 .coupon,
@@ -675,7 +621,5 @@ grid-template-columns:1fr;
 opacity:.35;
 
 }
-
-
 
 }
