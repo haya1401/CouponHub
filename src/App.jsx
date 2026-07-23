@@ -63,6 +63,7 @@ document.querySelector(
 if(description){
 
 
+
 description.setAttribute(
 
 "content",
@@ -72,9 +73,8 @@ description.setAttribute(
 );
 
 
+
 }
-
-
 
 
 
@@ -86,9 +86,9 @@ description.setAttribute(
 
 
 
-
-
 return (
+
+
 
 <>
 
@@ -96,27 +96,31 @@ return (
 <Hero />
 
 
+
 <StoreLogos />
+
 
 
 <FeaturedCoupons />
 
 
+
 <DealsShowcase />
 
 
-Categories />
+
+<Categories />
+
 
 
 </>
 
+
 );
 
 
+
 }
-
-
-
 
 
 
@@ -131,6 +135,8 @@ export default function App(){
 
 
 return (
+
+
 
 <>
 
@@ -149,6 +155,7 @@ return (
 {/* نظام ظهور العناصر عند التمرير */}
 
 <ScrollReveal />
+
 
 
 
@@ -187,7 +194,6 @@ element={<Home />}
 
 
 
-
 <Route
 
 path="/stores"
@@ -195,7 +201,6 @@ path="/stores"
 element={<Stores />}
 
 />
-
 
 
 
@@ -219,7 +224,6 @@ element={<Coupons />}
 
 
 
-
 <Route
 
 path="/coupons/:store"
@@ -227,7 +231,6 @@ path="/coupons/:store"
 element={<StoreCoupons />}
 
 />
-
 
 
 
@@ -251,7 +254,6 @@ element={<CategoriesPage />}
 
 
 
-
 <Route
 
 path="/contact"
@@ -267,7 +269,6 @@ element={<Contact />}
 
 
 
-
 <Route
 
 path="/admin"
@@ -275,7 +276,6 @@ path="/admin"
 element={<AdminLogin />}
 
 />
-
 
 
 
@@ -317,7 +317,9 @@ element={<Dashboard />}
 
 </>
 
+
 );
+
 
 
 }
