@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 
 import ScrollReveal from "./components/ScrollReveal";
-
 import "./components/ScrollReveal.css";
 
 
@@ -18,7 +17,6 @@ import Categories from "./components/Categories";
 import Footer from "./components/Footer";
 
 
-
 import Stores from "./pages/Stores";
 import Coupons from "./pages/Coupons";
 import StoreCoupons from "./pages/StoreCoupons";
@@ -29,32 +27,21 @@ import Dashboard from "./pages/Dashboard";
 
 
 
-
-
 function Home(){
-
 
 useEffect(()=>{
 
-
 document.title =
-
 "CouponHub | أفضل كوبونات الخصم والعروض الحصرية";
 
 
-
-
 const description =
-
 document.querySelector(
 'meta[name="description"]'
 );
 
 
-
-
 if(description){
-
 
 description.setAttribute(
 
@@ -64,15 +51,9 @@ description.setAttribute(
 
 );
 
-
 }
 
-
-
 },[]);
-
-
-
 
 
 
@@ -80,15 +61,10 @@ return (
 
 <>
 
-
 <Hero />
 
 
-
-{/* شريط العروض المتحرك */}
-
 <OfferBar />
-
 
 
 <StoreLogos />
@@ -107,12 +83,7 @@ return (
 
 );
 
-
 }
-
-
-
-
 
 
 
@@ -121,145 +92,89 @@ return (
 export default function App(){
 
 
-
 return (
 
-
 <>
-
 
 <div className="site-content">
 
 
-
-{/* تأثير ظهور العناصر عند التمرير */}
-
 <ScrollReveal />
-
 
 
 <Header />
 
 
-
-
 <Routes>
 
 
-
 <Route
-
 path="/"
-
 element={<Home />}
-
 />
 
 
 
-
-
 <Route
-
 path="/stores"
-
 element={<Stores />}
-
 />
 
 
 
-
-
 <Route
-
 path="/coupons"
-
 element={<Coupons />}
-
 />
 
 
 
-
-
 <Route
-
 path="/coupons/:store"
-
 element={<StoreCoupons />}
-
 />
 
 
 
-
-
 <Route
-
 path="/categories"
-
 element={<CategoriesPage />}
-
 />
 
 
 
-
-
 <Route
-
 path="/contact"
-
 element={<Contact />}
-
 />
 
 
 
-
-
 <Route
-
 path="/admin"
-
 element={<AdminLogin />}
-
 />
-
-
 
 
 
 <Route
-
 path="/dashboard"
-
 element={<Dashboard />}
-
 />
-
-
 
 
 </Routes>
 
 
 
-
-
 <Footer />
-
 
 
 </div>
 
 
-
 </>
 
-
 );
-
 
 }
