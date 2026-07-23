@@ -1,155 +1,197 @@
 import { useState } from "react";
-
 import "./Hero.css";
 
-import FloatingObjects from "./FloatingObjects";
-import HeroEffects from "./HeroEffects";
+import {
+  coin,
+  coupon,
+  gift,
+  shoppingBag
+} from "../assets/heroAssets";
+
 
 export default function Hero() {
 
-  const [mouse, setMouse] = useState({
-    x: 0,
-    y: 0,
+
+  const [mouse,setMouse] = useState({
+    x:0,
+    y:0
   });
 
-  function handleMouseMove(e) {
+
+
+  function handleMouseMove(e){
 
     const x =
-      (e.clientX / window.innerWidth - 0.5) * 30;
+      (e.clientX / window.innerWidth - 0.5) * 25;
 
     const y =
-      (e.clientY / window.innerHeight - 0.5) * 30;
+      (e.clientY / window.innerHeight - 0.5) * 25;
+
 
     setMouse({
       x,
-      y,
+      y
     });
 
   }
 
-  function scrollToCoupons() {
+
+
+  function scrollToCoupons(){
 
     const section =
       document.getElementById(
         "featured-coupons"
       );
 
-    if (section) {
+
+    if(section){
 
       section.scrollIntoView({
-
-        behavior: "smooth",
-
+        behavior:"smooth"
       });
 
     }
 
   }
 
-  return (
 
-    <section
 
-      className="hero reveal"
 
-      onMouseMove={handleMouseMove}
+return (
 
-    >
+<section
+className="hero reveal"
+onMouseMove={handleMouseMove}
+>
 
-      {/* العملات المتساقطة */}
 
-      <HeroEffects />
 
-      {/* العناصر العائمة */}
+<div className="hero-overlay"></div>
 
-      <FloatingObjects />
 
-      <div className="hero-overlay"></div>
 
-      <div
-        className="hero-light hero-light-1"
-        style={{
-          transform: `translate(${mouse.x * 0.3}px, ${mouse.y * 0.3}px)`
-        }}
-      ></div>
+{/* العناصر الثلاثية الأبعاد */}
 
-      <div
-        className="hero-light hero-light-2"
-        style={{
-          transform: `translate(${mouse.x * -0.3}px, ${mouse.y * -0.3}px)`
-        }}
-      ></div>
+<img
+src={coin}
+className="floating coin"
+style={{
+transform:
+`translate(${mouse.x}px,${mouse.y}px)`
+}}
+/>
 
-      <div className="hero-content">
 
-        <span className="hero-badge">
+<img
+src={coupon}
+className="floating coupon"
+style={{
+transform:
+`translate(${mouse.x*-1}px,${mouse.y}px)`
+}}
+/>
 
-          🔥 أكثر من 10000 كوبون خصم
 
-        </span>
+<img
+src={gift}
+className="floating gift"
+style={{
+transform:
+`translate(${mouse.x}px,${mouse.y*-1}px)`
+}}
+/>
 
-        <h1>
 
-          وفر أكثر مع أفضل
+<img
+src={shoppingBag}
+className="floating bag"
+style={{
+transform:
+`translate(${mouse.x*-1}px,${mouse.y*-1}px)`
+}}
+/>
 
-          <br />
 
-          كوبونات الخصم والعروض
 
-        </h1>
+<div className="hero-light hero-light-1"></div>
 
-        <p>
+<div className="hero-light hero-light-2"></div>
 
-          اكتشف أحدث أكواد الخصم والعروض
-          الحصرية من أشهر المتاجر
-          العالمية.
 
-        </p>
 
-        <button
+<div className="hero-content">
 
-          className="hero-btn"
 
-          onClick={scrollToCoupons}
+<span className="hero-badge">
 
-        >
+🔥 أكثر من 10000 كوبون خصم
 
-          🚀 استعرض أفضل الكوبونات
+</span>
 
-        </button>
 
-        <div className="hero-stats">
 
-          <div>
+<h1>
 
-            <h2>500+</h2>
+وفر أكثر مع أفضل
+<br/>
+كوبونات الخصم والعروض
 
-            <span>متجر</span>
+</h1>
 
-          </div>
 
-          <div>
 
-            <h2>10000+</h2>
+<p>
 
-            <span>كوبون</span>
+اكتشف أحدث أكواد الخصم والعروض
+الحصرية من أشهر المتاجر العالمية.
 
-          </div>
+</p>
 
-          <div>
 
-            <h2>24/7</h2>
 
-            <span>تحديث يومي</span>
+<button
+className="hero-btn"
+onClick={scrollToCoupons}
+>
 
-          </div>
+🚀 استعرض أفضل الكوبونات
 
-        </div>
+</button>
 
-      </div>
 
-    </section>
 
-  );
+
+<div className="hero-stats">
+
+
+<div>
+<h2>500+</h2>
+<span>متجر</span>
+</div>
+
+
+<div>
+<h2>10000+</h2>
+<span>كوبون</span>
+</div>
+
+
+<div>
+<h2>24/7</h2>
+<span>تحديث يومي</span>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+);
+
 
 }
