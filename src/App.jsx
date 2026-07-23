@@ -3,6 +3,10 @@ import { useEffect } from "react";
 
 
 import AnimatedBackground from "./components/AnimatedBackground";
+import ScrollReveal from "./components/ScrollReveal";
+
+import "./components/ScrollReveal.css";
+
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -26,25 +30,38 @@ import Dashboard from "./pages/Dashboard";
 
 
 
+
+
 function Home(){
+
 
 
 useEffect(()=>{
 
 
+
 document.title =
+
 "CouponHub | أفضل كوبونات الخصم والعروض الحصرية";
 
 
 
+
+
 const description =
+
 document.querySelector(
+
 'meta[name="description"]'
+
 );
 
 
 
+
+
 if(description){
+
 
 description.setAttribute(
 
@@ -54,11 +71,16 @@ description.setAttribute(
 
 );
 
+
 }
 
 
 
+
+
 },[]);
+
+
 
 
 
@@ -83,7 +105,7 @@ return (
 <DealsShowcase />
 
 
-<Categories />
+Categories />
 
 
 </>
@@ -101,7 +123,11 @@ return (
 
 
 
+
+
+
 export default function App(){
+
 
 
 return (
@@ -109,9 +135,22 @@ return (
 <>
 
 
+
+
+
 {/* الخلفية المتحركة */}
 
 <AnimatedBackground />
+
+
+
+
+
+{/* نظام ظهور العناصر عند التمرير */}
+
+<ScrollReveal />
+
+
 
 
 
@@ -122,7 +161,12 @@ return (
 
 
 
+
+
+
 <Routes>
+
+
 
 
 
@@ -135,6 +179,8 @@ path="/"
 element={<Home />}
 
 />
+
+
 
 
 
@@ -156,6 +202,8 @@ element={<Stores />}
 
 
 
+
+
 <Route
 
 path="/coupons"
@@ -163,6 +211,8 @@ path="/coupons"
 element={<Coupons />}
 
 />
+
+
 
 
 
@@ -184,6 +234,8 @@ element={<StoreCoupons />}
 
 
 
+
+
 <Route
 
 path="/categories"
@@ -191,6 +243,8 @@ path="/categories"
 element={<CategoriesPage />}
 
 />
+
+
 
 
 
@@ -212,6 +266,8 @@ element={<Contact />}
 
 
 
+
+
 <Route
 
 path="/admin"
@@ -219,6 +275,8 @@ path="/admin"
 element={<AdminLogin />}
 
 />
+
+
 
 
 
@@ -239,6 +297,7 @@ element={<Dashboard />}
 
 
 
+
 </Routes>
 
 
@@ -246,7 +305,12 @@ element={<Dashboard />}
 
 
 
+
+
+
 <Footer />
+
+
 
 
 
