@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./Hero.css";
 
+
 import {
   coin,
   coupon,
@@ -9,69 +10,105 @@ import {
   shoppingBag
 } from "../assets/heroAssets";
 
+
 import HeroEffects from "./HeroEffects";
+
 
 
 
 export default function Hero() {
 
 
-  const [mouse,setMouse] = useState({
-    x:0,
-    y:0
-  });
 
+const [mouse,setMouse] = useState({
 
+x:0,
 
-  function handleMouseMove(e){
+y:0
 
-
-    const x =
-    (e.clientX / window.innerWidth - 0.5) * 30;
-
-
-    const y =
-    (e.clientY / window.innerHeight - 0.5) * 30;
-
-
-
-    setMouse({
-
-      x,
-      y
-
-    });
-
-
-  }
+});
 
 
 
 
-  function scrollToCoupons(){
 
 
-    const section =
-      document.getElementById(
-        "featured-coupons"
-      );
+function handleMouseMove(e){
 
 
 
-    if(section){
+const x =
+
+(e.clientX / window.innerWidth - 0.5) * 30;
 
 
-      section.scrollIntoView({
-
-        behavior:"smooth"
-
-      });
 
 
-    }
+const y =
+
+(e.clientY / window.innerHeight - 0.5) * 30;
 
 
-  }
+
+
+
+setMouse({
+
+x,
+
+y
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+function scrollToCoupons(){
+
+
+
+const section =
+
+document.getElementById(
+
+"featured-coupons"
+
+);
+
+
+
+
+
+if(section){
+
+
+
+section.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+
+
+}
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -80,10 +117,16 @@ export default function Hero() {
 return (
 
 
+
 <section
-className="hero"
+
+className="hero reveal"
+
 onMouseMove={handleMouseMove}
+
 >
+
+
 
 
 
@@ -95,12 +138,20 @@ onMouseMove={handleMouseMove}
 
 
 
+
+
 <div className="hero-overlay"></div>
+
+
 
 
 <div className="hero-light hero-light-1"></div>
 
+
+
 <div className="hero-light hero-light-2"></div>
+
+
 
 
 
@@ -113,20 +164,30 @@ onMouseMove={handleMouseMove}
 
 
 
+
+
 <img
+
 
 src={coin}
 
+
 className="floating coin"
+
 
 alt="gold coin"
 
+
 style={{
 
+
 transform:
+
 `translate(${mouse.x}px,${mouse.y}px)`
 
+
 }}
+
 
 />
 
@@ -134,20 +195,32 @@ transform:
 
 
 
+
+
+
+
 <img
+
 
 src={coupon}
 
+
 className="floating coupon"
+
 
 alt="coupon"
 
+
 style={{
 
+
 transform:
+
 `translate(${mouse.x * -1}px,${mouse.y}px)`
 
+
 }}
+
 
 />
 
@@ -156,22 +229,36 @@ transform:
 
 
 
+
+
+
 <img
+
 
 src={gift}
 
+
 className="floating gift"
+
 
 alt="gift"
 
+
 style={{
 
+
 transform:
+
 `translate(${mouse.x / 2}px,${mouse.y / 2}px)`
+
 
 }}
 
+
 />
+
+
+
 
 
 
@@ -180,20 +267,32 @@ transform:
 
 <img
 
+
 src={shoppingBag}
+
 
 className="floating bag"
 
+
 alt="shopping bag"
+
 
 style={{
 
+
 transform:
+
 `translate(${mouse.x * -0.5}px,${mouse.y * -0.5}px)`
+
 
 }}
 
+
 />
+
+
+
+
 
 
 
@@ -204,7 +303,9 @@ transform:
 
 <div className="floating sale">
 
+
 70%
+
 
 </div>
 
@@ -215,7 +316,13 @@ transform:
 
 
 
+
+
+
+
 <div className="hero-content">
+
+
 
 
 
@@ -235,11 +342,18 @@ transform:
 
 
 
+
+
+
+
 <h1>
+
 
 وفر أكثر مع أفضل
 
+
 <br/>
+
 
 كوبونات الخصم والعروض
 
@@ -252,7 +366,10 @@ transform:
 
 
 
+
+
 <p>
+
 
 اكتشف أحدث أكواد الخصم والعروض
 
@@ -270,11 +387,17 @@ transform:
 
 
 
+
+
+
 <button
+
 
 className="hero-btn"
 
+
 onClick={scrollToCoupons}
+
 
 >
 
@@ -292,7 +415,13 @@ onClick={scrollToCoupons}
 
 
 
+
+
+
+
 <div className="hero-stats">
+
+
 
 
 
@@ -377,13 +506,21 @@ onClick={scrollToCoupons}
 
 
 
+
+
+</div>
+
+
+
+
+
+
+
+
 </div>
 
 
 
-
-
-</div>
 
 
 
@@ -392,7 +529,9 @@ onClick={scrollToCoupons}
 </section>
 
 
+
 );
+
 
 
 }
