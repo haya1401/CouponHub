@@ -2,93 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
-/* الخط الأساسي */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+/* =========================
+   Global Reset
+========================= */
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
 }
+
 
 html,
 body,
-#root {
-  width: 100%;
-  min-height: 100%;
+#root{
+
+width:100%;
+
+min-height:100%;
+
 }
 
-body {
-  font-family: "Cairo", sans-serif;
-  background: #f5f7fb;
-  color: #222;
-  line-height: 1.6;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  font-family: inherit;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-/* =========================
-   Mobile Optimization
-========================= */
 
 
 html{
-  scroll-behavior:smooth;
+
+scroll-behavior:smooth;
+
 }
+
 
 
 body{
 
-  overflow-x:hidden;
+font-family:
+"Cairo",
+Arial,
+sans-serif;
 
-  font-family:
-  "Cairo",
-  Arial,
-  sans-serif;
+background:#ffffff;
+
+color:#222;
+
+line-height:1.6;
+
+overflow-x:hidden;
 
 }
 
 
-/* الشاشات الصغيرة */
+
+a{
+
+text-decoration:none;
+
+color:inherit;
+
+}
+
+
+
+button{
+
+font-family:inherit;
+
+}
+
+
+
+img{
+
+max-width:100%;
+
+display:block;
+
+}
+
+
+
+/* =========================
+   Main Content Protection
+========================= */
+
+#root{
+
+position:relative;
+
+z-index:1;
+
+}
+
+
+
+.site-content{
+
+position:relative;
+
+z-index:10;
+
+}
+
+
+
+/* =========================
+   Container
+========================= */
+
+.container{
+
+width:min(1200px,92%);
+
+margin:auto;
+
+}
+
+
+
+/* =========================
+   Mobile Optimization
+========================= */
+
 
 @media(max-width:768px){
 
 
 .hero{
 
-  min-height:90vh;
+min-height:90vh;
 
-  padding:25px 15px;
+padding:25px 15px;
 
 }
+
 
 
 .hero h1{
 
-  font-size:36px !important;
+font-size:36px !important;
 
 }
+
 
 
 .hero p{
 
-  font-size:17px !important;
+font-size:17px !important;
 
 }
 
 
+
 .hero-content{
 
-  width:100%;
+width:100%;
 
 }
 
@@ -96,60 +167,35 @@ body{
 
 .hero-stats{
 
-  gap:20px !important;
+gap:20px !important;
 
 }
+
 
 
 .hero-stats h2{
 
-  font-size:30px !important;
+font-size:30px !important;
 
 }
 
 
 
-/* الصور الثلاثية */
+/* إخفاء أي عناصر عائمة قديمة */
 
-.floating.coin{
+.floating,
+.floating-wrapper{
 
-  width:90px !important;
-
-  left:3%;
-
-}
-
-
-.floating.coupon{
-
-  width:120px !important;
-
-  right:3%;
+display:none !important;
 
 }
-
-
-.floating.gift{
-
-  width:90px !important;
-
-}
-
-
-.floating.bag{
-
-  width:120px !important;
-
-}
-
 
 
 
 .products-grid,
 .coupon-grid{
 
- grid-template-columns:
- 1fr !important;
+grid-template-columns:1fr !important;
 
 }
 
@@ -157,7 +203,7 @@ body{
 
 .deals-section h2{
 
- font-size:28px;
+font-size:28px;
 
 }
 
@@ -165,7 +211,7 @@ body{
 
 .featured-title{
 
- font-size:28px !important;
+font-size:28px !important;
 
 }
 
@@ -174,8 +220,6 @@ body{
 }
 
 
-
-/* أجهزة صغيرة جدا */
 
 @media(max-width:420px){
 
@@ -187,6 +231,7 @@ font-size:30px !important;
 }
 
 
+
 .hero-btn{
 
 width:100%;
@@ -195,15 +240,4 @@ width:100%;
 
 
 
-.floating{
-
-display:none;
-
-}
-
-
-}
-.container {
-  width: min(1200px, 92%);
-  margin: auto;
 }
