@@ -7,6 +7,8 @@ import {
   shoppingBag
 } from "../assets/heroAssets";
 
+import HeroEffects from "./HeroEffects";
+
 
 export default function Hero() {
 
@@ -36,6 +38,12 @@ return (
 <section className="hero">
 
 
+{/* العملات المتساقطة */}
+
+<HeroEffects />
+
+
+
 <div className="hero-overlay"></div>
 
 
@@ -45,7 +53,10 @@ return (
 
 
 
+
+
 {/* الصور الثلاثية الأبعاد */}
+
 
 <img
 src={coin}
@@ -80,6 +91,7 @@ alt="shopping bag"
 
 
 
+
 <div className="floating sale">
 
 70%
@@ -89,7 +101,10 @@ alt="shopping bag"
 
 
 
+
+
 <div className="hero-content">
+
 
 
 <span className="hero-badge">
@@ -97,6 +112,8 @@ alt="shopping bag"
 🔥 أكثر من 10000 كوبون خصم
 
 </span>
+
+
 
 
 
@@ -110,6 +127,8 @@ alt="shopping bag"
 
 
 
+
+
 <p>
 
 اكتشف أحدث أكواد الخصم والعروض
@@ -117,6 +136,9 @@ alt="shopping bag"
 العالمية.
 
 </p>
+
+
+
 
 
 
@@ -132,7 +154,11 @@ onClick={scrollToCoupons}
 
 
 
+
+
+
 <div className="hero-stats">
+
 
 
 <div>
@@ -146,6 +172,8 @@ onClick={scrollToCoupons}
 </span>
 
 </div>
+
+
 
 
 
@@ -163,6 +191,8 @@ onClick={scrollToCoupons}
 
 
 
+
+
 <div>
 
 <h2>
@@ -177,10 +207,14 @@ onClick={scrollToCoupons}
 
 
 
-</div>
 
 
 </div>
+
+
+
+</div>
+
 
 
 </section>
