@@ -19,25 +19,14 @@ linear-gradient(
 180deg,
 rgba(15,23,42,.25),
 rgba(15,23,42,.65)
-),
-url("../assets/hero/hero-background.png");
-
-background-size:cover;
-
-background-position:center;
-
-background-repeat:no-repeat;
+);
 
 color:white;
 
 text-align:center;
 
-perspective:1200px;
-
 }
 
-
-/* طبقة حماية الخلفية */
 
 .hero-overlay{
 
@@ -62,7 +51,6 @@ z-index:1;
 }
 
 
-/* الإضاءات */
 
 .hero-light{
 
@@ -81,6 +69,7 @@ z-index:2;
 pointer-events:none;
 
 }
+
 
 
 .hero-light-1{
@@ -131,96 +120,6 @@ width:100%;
 
 
 
-/* الصور الثلاثية الأبعاد */
-
-.floating{
-
-position:absolute;
-
-z-index:5;
-
-pointer-events:none;
-
-filter:
-drop-shadow(
-0 25px 40px rgba(0,0,0,.45)
-);
-
-animation:float 7s ease-in-out infinite;
-
-transition:.4s;
-
-will-change:transform;
-
-}
-
-
-
-/* العملة */
-
-.coin{
-
-width:170px;
-
-top:14%;
-
-left:7%;
-
-animation-delay:.2s;
-
-}
-
-
-
-/* الكوبون */
-
-.coupon{
-
-width:240px;
-
-top:18%;
-
-right:6%;
-
-animation-delay:1s;
-
-}
-
-
-
-/* الهدية */
-
-.gift{
-
-width:180px;
-
-bottom:18%;
-
-left:10%;
-
-animation-delay:2s;
-
-}
-
-
-
-/* حقيبة التسوق */
-
-.bag{
-
-width:250px;
-
-bottom:10%;
-
-right:8%;
-
-animation-delay:3s;
-
-}
-
-
-
-/* البادج */
 
 .hero-badge{
 
@@ -245,7 +144,6 @@ border:1px solid rgba(255,255,255,.2);
 
 
 
-/* العنوان */
 
 .hero h1{
 
@@ -261,7 +159,6 @@ font-weight:900;
 
 
 
-/* الوصف */
 
 .hero p{
 
@@ -277,7 +174,6 @@ margin-bottom:40px;
 
 
 
-/* الزر */
 
 .hero-btn{
 
@@ -324,7 +220,6 @@ box-shadow:
 
 
 
-/* الإحصائيات */
 
 .hero-stats{
 
@@ -383,27 +278,6 @@ opacity:.9;
 
 
 
-/* الحركات */
-
-@keyframes float{
-
-0%,
-100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-30px);
-
-}
-
-}
-
-
-
 @keyframes pulse{
 
 0%,
@@ -423,9 +297,9 @@ transform:scale(1.18);
 
 
 
-/* =====================
-TABLET
-===================== */
+
+
+/* TABLET */
 
 @media(max-width:1024px){
 
@@ -435,11 +309,13 @@ padding:80px 30px;
 
 }
 
+
 .hero h1{
 
 font-size:48px;
 
 }
+
 
 .hero p{
 
@@ -447,37 +323,12 @@ font-size:20px;
 
 }
 
-.coin{
-
-width:130px;
-
-}
-
-.coupon{
-
-width:180px;
-
-}
-
-.gift{
-
-width:140px;
-
-}
-
-.bag{
-
-width:180px;
-
-}
-
 }
 
 
 
-/* =====================
-MOBILE
-===================== */
+
+/* MOBILE */
 
 @media(max-width:768px){
 
@@ -489,6 +340,7 @@ padding:100px 20px 70px;
 
 }
 
+
 .hero h1{
 
 font-size:32px;
@@ -497,11 +349,13 @@ line-height:1.45;
 
 }
 
+
 .hero p{
 
 font-size:16px;
 
 }
+
 
 .hero-btn{
 
@@ -512,6 +366,7 @@ max-width:330px;
 padding:17px;
 
 }
+
 
 .hero-stats{
 
@@ -525,6 +380,7 @@ margin-top:45px;
 
 }
 
+
 .hero-stats div{
 
 min-width:auto;
@@ -533,59 +389,17 @@ padding:18px;
 
 }
 
+
 .hero-stats h2{
 
 font-size:28px;
 
 }
 
-.coin{
-
-width:80px;
-
-top:5%;
-
-left:2%;
-
-}
-
-.coupon{
-
-width:110px;
-
-top:12%;
-
-right:2%;
-
-}
-
-.gift{
-
-width:85px;
-
-bottom:10%;
-
-left:2%;
-
-}
-
-.bag{
-
-width:120px;
-
-bottom:8%;
-
-right:2%;
-
-}
-
 }
 
 
 
-/* =====================
-SMALL PHONES
-===================== */
 
 @media(max-width:480px){
 
@@ -595,11 +409,13 @@ padding:90px 15px 50px;
 
 }
 
+
 .hero h1{
 
 font-size:27px;
 
 }
+
 
 .hero p{
 
@@ -607,18 +423,10 @@ font-size:15px;
 
 }
 
+
 .hero-stats{
 
 grid-template-columns:1fr;
-
-}
-
-.coin,
-.coupon,
-.gift,
-.bag{
-
-opacity:.35;
 
 }
 
