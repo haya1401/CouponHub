@@ -32,9 +32,7 @@ y:0
 
 
 
-
 function handleMouseMove(e){
-
 
 
 const x =
@@ -50,8 +48,6 @@ const y =
 
 
 
-
-
 setMouse({
 
 x,
@@ -61,11 +57,7 @@ y
 });
 
 
-
 }
-
-
-
 
 
 
@@ -74,21 +66,16 @@ y
 function scrollToCoupons(){
 
 
-
 const section =
 
 document.getElementById(
-
 "featured-coupons"
-
 );
 
 
 
 
-
 if(section){
-
 
 
 section.scrollIntoView({
@@ -98,15 +85,10 @@ behavior:"smooth"
 });
 
 
-
 }
 
 
-
 }
-
-
-
 
 
 
@@ -129,12 +111,9 @@ onMouseMove={handleMouseMove}
 
 
 
-
 {/* العملات المتساقطة */}
 
 <HeroEffects />
-
-
 
 
 
@@ -144,14 +123,9 @@ onMouseMove={handleMouseMove}
 
 
 
-
 <div className="hero-light hero-light-1"></div>
 
-
-
 <div className="hero-light hero-light-2"></div>
-
-
 
 
 
@@ -168,26 +142,21 @@ onMouseMove={handleMouseMove}
 
 <img
 
-
 src={coin}
-
 
 className="floating coin"
 
-
 alt="gold coin"
 
+loading="lazy"
 
 style={{
-
 
 transform:
 
 `translate(${mouse.x}px,${mouse.y}px)`
 
-
 }}
-
 
 />
 
@@ -197,30 +166,23 @@ transform:
 
 
 
-
-
 <img
-
 
 src={coupon}
 
-
 className="floating coupon"
-
 
 alt="coupon"
 
+loading="lazy"
 
 style={{
-
 
 transform:
 
 `translate(${mouse.x * -1}px,${mouse.y}px)`
 
-
 }}
-
 
 />
 
@@ -231,32 +193,25 @@ transform:
 
 
 
-
 <img
-
 
 src={gift}
 
-
 className="floating gift"
-
 
 alt="gift"
 
+loading="lazy"
 
 style={{
-
 
 transform:
 
 `translate(${mouse.x / 2}px,${mouse.y / 2}px)`
 
-
 }}
 
-
 />
-
 
 
 
@@ -267,31 +222,23 @@ transform:
 
 <img
 
-
 src={shoppingBag}
-
 
 className="floating bag"
 
-
 alt="shopping bag"
 
+loading="lazy"
 
 style={{
-
 
 transform:
 
 `translate(${mouse.x * -0.5}px,${mouse.y * -0.5}px)`
 
-
 }}
 
-
 />
-
-
-
 
 
 
@@ -303,14 +250,9 @@ transform:
 
 <div className="floating sale">
 
-
 70%
 
-
 </div>
-
-
-
 
 
 
@@ -344,19 +286,13 @@ transform:
 
 
 
-
-
 <h1>
-
 
 وفر أكثر مع أفضل
 
-
 <br/>
 
-
 كوبونات الخصم والعروض
-
 
 </h1>
 
@@ -370,13 +306,11 @@ transform:
 
 <p>
 
-
 اكتشف أحدث أكواد الخصم والعروض
 
 الحصرية من أشهر المتاجر
 
 العالمية.
-
 
 </p>
 
@@ -388,16 +322,11 @@ transform:
 
 
 
-
-
 <button
-
 
 className="hero-btn"
 
-
 onClick={scrollToCoupons}
-
 
 >
 
@@ -415,10 +344,6 @@ onClick={scrollToCoupons}
 
 
 
-
-
-
-
 <div className="hero-stats">
 
 
@@ -427,8 +352,8 @@ onClick={scrollToCoupons}
 
 
 
-<div>
 
+<div>
 
 <h2>
 
@@ -443,7 +368,6 @@ onClick={scrollToCoupons}
 
 </span>
 
-
 </div>
 
 
@@ -452,10 +376,7 @@ onClick={scrollToCoupons}
 
 
 
-
-
 <div>
-
 
 <h2>
 
@@ -470,7 +391,6 @@ onClick={scrollToCoupons}
 
 </span>
 
-
 </div>
 
 
@@ -479,10 +399,7 @@ onClick={scrollToCoupons}
 
 
 
-
-
 <div>
-
 
 <h2>
 
@@ -497,6 +414,13 @@ onClick={scrollToCoupons}
 
 </span>
 
+</div>
+
+
+
+
+
+
 
 </div>
 
@@ -506,19 +430,7 @@ onClick={scrollToCoupons}
 
 
 
-
-
 </div>
-
-
-
-
-
-
-
-
-</div>
-
 
 
 
@@ -531,7 +443,6 @@ onClick={scrollToCoupons}
 
 
 );
-
 
 
 }
