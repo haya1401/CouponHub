@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
+
+import AnimatedBackground from "./components/AnimatedBackground";
+
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
@@ -8,6 +11,7 @@ import FeaturedCoupons from "./components/FeaturedCoupons";
 import DealsShowcase from "./components/DealsShowcase";
 import Categories from "./components/Categories";
 import Footer from "./components/Footer";
+
 
 
 import Stores from "./pages/Stores";
@@ -20,59 +24,76 @@ import Dashboard from "./pages/Dashboard";
 
 
 
-function Home() {
 
 
-  useEffect(() => {
+function Home(){
 
 
-    document.title =
-      "CouponHub | أفضل كوبونات الخصم والعروض الحصرية";
+useEffect(()=>{
 
 
-
-    const description =
-      document.querySelector(
-        'meta[name="description"]'
-      );
+document.title =
+"CouponHub | أفضل كوبونات الخصم والعروض الحصرية";
 
 
 
-    if(description){
-
-      description.setAttribute(
-        "content",
-        "اكتشف أحدث كوبونات الخصم وأكواد التخفيض والعروض الحصرية من أشهر المتاجر المحلية والعالمية عبر CouponHub."
-      );
-
-    }
-
-
-  }, []);
+const description =
+document.querySelector(
+'meta[name="description"]'
+);
 
 
 
+if(description){
 
+description.setAttribute(
 
-  return (
+"content",
 
-    <>
+"اكتشف أحدث كوبونات الخصم وأكواد التخفيض والعروض الحصرية من أشهر المتاجر المحلية والعالمية عبر CouponHub."
 
-      <Hero />
-
-      <StoreLogos />
-
-      <FeaturedCoupons />
-
-      <DealsShowcase />
-
-      <Categories />
-
-    </>
-
-  );
+);
 
 }
+
+
+
+},[]);
+
+
+
+
+
+
+
+return (
+
+<>
+
+
+<Hero />
+
+
+<StoreLogos />
+
+
+<FeaturedCoupons />
+
+
+<DealsShowcase />
+
+
+<Categories />
+
+
+</>
+
+);
+
+
+}
+
+
 
 
 
@@ -88,11 +109,23 @@ return (
 <>
 
 
+{/* الخلفية المتحركة */}
+
+<AnimatedBackground />
+
+
+
+
 <Header />
 
 
 
+
+
 <Routes>
+
+
+
 
 
 <Route
@@ -102,6 +135,8 @@ path="/"
 element={<Home />}
 
 />
+
+
 
 
 
@@ -119,6 +154,8 @@ element={<Stores />}
 
 
 
+
+
 <Route
 
 path="/coupons"
@@ -126,6 +163,8 @@ path="/coupons"
 element={<Coupons />}
 
 />
+
+
 
 
 
@@ -143,6 +182,8 @@ element={<StoreCoupons />}
 
 
 
+
+
 <Route
 
 path="/categories"
@@ -150,6 +191,8 @@ path="/categories"
 element={<CategoriesPage />}
 
 />
+
+
 
 
 
@@ -167,6 +210,8 @@ element={<Contact />}
 
 
 
+
+
 <Route
 
 path="/admin"
@@ -174,6 +219,8 @@ path="/admin"
 element={<AdminLogin />}
 
 />
+
+
 
 
 
@@ -191,13 +238,16 @@ element={<Dashboard />}
 
 
 
+
 </Routes>
 
 
 
 
 
+
 <Footer />
+
 
 
 
