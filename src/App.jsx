@@ -10,6 +10,8 @@ import "./components/ScrollReveal.css";
 
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import OfferBar from "./components/OfferBar";
+
 import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
 import DealsShowcase from "./components/DealsShowcase";
@@ -30,9 +32,6 @@ import Dashboard from "./pages/Dashboard";
 
 
 
-
-
-
 function Home(){
 
 
@@ -46,15 +45,11 @@ document.title =
 
 
 
-
 const description =
 
 document.querySelector(
-
 'meta[name="description"]'
-
 );
-
 
 
 
@@ -81,14 +76,18 @@ description.setAttribute(
 
 
 
-
-
 return (
 
 <>
 
 
 <Hero />
+
+
+{/* شريط العروض المتحرك */}
+
+<OfferBar />
+
 
 
 <StoreLogos />
@@ -140,9 +139,7 @@ return (
 
 
 
-
 <div className="site-content">
-
 
 
 
@@ -156,9 +153,7 @@ return (
 
 
 
-
 <Header />
-
 
 
 
@@ -172,9 +167,6 @@ return (
 
 
 
-
-
-
 <Route
 
 path="/"
@@ -182,9 +174,6 @@ path="/"
 element={<Home />}
 
 />
-
-
-
 
 
 
@@ -204,9 +193,6 @@ element={<Stores />}
 
 
 
-
-
-
 <Route
 
 path="/coupons"
@@ -214,9 +200,6 @@ path="/coupons"
 element={<Coupons />}
 
 />
-
-
-
 
 
 
@@ -236,9 +219,6 @@ element={<StoreCoupons />}
 
 
 
-
-
-
 <Route
 
 path="/categories"
@@ -246,9 +226,6 @@ path="/categories"
 element={<CategoriesPage />}
 
 />
-
-
-
 
 
 
@@ -268,9 +245,6 @@ element={<Contact />}
 
 
 
-
-
-
 <Route
 
 path="/admin"
@@ -278,9 +252,6 @@ path="/admin"
 element={<AdminLogin />}
 
 />
-
-
-
 
 
 
@@ -299,9 +270,6 @@ element={<Dashboard />}
 
 
 
-
-
-
 </Routes>
 
 
@@ -310,9 +278,7 @@ element={<Dashboard />}
 
 
 
-
 <Footer />
-
 
 
 
