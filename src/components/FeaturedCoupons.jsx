@@ -7,6 +7,8 @@ import {
 
 import { db } from "../firebase";
 
+import "./FeaturedCoupons.css";
+
 
 
 async function copyCode(code, affiliate) {
@@ -27,7 +29,6 @@ async function copyCode(code, affiliate) {
   }
 
 
-
   try {
 
     await navigator.clipboard.writeText(code);
@@ -35,23 +36,164 @@ async function copyCode(code, affiliate) {
     alert("✅ تم نسخ الكود: " + code);
 
 
-  } catch (error) {
+  } catch(error) {
 
-    console.error("خطأ النسخ:", error);
-
+    console.error(
+      "خطأ النسخ:",
+      error
+    );
 
   }
 
 
-
-  if (
+  if(
     newWindow &&
     affiliate
-  ) {
+  ){
 
     newWindow.location.href = affiliate;
 
   }
+
+}
+
+
+
+
+export default function FeaturedCoupons(){
+
+
+const [coupons,setCoupons] = useState([]);
+
+const [search,setSearch] = useState([]);
+
+
+
+useEffect(()=>{
+
+
+async function loadCoupons(){
+
+
+const querySnapshot =
+await getDocs(
+collection(db,"coupons")
+);
+
+
+
+const data=[];
+
+
+
+querySnapshot.forEach((doc)=>{
+
+
+const item=doc.data();
+
+
+data.push({
+
+id:doc.id,
+
+...item,
+
+affiliate:
+item.affiliate || ""
+
+});
+
+
+});
+
+
+
+setCoupons(data);
+
+
+
+}
+
+
+
+loadCoupons();
+
+
+
+},[]);
+
+
+
+
+
+
+const filteredCoupons =
+coupons.filter((coupon)=>
+
+(coupon.store || "")
+
+.toLowerCase()
+
+.includes(
+search.toLowerCase()
+)
+
+);
+
+
+
+
+
+function cardMove(e){
+
+
+const card =
+e.currentTarget;
+
+
+const rect =
+card.getBoundingClientRect();
+
+
+
+const x =
+e.clientX - rect.left;
+
+
+
+const y =
+e.clientY - rect.top;
+
+
+
+const rotateX =
+(y - rect.height / 2) / 15;
+
+
+
+const rotateY =
+(rect.width / 2 - x) / 15;
+
+
+
+card.style.transform =
+`
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+translateY(-12px)
+`;
+
+
+
+}
+
+
+
+function resetCard(e){
+
+
+e.currentTarget.style.transform =
+"rotateX(0) rotateY(0) translateY(0)";
 
 
 }
@@ -59,506 +201,191 @@ async function copyCode(code, affiliate) {
 
 
 
-export default function FeaturedCoupons() {
 
 
-  const [coupons, setCoupons] = useState([]);
+return(
 
-  const [search, setSearch] = useState("");
 
+<section
+id="featured-coupons"
+className="featured-section"
+>
 
 
 
-  useEffect(() => {
+<h2 className="featured-title">
 
+⭐ أفضل الكوبونات
 
-    async function loadCoupons() {
+</h2>
 
 
-      const querySnapshot = await getDocs(
-        collection(db, "coupons")
-      );
 
 
 
-      const data = [];
+<div className="coupon-search">
 
 
+<input
 
-      querySnapshot.forEach((doc) => {
+type="text"
 
+placeholder="🔍 ابحث باسم المتجر..."
 
-        const item = doc.data();
+value={search}
 
+onChange={(e)=>
+setSearch(e.target.value)
+}
 
+/>
 
-        data.push({
 
-          id: doc.id,
+</div>
 
 
-          ...item,
 
 
-          affiliate:
-            item.affiliate || ""
 
-        });
 
 
+<div className="coupon-grid">
 
-      });
 
+{
 
+filteredCoupons.map((coupon)=>(
 
-      console.log(
-        "جميع الكوبونات:",
-        data
-      );
 
+<div
 
+key={coupon.id}
 
-      setCoupons(data);
+className="coupon-card"
 
+onMouseMove={cardMove}
 
+onMouseLeave={resetCard}
 
-    }
+>
 
 
 
-    loadCoupons();
+<div className="shine"></div>
 
 
 
-  }, []);
+<h3>
 
+{coupon.store}
 
+</h3>
 
 
 
 
-  const filteredCoupons = coupons.filter((coupon) =>
 
+<h1>
 
-    (coupon.store || "")
+{coupon.discount}
 
-      .toLowerCase()
+</h1>
 
-      .includes(
-        search.toLowerCase()
-      )
 
 
-  );
 
 
 
+<div className="coupon-code">
 
+{coupon.code}
 
+</div>
 
 
-  return (
 
 
-    <section
 
-      id="featured-coupons"
 
-      style={{
 
-        padding:"70px 20px",
+<button
 
-        background:"#f8fafc"
+onClick={()=>
 
-      }}
 
-    >
+copyCode(
 
+coupon.code,
 
+coupon.affiliate
 
-      <h2
+)
 
-        style={{
 
-          textAlign:"center",
+}
 
-          marginBottom:"25px",
+>
 
-          fontSize:"34px"
+📋 نسخ الكوبون
 
-        }}
+</button>
 
-      >
 
-        ⭐ أفضل الكوبونات
 
-      </h2>
 
 
 
+{
 
+coupon.affiliate &&
 
-      <div
+<p className="affiliate">
 
-        style={{
+🔗 رابط أفلييت جاهز
 
-          maxWidth:"500px",
+</p>
 
-          margin:"0 auto 40px"
 
-        }}
+}
 
-      >
 
 
+</div>
 
-        <input
 
 
-          type="text"
+))
 
 
-          placeholder="🔍 ابحث باسم المتجر..."
+}
 
 
-          value={search}
+</div>
 
 
-          onChange={(e)=>
 
-            setSearch(e.target.value)
 
-          }
 
 
-          style={{
+{
 
-            width:"100%",
+filteredCoupons.length===0 &&
 
-            padding:"15px",
+<p className="empty">
 
-            borderRadius:"12px",
+لا توجد كوبونات مطابقة للبحث.
 
-            border:"1px solid #ddd",
+</p>
 
-            fontSize:"16px",
 
-            outline:"none"
+}
 
-          }}
 
 
-        />
+</section>
 
 
-      </div>
-
-
-
-
-
-
-
-      <div
-
-
-        style={{
-
-
-          maxWidth:"1100px",
-
-
-          margin:"auto",
-
-
-          display:"grid",
-
-
-          gridTemplateColumns:
-
-          "repeat(auto-fit,minmax(280px,1fr))",
-
-
-          gap:"25px"
-
-
-        }}
-
-
-      >
-
-
-
-
-
-
-      {
-
-        filteredCoupons.map((coupon)=>(
-
-
-
-          <div
-
-
-            key={coupon.id}
-
-
-            style={{
-
-
-              background:"#fff",
-
-
-              borderRadius:"16px",
-
-
-              padding:"25px",
-
-
-              boxShadow:
-
-              "0 8px 20px rgba(0,0,0,.08)"
-
-
-            }}
-
-
-
-          >
-
-
-
-            <h3>
-
-              {coupon.store}
-
-            </h3>
-
-
-
-
-
-            <h1
-
-
-              style={{
-
-
-                color:"#2563eb",
-
-                margin:"20px 0"
-
-
-              }}
-
-
-            >
-
-              {coupon.discount}
-
-
-            </h1>
-
-
-
-
-
-
-            <div
-
-
-              style={{
-
-
-                background:"#eef2ff",
-
-                padding:"12px",
-
-                borderRadius:"10px",
-
-                textAlign:"center",
-
-                fontWeight:"bold",
-
-                letterSpacing:"2px"
-
-
-              }}
-
-
-            >
-
-              {coupon.code}
-
-
-            </div>
-
-
-
-
-
-
-
-            <button
-
-
-              onClick={()=>
-
-                copyCode(
-
-                  coupon.code,
-
-                  coupon.affiliate
-
-                )
-
-              }
-
-
-              style={{
-
-
-                width:"100%",
-
-
-                marginTop:"18px",
-
-
-                padding:"14px",
-
-
-                border:"none",
-
-
-                borderRadius:"10px",
-
-
-                background:"#2563eb",
-
-
-                color:"#fff",
-
-
-                cursor:"pointer",
-
-
-                fontSize:"16px"
-
-
-              }}
-
-
-            >
-
-              📋 نسخ الكوبون
-
-
-            </button>
-
-
-
-
-
-
-            {
-
-              coupon.affiliate && (
-
-
-                <p
-
-                  style={{
-
-                    marginTop:"10px",
-
-                    fontSize:"12px",
-
-                    color:"#16a34a",
-
-                    wordBreak:"break-all"
-
-                  }}
-
-                >
-
-                  🔗 رابط أفلييت جاهز
-
-                </p>
-
-
-              )
-
-            }
-
-
-
-
-
-
-          </div>
-
-
-
-        ))
-
-
-      }
-
-
-
-      </div>
-
-
-
-
-
-
-
-      {
-
-        filteredCoupons.length === 0 && (
-
-
-          <p
-
-
-            style={{
-
-
-              textAlign:"center",
-
-              marginTop:"40px",
-
-              color:"#666"
-
-
-            }}
-
-
-          >
-
-            لا توجد كوبونات مطابقة للبحث.
-
-          </p>
-
-
-
-        )
-
-
-      }
-
-
-
-
-
-
-    </section>
-
-
-
-  );
+);
 
 
 }
