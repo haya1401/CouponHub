@@ -32,12 +32,11 @@ import Dashboard from "./pages/Dashboard";
 
 
 
+
 function Home(){
 
 
-
 useEffect(()=>{
-
 
 
 document.title =
@@ -63,7 +62,6 @@ document.querySelector(
 if(description){
 
 
-
 description.setAttribute(
 
 "content",
@@ -71,7 +69,6 @@ description.setAttribute(
 "اكتشف أحدث كوبونات الخصم وأكواد التخفيض والعروض الحصرية من أشهر المتاجر المحلية والعالمية عبر CouponHub."
 
 );
-
 
 
 }
@@ -88,36 +85,27 @@ description.setAttribute(
 
 return (
 
-
-
 <>
 
 
 <Hero />
 
 
-
 <StoreLogos />
-
 
 
 <FeaturedCoupons />
 
 
-
 <DealsShowcase />
-
 
 
 <Categories />
 
 
-
 </>
 
-
 );
-
 
 
 }
@@ -137,7 +125,6 @@ export default function App(){
 return (
 
 
-
 <>
 
 
@@ -152,10 +139,18 @@ return (
 
 
 
-{/* نظام ظهور العناصر عند التمرير */}
+
+
+<div className="site-content">
+
+
+
+
+
+
+{/* تأثير ظهور العناصر عند التمرير */}
 
 <ScrollReveal />
-
 
 
 
@@ -179,6 +174,7 @@ return (
 
 
 
+
 <Route
 
 path="/"
@@ -186,6 +182,7 @@ path="/"
 element={<Home />}
 
 />
+
 
 
 
@@ -209,6 +206,7 @@ element={<Stores />}
 
 
 
+
 <Route
 
 path="/coupons"
@@ -216,6 +214,7 @@ path="/coupons"
 element={<Coupons />}
 
 />
+
 
 
 
@@ -239,6 +238,7 @@ element={<StoreCoupons />}
 
 
 
+
 <Route
 
 path="/categories"
@@ -246,6 +246,7 @@ path="/categories"
 element={<CategoriesPage />}
 
 />
+
 
 
 
@@ -269,6 +270,7 @@ element={<Contact />}
 
 
 
+
 <Route
 
 path="/admin"
@@ -276,6 +278,7 @@ path="/admin"
 element={<AdminLogin />}
 
 />
+
 
 
 
@@ -298,8 +301,8 @@ element={<Dashboard />}
 
 
 
-</Routes>
 
+</Routes>
 
 
 
@@ -315,11 +318,18 @@ element={<Dashboard />}
 
 
 
+
+</div>
+
+
+
+
+
+
 </>
 
 
 );
-
 
 
 }
