@@ -1,39 +1,7 @@
-import { useState } from "react";
 import "./Hero.css";
-
-import {
-  coin,
-  coupon,
-  gift,
-  shoppingBag
-} from "../assets/heroAssets";
 
 
 export default function Hero() {
-
-
-  const [mouse,setMouse] = useState({
-    x:0,
-    y:0
-  });
-
-
-
-  function handleMouseMove(e){
-
-    const x =
-      (e.clientX / window.innerWidth - 0.5) * 25;
-
-    const y =
-      (e.clientY / window.innerHeight - 0.5) * 25;
-
-
-    setMouse({
-      x,
-      y
-    });
-
-  }
 
 
 
@@ -57,60 +25,14 @@ export default function Hero() {
 
 
 
-
 return (
 
 <section
 className="hero reveal"
-onMouseMove={handleMouseMove}
 >
 
 
-
 <div className="hero-overlay"></div>
-
-
-
-{/* العناصر الثلاثية الأبعاد */}
-
-<img
-src={coin}
-className="floating coin"
-style={{
-transform:
-`translate(${mouse.x}px,${mouse.y}px)`
-}}
-/>
-
-
-<img
-src={coupon}
-className="floating coupon"
-style={{
-transform:
-`translate(${mouse.x*-1}px,${mouse.y}px)`
-}}
-/>
-
-
-<img
-src={gift}
-className="floating gift"
-style={{
-transform:
-`translate(${mouse.x}px,${mouse.y*-1}px)`
-}}
-/>
-
-
-<img
-src={shoppingBag}
-className="floating bag"
-style={{
-transform:
-`translate(${mouse.x*-1}px,${mouse.y*-1}px)`
-}}
-/>
 
 
 
@@ -120,7 +42,9 @@ transform:
 
 
 
+
 <div className="hero-content">
+
 
 
 <span className="hero-badge">
@@ -128,6 +52,7 @@ transform:
 🔥 أكثر من 10000 كوبون خصم
 
 </span>
+
 
 
 
@@ -141,12 +66,14 @@ transform:
 
 
 
+
 <p>
 
 اكتشف أحدث أكواد الخصم والعروض
 الحصرية من أشهر المتاجر العالمية.
 
 </p>
+
 
 
 
@@ -162,31 +89,53 @@ onClick={scrollToCoupons}
 
 
 
+
 <div className="hero-stats">
 
 
+
 <div>
+
 <h2>500+</h2>
-<span>متجر</span>
+
+<span>
+متجر
+</span>
+
 </div>
 
 
+
 <div>
+
 <h2>10000+</h2>
-<span>كوبون</span>
+
+<span>
+كوبون
+</span>
+
 </div>
+
 
 
 <div>
+
 <h2>24/7</h2>
-<span>تحديث يومي</span>
+
+<span>
+تحديث يومي
+</span>
+
+</div>
+
+
+
 </div>
 
 
-</div>
-
 
 </div>
+
 
 
 </section>
