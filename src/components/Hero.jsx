@@ -35,21 +35,32 @@ export default function Hero() {
       <div className="hero-light hero-light-1"></div>
       <div className="hero-light hero-light-2"></div>
 
-      <div className="floating coin">
-        🪙
-      </div>
+<img
+src={coin}
+className="floating coin"
+alt="gold coin"
+/>
 
-      <div className="floating coupon">
-        🏷️
-      </div>
 
-      <div className="floating gift">
-        🎁
-      </div>
+<img
+src={coupon}
+className="floating coupon"
+alt="coupon"
+/>
 
-      <div className="floating bag">
-        🛍️
-      </div>
+
+<img
+src={gift}
+className="floating gift"
+alt="gift"
+/>
+
+
+<img
+src={shoppingBag}
+className="floating bag"
+alt="shopping bag"
+/>
 
       <div className="floating sale">
         70%
