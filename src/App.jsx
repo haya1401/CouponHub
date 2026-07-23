@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
 
-import AnimatedBackground from "./components/AnimatedBackground";
 import ScrollReveal from "./components/ScrollReveal";
 
 import "./components/ScrollReveal.css";
@@ -76,12 +75,14 @@ description.setAttribute(
 
 
 
+
 return (
 
 <>
 
 
 <Hero />
+
 
 
 {/* شريط العروض المتحرك */}
@@ -127,21 +128,7 @@ return (
 <>
 
 
-
-
-
-{/* الخلفية المتحركة */}
-
-<AnimatedBackground />
-
-
-
-
-
-
 <div className="site-content">
-
-
 
 
 
@@ -151,19 +138,12 @@ return (
 
 
 
-
-
 <Header />
 
 
 
 
-
-
-
 <Routes>
-
-
 
 
 
@@ -174,7 +154,6 @@ path="/"
 element={<Home />}
 
 />
-
 
 
 
@@ -192,7 +171,6 @@ element={<Stores />}
 
 
 
-
 <Route
 
 path="/coupons"
@@ -200,7 +178,6 @@ path="/coupons"
 element={<Coupons />}
 
 />
-
 
 
 
@@ -218,7 +195,6 @@ element={<StoreCoupons />}
 
 
 
-
 <Route
 
 path="/categories"
@@ -226,7 +202,6 @@ path="/categories"
 element={<CategoriesPage />}
 
 />
-
 
 
 
@@ -244,7 +219,6 @@ element={<Contact />}
 
 
 
-
 <Route
 
 path="/admin"
@@ -252,7 +226,6 @@ path="/admin"
 element={<AdminLogin />}
 
 />
-
 
 
 
@@ -269,10 +242,7 @@ element={<Dashboard />}
 
 
 
-
 </Routes>
-
-
 
 
 
@@ -282,13 +252,7 @@ element={<Dashboard />}
 
 
 
-
-
-
 </div>
-
-
-
 
 
 
