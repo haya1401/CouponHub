@@ -5,71 +5,69 @@ import coupon from "../assets/hero/coupon.webp";
 import bag from "../assets/hero/shopping-bag.webp";
 import gift from "../assets/hero/gift.webp";
 
+const coins = Array.from({ length: 30 }, (_, i) => ({
+  id: i,
+  left: (i * 3.3) % 100,
+  delay: -(i * 0.6),
+  duration: 6 + (i % 5),
+  size: 28 + (i % 4) * 10
+}));
+
+const coupons = Array.from({ length: 6 }, (_, i) => ({
+  id: i,
+  top: 12 + i * 12,
+  delay: i * 3
+}));
+
 export default function FloatingObjects() {
-
-  const coins = Array.from({ length: 30 });
-
-  const coupons = Array.from({ length: 8 });
 
   return (
 
     <div className="floating-wrapper">
 
-      {coins.map((_, i) => (
+      {coins.map((coinItem) => (
 
         <img
-
-          key={"coin" + i}
-
+          key={coinItem.id}
           src={coin}
-
           alt=""
-
           className="coin-rain"
-
           style={{
-
-            left: `${Math.random() * 100}%`,
-
-            animationDelay: `${Math.random() * 12}s`,
-
-            animationDuration: `${10 + Math.random() * 8}s`,
-
-            width: `${30 + Math.random() * 35}px`
-
+            left: `${coinItem.left}%`,
+            width: `${coinItem.size}px`,
+            animationDelay: `${coinItem.delay}s`,
+            animationDuration: `${coinItem.duration}s`
           }}
-
         />
 
       ))}
 
-      {coupons.map((_, i) => (
+      {coupons.map((item) => (
 
         <img
-
-          key={"coupon" + i}
-
+          key={item.id}
           src={coupon}
-
           alt=""
-
           className="coupon-float"
-
           style={{
-
-            top: `${10 + Math.random() * 70}%`,
-
-            animationDelay: `${i * 2}s`
-
+            top: `${item.top}%`,
+            animationDelay: `${item.delay}s`
           }}
-
         />
 
       ))}
 
-      <img src={bag} className="bag3d" alt="" />
+      <img
+        src={bag}
+        className="bag3d"
+        alt=""
+      />
 
-      <img src={gift} className="gift3d" alt="" />
+      <img
+        src={gift}
+        className="gift3d"
+        alt=""
+      />
 
     </div>
 
