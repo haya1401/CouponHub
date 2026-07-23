@@ -14,36 +14,11 @@ justify-content:center;
 
 padding:70px 40px;
 
-background:
-linear-gradient(
-180deg,
-#2563eb,
-#1e40af
-);
+background:#f5f7fb;
 
-color:white;
+color:#111827;
 
 text-align:center;
-
-}
-
-
-/* طبقة التغطية */
-
-.hero-overlay{
-
-position:absolute;
-
-inset:0;
-
-background:
-linear-gradient(
-180deg,
-rgba(0,0,0,.15),
-rgba(0,0,0,.35)
-);
-
-z-index:1;
 
 }
 
@@ -73,16 +48,15 @@ padding:13px 25px;
 
 border-radius:999px;
 
-background:
-rgba(255,255,255,.18);
+background:#2563eb;
 
-backdrop-filter:blur(15px);
+color:white;
 
 font-weight:bold;
 
 margin-bottom:25px;
 
-border:1px solid rgba(255,255,255,.2);
+box-shadow:0 10px 25px rgba(37,99,235,.25);
 
 }
 
@@ -99,6 +73,8 @@ margin:0 0 25px;
 
 font-weight:900;
 
+color:#111827;
+
 }
 
 
@@ -110,7 +86,7 @@ font-size:22px;
 
 line-height:1.9;
 
-opacity:.92;
+color:#4b5563;
 
 margin-bottom:40px;
 
@@ -143,7 +119,7 @@ linear-gradient(
 color:#111827;
 
 box-shadow:
-0 20px 40px rgba(0,0,0,.3);
+0 20px 40px rgba(0,0,0,.15);
 
 transition:.35s;
 
@@ -159,7 +135,7 @@ translateY(-8px)
 scale(1.07);
 
 box-shadow:
-0 30px 60px rgba(0,0,0,.4);
+0 30px 60px rgba(0,0,0,.25);
 
 }
 
@@ -191,13 +167,12 @@ padding:22px;
 
 border-radius:22px;
 
-background:
-rgba(255,255,255,.12);
+background:white;
 
-backdrop-filter:blur(15px);
+box-shadow:
+0 10px 30px rgba(0,0,0,.08);
 
-border:
-1px solid rgba(255,255,255,.15);
+border:1px solid #e5e7eb;
 
 }
 
@@ -210,6 +185,8 @@ font-size:40px;
 
 margin:0 0 8px;
 
+color:#2563eb;
+
 }
 
 
@@ -219,7 +196,7 @@ margin:0 0 8px;
 
 font-size:15px;
 
-opacity:.9;
+color:#6b7280;
 
 }
 
