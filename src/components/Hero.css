@@ -14,13 +14,17 @@ justify-content:center;
 
 padding:40px;
 
-background:
+background-image:
 linear-gradient(
-135deg,
-#2563eb,
-#1d4ed8,
-#1e3a8a
-);
+180deg,
+rgba(15,23,42,.35),
+rgba(15,23,42,.55)
+),
+url("../assets/hero/hero-background.webp");
+
+background-size:cover;
+
+background-position:center;
 
 color:white;
 
