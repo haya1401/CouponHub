@@ -1,5 +1,12 @@
 import "./Hero.css";
 
+import {
+  coin,
+  coupon,
+  gift,
+  shoppingBag
+} from "../assets/heroAssets";
+
 export default function Hero() {
 
   function scrollToCoupons() {
