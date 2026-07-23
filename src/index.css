@@ -36,7 +36,173 @@ img {
   max-width: 100%;
   display: block;
 }
+/* =========================
+   Mobile Optimization
+========================= */
 
+
+html{
+  scroll-behavior:smooth;
+}
+
+
+body{
+
+  overflow-x:hidden;
+
+  font-family:
+  "Cairo",
+  Arial,
+  sans-serif;
+
+}
+
+
+/* الشاشات الصغيرة */
+
+@media(max-width:768px){
+
+
+.hero{
+
+  min-height:90vh;
+
+  padding:25px 15px;
+
+}
+
+
+.hero h1{
+
+  font-size:36px !important;
+
+}
+
+
+.hero p{
+
+  font-size:17px !important;
+
+}
+
+
+.hero-content{
+
+  width:100%;
+
+}
+
+
+
+.hero-stats{
+
+  gap:20px !important;
+
+}
+
+
+.hero-stats h2{
+
+  font-size:30px !important;
+
+}
+
+
+
+/* الصور الثلاثية */
+
+.floating.coin{
+
+  width:90px !important;
+
+  left:3%;
+
+}
+
+
+.floating.coupon{
+
+  width:120px !important;
+
+  right:3%;
+
+}
+
+
+.floating.gift{
+
+  width:90px !important;
+
+}
+
+
+.floating.bag{
+
+  width:120px !important;
+
+}
+
+
+
+
+.products-grid,
+.coupon-grid{
+
+ grid-template-columns:
+ 1fr !important;
+
+}
+
+
+
+.deals-section h2{
+
+ font-size:28px;
+
+}
+
+
+
+.featured-title{
+
+ font-size:28px !important;
+
+}
+
+
+
+}
+
+
+
+/* أجهزة صغيرة جدا */
+
+@media(max-width:420px){
+
+
+.hero h1{
+
+font-size:30px !important;
+
+}
+
+
+.hero-btn{
+
+width:100%;
+
+}
+
+
+
+.floating{
+
+display:none;
+
+}
+
+
+}
 .container {
   width: min(1200px, 92%);
   margin: auto;
