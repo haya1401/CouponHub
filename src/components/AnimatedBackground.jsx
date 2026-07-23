@@ -1,48 +1,56 @@
 import "./AnimatedBackground.css";
 
+export default function AnimatedBackground() {
 
-export default function AnimatedBackground(){
+  const particles = Array.from({ length: 40 });
 
+  return (
 
-return (
+    <div
+      className="animated-background"
+      aria-hidden="true"
+    >
 
-<div 
-className="animated-background"
-aria-hidden="true"
->
+      {/* الإضاءات */}
 
+      <div className="glow glow-blue"></div>
 
-<div className="glow glow-blue"></div>
+      <div className="glow glow-gold"></div>
 
+      <div className="glow glow-purple"></div>
 
-<div className="glow glow-gold"></div>
+      {/* الجسيمات */}
 
+      <div className="particles">
 
+        {particles.map((_, index) => (
 
+          <span
 
-<div className="particles">
+            key={index}
 
+            style={{
 
-<span></span>
+              left: `${Math.random() * 100}%`,
 
-<span></span>
+              animationDelay: `${Math.random() * 12}s`,
 
-<span></span>
+              animationDuration: `${8 + Math.random() * 8}s`,
 
-<span></span>
+              width: `${4 + Math.random() * 6}px`,
 
-<span></span>
+              height: `${4 + Math.random() * 6}px`
 
-<span></span>
+            }}
 
+          />
 
-</div>
+        ))}
 
+      </div>
 
+    </div>
 
-</div>
-
-);
-
+  );
 
 }
