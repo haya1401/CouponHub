@@ -2,58 +2,71 @@ import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
 import Hero from "./components/Hero";
+import StoreLogos from "./components/StoreLogos";
+import FeaturedCoupons from "./components/FeaturedCoupons";
+import Categories from "./components/Categories";
 
 import Stores from "./pages/Stores";
 import Coupons from "./pages/Coupons";
 import StoreCoupons from "./pages/StoreCoupons";
 
 
+function Home(){
+
+  return (
+    <>
+      <Hero />
+      <StoreLogos />
+      <FeaturedCoupons />
+      <Categories />
+    </>
+  );
+
+}
+
+
 export default function App(){
 
-return (
+  return (
 
-<div className="app">
+    <div className="app">
 
-<Header />
+      <Header />
 
-<Routes>
+      <main>
 
-<Route
-path="/"
-element={
-<>
-<Hero />
-</>
-}
-/>
+        <Routes>
 
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-<Route
-path="/stores"
-element={<Stores />}
-/>
+          <Route
+            path="/stores"
+            element={<Stores />}
+          />
 
+          <Route
+            path="/coupons"
+            element={<Coupons />}
+          />
 
-<Route
-path="/coupons"
-element={<Coupons />}
-/>
+          <Route
+            path="/store/:id"
+            element={<StoreCoupons />}
+          />
 
+        </Routes>
 
-<Route
-path="/store/:id"
-element={<StoreCoupons />}
-/>
+      </main>
 
+      <Footer />
 
-</Routes>
+    </div>
 
-
-<Footer />
-
-</div>
-
-);
+  );
 
 }
