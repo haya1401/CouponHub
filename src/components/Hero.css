@@ -32,6 +32,8 @@ text-align:center;
 
 }
 
+
+
 .hero-overlay{
 
 position:absolute;
@@ -48,6 +50,8 @@ rgba(0,0,0,.35)
 
 }
 
+
+
 .hero-light{
 
 position:absolute;
@@ -63,6 +67,8 @@ pulse 8s infinite;
 
 }
 
+
+
 .hero-light-1{
 
 width:300px;
@@ -76,6 +82,8 @@ top:-80px;
 left:-80px;
 
 }
+
+
 
 .hero-light-2{
 
@@ -91,6 +99,8 @@ right:-50px;
 
 }
 
+
+
 .hero-content{
 
 position:relative;
@@ -100,6 +110,8 @@ z-index:10;
 max-width:900px;
 
 }
+
+
 
 .hero-badge{
 
@@ -121,6 +133,8 @@ font-weight:bold;
 
 }
 
+
+
 .hero h1{
 
 font-size:62px;
@@ -131,6 +145,8 @@ margin-bottom:20px;
 
 }
 
+
+
 .hero p{
 
 font-size:22px;
@@ -140,6 +156,8 @@ opacity:.9;
 margin-bottom:35px;
 
 }
+
+
 
 .hero-btn{
 
@@ -167,6 +185,8 @@ box-shadow:
 
 }
 
+
+
 .hero-btn:hover{
 
 transform:
@@ -179,6 +199,8 @@ box-shadow:
 0 25px 45px rgba(0,0,0,.35);
 
 }
+
+
 
 .hero-stats{
 
@@ -194,6 +216,8 @@ flex-wrap:wrap;
 
 }
 
+
+
 .hero-stats h2{
 
 font-size:38px;
@@ -202,22 +226,43 @@ margin-bottom:5px;
 
 }
 
+
+
 .hero-stats span{
 
 opacity:.85;
 
 }
 
+
+
+/* الصور الثلاثية الأبعاد */
+
 .floating{
 
 position:absolute;
 
-font-size:55px;
+width:160px;
+
+height:auto;
 
 animation:
+
 float 8s ease-in-out infinite;
 
+filter:
+
+drop-shadow(
+0 25px 35px rgba(0,0,0,.45)
+);
+
+z-index:3;
+
 }
+
+
+
+/* العملة */
 
 .coin{
 
@@ -225,7 +270,13 @@ top:18%;
 
 left:10%;
 
+width:170px;
+
 }
+
+
+
+/* الكوبون */
 
 .coupon{
 
@@ -233,9 +284,15 @@ top:25%;
 
 right:10%;
 
+width:220px;
+
 animation-delay:1s;
 
 }
+
+
+
+/* الهدية */
 
 .gift{
 
@@ -243,9 +300,15 @@ bottom:20%;
 
 left:15%;
 
+width:170px;
+
 animation-delay:2s;
 
 }
+
+
+
+/* حقيبة التسوق */
 
 .bag{
 
@@ -253,9 +316,15 @@ bottom:15%;
 
 right:12%;
 
+width:240px;
+
 animation-delay:3s;
 
 }
+
+
+
+/* نسبة الخصم */
 
 .sale{
 
@@ -273,45 +342,62 @@ animation-delay:1.5s;
 
 }
 
+
+
 @keyframes float{
+
 
 0%,100%{
 
 transform:
+
 translateY(0)
 rotate(0deg);
 
 }
 
+
 50%{
 
 transform:
+
 translateY(-25px)
 rotate(10deg);
 
 }
 
+
 }
 
+
+
 @keyframes pulse{
+
 
 0%,100%{
 
 transform:
+
 scale(1);
 
 }
 
+
 50%{
 
 transform:
+
 scale(1.2);
 
 }
 
+
 }
 
+
+
 @media(max-width:768px){
+
 
 .hero h1{
 
@@ -319,11 +405,15 @@ font-size:38px;
 
 }
 
+
+
 .hero p{
 
 font-size:18px;
 
 }
+
+
 
 .hero-btn{
 
@@ -333,10 +423,53 @@ padding:15px 35px;
 
 }
 
+
+
 .hero-stats{
 
 gap:25px;
 
 }
+
+
+
+.floating{
+
+width:100px;
+
+}
+
+
+
+.coin{
+
+width:110px;
+
+}
+
+
+
+.coupon{
+
+width:140px;
+
+}
+
+
+
+.gift{
+
+width:110px;
+
+}
+
+
+
+.bag{
+
+width:150px;
+
+}
+
 
 }
