@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
 import FeaturedCoupons from "./components/FeaturedCoupons";
-import DealsShowcase from "./components/DealsShowcase";
 import Categories from "./components/Categories";
 import Footer from "./components/Footer";
 
@@ -42,8 +41,6 @@ function Home() {
 
       <FeaturedCoupons />
 
-      <DealsShowcase />
-
       <Categories />
     </>
   );
@@ -71,9 +68,15 @@ export default function App() {
           element={<CategoriesPage />}
         />
 
-        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/contact"
+          element={<Contact />}
+        />
 
-        <Route path="/admin" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={<AdminLogin />}
+        />
 
         <Route
           path="/dashboard"
