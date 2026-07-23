@@ -8,102 +8,89 @@
 ========================= */
 
 *{
-
-margin:0;
-
-padding:0;
-
-box-sizing:border-box;
-
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 
 html,
 body,
 #root{
-
-width:100%;
-
-min-height:100%;
-
+  width:100%;
+  min-height:100%;
 }
-
 
 
 html{
-
-scroll-behavior:smooth;
-
+  scroll-behavior:smooth;
 }
-
 
 
 body{
 
-font-family:
-"Cairo",
-Arial,
-sans-serif;
+  font-family:
+  "Cairo",
+  Arial,
+  sans-serif;
 
-background:#ffffff;
+  background:#ffffff;
 
-color:#222;
+  color:#222;
 
-line-height:1.6;
+  line-height:1.6;
 
-overflow-x:hidden;
+  overflow-x:hidden;
 
 }
 
 
 
 a{
-
-text-decoration:none;
-
-color:inherit;
-
+  text-decoration:none;
+  color:inherit;
 }
 
 
 
 button{
-
-font-family:inherit;
-
+  font-family:inherit;
 }
 
 
 
 img{
 
-max-width:100%;
+  max-width:100%;
 
-display:block;
+  height:auto;
+
+  display:block;
 
 }
 
 
 
 /* =========================
-   Main Content Protection
+   App Layout
 ========================= */
 
-#root{
 
-position:relative;
+.app{
 
-z-index:1;
+  width:100%;
+
+  min-height:100vh;
+
+  overflow:hidden;
 
 }
 
 
 
-.site-content{
+main{
 
-position:relative;
-
-z-index:10;
+  width:100%;
 
 }
 
@@ -113,18 +100,19 @@ z-index:10;
    Container
 ========================= */
 
+
 .container{
 
-width:min(1200px,92%);
+  width:min(1200px,92%);
 
-margin:auto;
+  margin:auto;
 
 }
 
 
 
 /* =========================
-   Mobile Optimization
+   Mobile
 ========================= */
 
 
@@ -133,60 +121,44 @@ margin:auto;
 
 .hero{
 
-min-height:90vh;
+  min-height:90vh;
 
-padding:25px 15px;
+  padding:25px 15px;
 
 }
-
 
 
 .hero h1{
 
-font-size:36px !important;
+  font-size:36px !important;
 
 }
-
 
 
 .hero p{
 
-font-size:17px !important;
+  font-size:17px !important;
 
 }
-
 
 
 .hero-content{
 
-width:100%;
+  width:100%;
 
 }
-
 
 
 .hero-stats{
 
-gap:20px !important;
+  gap:20px !important;
 
 }
-
 
 
 .hero-stats h2{
 
-font-size:30px !important;
-
-}
-
-
-
-/* إخفاء أي عناصر عائمة قديمة */
-
-.floating,
-.floating-wrapper{
-
-display:none !important;
+  font-size:30px !important;
 
 }
 
@@ -195,15 +167,14 @@ display:none !important;
 .products-grid,
 .coupon-grid{
 
-grid-template-columns:1fr !important;
+  grid-template-columns:1fr !important;
 
 }
 
 
-
 .deals-section h2{
 
-font-size:28px;
+  font-size:28px;
 
 }
 
@@ -211,10 +182,9 @@ font-size:28px;
 
 .featured-title{
 
-font-size:28px !important;
+  font-size:28px !important;
 
 }
-
 
 
 }
@@ -226,7 +196,7 @@ font-size:28px !important;
 
 .hero h1{
 
-font-size:30px !important;
+  font-size:30px !important;
 
 }
 
@@ -234,10 +204,9 @@ font-size:30px !important;
 
 .hero-btn{
 
-width:100%;
+  width:100%;
 
 }
-
 
 
 }
