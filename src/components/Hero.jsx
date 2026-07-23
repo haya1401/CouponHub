@@ -7,39 +7,52 @@ import {
   shoppingBag
 } from "../assets/heroAssets";
 
+
 export default function Hero() {
 
-  function scrollToCoupons() {
+
+  function scrollToCoupons(){
 
     const section =
       document.getElementById(
         "featured-coupons"
       );
 
-    if (section) {
+
+    if(section){
 
       section.scrollIntoView({
-        behavior: "smooth"
+        behavior:"smooth"
       });
 
     }
 
   }
 
-  return (
 
-    <section className="hero">
 
-      <div className="hero-overlay"></div>
+return (
 
-      <div className="hero-light hero-light-1"></div>
-      <div className="hero-light hero-light-2"></div>
+<section className="hero">
+
+
+<div className="hero-overlay"></div>
+
+
+<div className="hero-light hero-light-1"></div>
+
+<div className="hero-light hero-light-2"></div>
+
+
+
+{/* الصور الثلاثية الأبعاد */}
 
 <img
 src={coin}
 className="floating coin"
 alt="gold coin"
 />
+
 
 
 <img
@@ -49,11 +62,13 @@ alt="coupon"
 />
 
 
+
 <img
 src={gift}
 className="floating gift"
 alt="gift"
 />
+
 
 
 <img
@@ -62,87 +77,114 @@ className="floating bag"
 alt="shopping bag"
 />
 
-      <div className="floating sale">
-        70%
-      </div>
 
-      <div className="hero-content">
 
-        <span className="hero-badge">
 
-          🔥 أكثر من 10000 كوبون خصم
+<div className="floating sale">
 
-        </span>
+70%
 
-        <h1>
+</div>
 
-          وفر أكثر مع أفضل
-          <br />
-          كوبونات الخصم والعروض
 
-        </h1>
 
-        <p>
 
-          اكتشف أحدث أكواد الخصم والعروض
-          الحصرية من أشهر المتاجر
-          العالمية والمحلية.
+<div className="hero-content">
 
-        </p>
 
-        <button
-          className="hero-btn"
-          onClick={scrollToCoupons}
-        >
+<span className="hero-badge">
 
-          🚀 استعرض أفضل الكوبونات
+🔥 أكثر من 10000 كوبون خصم
 
-        </button>
+</span>
 
-        <div className="hero-stats">
 
-          <div>
 
-            <h2>
-              500+
-            </h2>
+<h1>
 
-            <span>
-              متجر
-            </span>
+وفر أكثر مع أفضل
+<br/>
+كوبونات الخصم والعروض
 
-          </div>
+</h1>
 
-          <div>
 
-            <h2>
-              10000+
-            </h2>
 
-            <span>
-              كوبون
-            </span>
+<p>
 
-          </div>
+اكتشف أحدث أكواد الخصم والعروض
+الحصرية من أشهر المتاجر
+العالمية.
 
-          <div>
+</p>
 
-            <h2>
-              24/7
-            </h2>
 
-            <span>
-              تحديث يومي
-            </span>
 
-          </div>
+<button
+className="hero-btn"
+onClick={scrollToCoupons}
+>
 
-        </div>
+🚀 استعرض أفضل الكوبونات
 
-      </div>
+</button>
 
-    </section>
 
-  );
+
+
+<div className="hero-stats">
+
+
+<div>
+
+<h2>
+500+
+</h2>
+
+<span>
+متجر
+</span>
+
+</div>
+
+
+
+<div>
+
+<h2>
+10000+
+</h2>
+
+<span>
+كوبون
+</span>
+
+</div>
+
+
+
+<div>
+
+<h2>
+24/7
+</h2>
+
+<span>
+تحديث يومي
+</span>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+);
 
 }
