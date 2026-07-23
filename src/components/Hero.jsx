@@ -1,3 +1,5 @@
+import "./Hero.css";
+
 export default function Hero() {
 
   function scrollToCoupons() {
@@ -6,40 +8,89 @@ export default function Hero() {
 
     if (section) {
       section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+        behavior: "smooth"
       });
     }
 
   }
 
   return (
-    <section
-      style={{
-        textAlign: "center",
-        padding: "80px 20px",
-        background: "#f8fafc",
-      }}
-    >
-      <h1>أفضل الكوبونات والخصومات</h1>
 
-      <p>
-        وفر المال مع أحدث العروض من أشهر المتاجر.
-      </p>
+    <section className="hero">
 
-      <button
-        onClick={scrollToCoupons}
-        style={{
-          padding: "12px 30px",
-          background: "#2563eb",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        ابدأ الآن
-      </button>
+      <div className="hero-overlay"></div>
+
+      <div className="floating coupon">🏷️</div>
+      <div className="floating coin">🪙</div>
+      <div className="floating bag">🛍️</div>
+      <div className="floating gift">🎁</div>
+      <div className="floating sale">50%</div>
+
+      <div className="hero-content">
+
+        <span className="hero-badge">
+          🔥 أكثر من 10000 كوبون خصم
+        </span>
+
+        <h1>
+
+          وفر أكثر مع أفضل
+          <br />
+
+          كوبونات الخصم والعروض
+
+        </h1>
+
+        <p>
+
+          اكتشف أحدث أكواد الخصم والعروض الحصرية
+          من أشهر المتاجر العالمية والمحلية.
+
+        </p>
+
+        <div className="hero-buttons">
+
+          <button
+            className="hero-btn"
+            onClick={scrollToCoupons}
+          >
+            ابدأ الآن 🚀
+          </button>
+
+        </div>
+
+        <div className="hero-stats">
+
+          <div>
+
+            <h2>500+</h2>
+
+            <span>متجر</span>
+
+          </div>
+
+          <div>
+
+            <h2>10000+</h2>
+
+            <span>كوبون</span>
+
+          </div>
+
+          <div>
+
+            <h2>24/7</h2>
+
+            <span>تحديث يومي</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </section>
+
   );
+
 }
