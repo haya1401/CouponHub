@@ -6,11 +6,14 @@ inset:0;
 
 overflow:hidden;
 
-z-index:-1;
+z-index:0;
+
+pointer-events:none;
 
 background:#f8fafc;
 
 }
+
 
 
 
@@ -25,6 +28,8 @@ filter:blur(120px);
 animation:moveGlow 12s infinite alternate;
 
 }
+
+
 
 
 
@@ -46,6 +51,8 @@ opacity:.25;
 
 
 
+
+
 .glow-gold{
 
 width:400px;
@@ -64,7 +71,11 @@ opacity:.2;
 
 
 
+
+
+
 .particles span{
+
 
 position:absolute;
 
@@ -78,7 +89,15 @@ border-radius:50%;
 
 animation:particleMove 10s infinite;
 
+box-shadow:
+
+0 0 15px #facc15;
+
 }
+
+
+
+
 
 
 
@@ -89,6 +108,8 @@ left:10%;
 top:20%;
 
 }
+
+
 
 
 
@@ -104,6 +125,8 @@ animation-delay:2s;
 
 
 
+
+
 .particles span:nth-child(3){
 
 left:50%;
@@ -113,6 +136,8 @@ top:40%;
 animation-delay:4s;
 
 }
+
+
 
 
 
@@ -128,6 +153,8 @@ animation-delay:1s;
 
 
 
+
+
 .particles span:nth-child(5){
 
 left:85%;
@@ -137,6 +164,8 @@ top:80%;
 animation-delay:3s;
 
 }
+
+
 
 
 
@@ -153,24 +182,39 @@ animation-delay:5s;
 
 
 
+
+
+
+
 @keyframes moveGlow{
 
 
 from{
 
-transform:translate(0,0);
+transform:
+
+translate(0,0)
+scale(1);
 
 }
+
 
 
 to{
 
-transform:translate(80px,60px);
+transform:
+
+translate(80px,60px)
+scale(1.15);
 
 }
 
 
 }
+
+
+
+
 
 
 
@@ -179,25 +223,36 @@ transform:translate(80px,60px);
 
 0%{
 
-transform:translateY(0);
+transform:
+
+translateY(0)
+scale(.5);
 
 opacity:0;
 
 }
 
 
+
 50%{
+
 
 opacity:1;
 
 }
 
 
+
 100%{
 
-transform:translateY(-120px);
+
+transform:
+
+translateY(-120px)
+scale(1.2);
 
 opacity:0;
+
 
 }
 
