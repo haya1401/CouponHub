@@ -7,30 +7,69 @@ import gift from "../assets/hero/gift.webp";
 
 export default function FloatingObjects() {
 
+  const coins = Array.from({ length: 30 });
+
+  const coupons = Array.from({ length: 8 });
+
   return (
 
     <div className="floating-wrapper">
 
-      {/* العملات */}
+      {coins.map((_, i) => (
 
-      <img src={coin} className="float coin1" alt="" />
-      <img src={coin} className="float coin2" alt="" />
-      <img src={coin} className="float coin3" alt="" />
-      <img src={coin} className="float coin4" alt="" />
-      <img src={coin} className="float coin5" alt="" />
+        <img
 
-      {/* الكوبونات */}
+          key={"coin" + i}
 
-      <img src={coupon} className="float coupon1" alt="" />
-      <img src={coupon} className="float coupon2" alt="" />
+          src={coin}
 
-      {/* الحقيبة */}
+          alt=""
 
-      <img src={bag} className="float bag1" alt="" />
+          className="coin-rain"
 
-      {/* الهدية */}
+          style={{
 
-      <img src={gift} className="float gift1" alt="" />
+            left: `${Math.random() * 100}%`,
+
+            animationDelay: `${Math.random() * 12}s`,
+
+            animationDuration: `${10 + Math.random() * 8}s`,
+
+            width: `${30 + Math.random() * 35}px`
+
+          }}
+
+        />
+
+      ))}
+
+      {coupons.map((_, i) => (
+
+        <img
+
+          key={"coupon" + i}
+
+          src={coupon}
+
+          alt=""
+
+          className="coupon-float"
+
+          style={{
+
+            top: `${10 + Math.random() * 70}%`,
+
+            animationDelay: `${i * 2}s`
+
+          }}
+
+        />
+
+      ))}
+
+      <img src={bag} className="bag3d" alt="" />
+
+      <img src={gift} className="gift3d" alt="" />
 
     </div>
 
