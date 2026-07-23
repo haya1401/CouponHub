@@ -5,45 +5,65 @@ import {
   getDocs
 } from "firebase/firestore";
 
+
 import { db } from "../firebase";
+
 
 import "./FeaturedCoupons.css";
 
 
 
+
 async function copyCode(code, affiliate) {
+
 
   let newWindow = null;
 
 
-  if (
+
+  if(
     affiliate &&
     affiliate.startsWith("http")
-  ) {
+  ){
 
-    newWindow = window.open(
-      "about:blank",
-      "_blank"
-    );
+    newWindow =
+      window.open(
+        "about:blank",
+        "_blank"
+      );
 
   }
 
 
-  try {
+
+
+
+  try{
+
 
     await navigator.clipboard.writeText(code);
 
-    alert("✅ تم نسخ الكود: " + code);
+
+    alert(
+      "✅ تم نسخ الكود: " + code
+    );
 
 
-  } catch(error) {
+
+  }catch(error){
+
 
     console.error(
       "خطأ النسخ:",
       error
     );
 
+
   }
+
+
+
+
 
 
   if(
@@ -51,11 +71,17 @@ async function copyCode(code, affiliate) {
     affiliate
   ){
 
-    newWindow.location.href = affiliate;
+    newWindow.location.href =
+      affiliate;
 
   }
 
+
+
 }
+
+
+
 
 
 
@@ -63,22 +89,38 @@ async function copyCode(code, affiliate) {
 export default function FeaturedCoupons(){
 
 
-const [coupons,setCoupons] = useState([]);
 
-const [search,setSearch] = useState([]);
+const [coupons,setCoupons] =
+useState([]);
+
+
+
+const [search,setSearch] =
+useState("");
+
+
+
+
 
 
 
 useEffect(()=>{
 
 
+
 async function loadCoupons(){
 
 
+
 const querySnapshot =
+
 await getDocs(
+
 collection(db,"coupons")
+
 );
+
+
 
 
 
@@ -86,25 +128,38 @@ const data=[];
 
 
 
+
+
 querySnapshot.forEach((doc)=>{
 
 
-const item=doc.data();
+
+const item =
+doc.data();
+
+
 
 
 data.push({
 
+
 id:doc.id,
 
+
 ...item,
+
 
 affiliate:
 item.affiliate || ""
 
+
 });
 
 
+
 });
+
+
 
 
 
@@ -116,7 +171,12 @@ setCoupons(data);
 
 
 
+
+
+
 loadCoupons();
+
+
 
 
 
@@ -127,18 +187,32 @@ loadCoupons();
 
 
 
+
+
+
 const filteredCoupons =
+
 coupons.filter((coupon)=>
+
+
 
 (coupon.store || "")
 
 .toLowerCase()
 
 .includes(
+
 search.toLowerCase()
+
 )
 
+
+
 );
+
+
+
+
 
 
 
@@ -147,12 +221,16 @@ search.toLowerCase()
 function cardMove(e){
 
 
+
 const card =
 e.currentTarget;
 
 
+
 const rect =
 card.getBoundingClientRect();
+
+
 
 
 
@@ -166,21 +244,35 @@ e.clientY - rect.top;
 
 
 
+
+
 const rotateX =
+
 (y - rect.height / 2) / 15;
 
 
 
+
 const rotateY =
+
 (rect.width / 2 - x) / 15;
 
 
 
+
+
+
+
 card.style.transform =
+
 `
+
 rotateX(${rotateX}deg)
+
 rotateY(${rotateY}deg)
+
 translateY(-12px)
+
 `;
 
 
@@ -189,14 +281,26 @@ translateY(-12px)
 
 
 
+
+
+
+
+
+
 function resetCard(e){
 
 
+
 e.currentTarget.style.transform =
+
 "rotateX(0) rotateY(0) translateY(0)";
 
 
+
 }
+
+
+
 
 
 
@@ -206,14 +310,25 @@ e.currentTarget.style.transform =
 return(
 
 
+
 <section
+
 id="featured-coupons"
-className="featured-section"
+
+className="featured-section reveal"
+
 >
 
 
 
-<h2 className="featured-title">
+
+
+
+<h2
+
+className="featured-title reveal"
+
+>
 
 ⭐ أفضل الكوبونات
 
@@ -223,25 +338,43 @@ className="featured-section"
 
 
 
-<div className="coupon-search">
+
+
+
+
+<div className="coupon-search reveal">
+
+
+
 
 
 <input
 
+
 type="text"
+
 
 placeholder="🔍 ابحث باسم المتجر..."
 
+
 value={search}
 
+
+
 onChange={(e)=>
+
 setSearch(e.target.value)
+
 }
+
 
 />
 
 
+
 </div>
+
+
 
 
 
@@ -252,22 +385,41 @@ setSearch(e.target.value)
 <div className="coupon-grid">
 
 
+
+
+
 {
 
 filteredCoupons.map((coupon)=>(
 
 
+
+
+
 <div
+
+
 
 key={coupon.id}
 
-className="coupon-card"
+
+
+className="coupon-card reveal"
+
+
 
 onMouseMove={cardMove}
 
+
+
 onMouseLeave={resetCard}
 
+
+
 >
+
+
+
 
 
 
@@ -275,9 +427,14 @@ onMouseLeave={resetCard}
 
 
 
+
+
+
 <h3>
 
+
 {coupon.store}
+
 
 </h3>
 
@@ -285,9 +442,14 @@ onMouseLeave={resetCard}
 
 
 
+
+
+
 <h1>
 
+
 {coupon.discount}
+
 
 </h1>
 
@@ -296,9 +458,14 @@ onMouseLeave={resetCard}
 
 
 
+
+
+
 <div className="coupon-code">
 
+
 {coupon.code}
+
 
 </div>
 
@@ -308,7 +475,10 @@ onMouseLeave={resetCard}
 
 
 
+
+
 <button
+
 
 onClick={()=>
 
@@ -324,11 +494,18 @@ coupon.affiliate
 
 }
 
+
+
 >
+
 
 📋 نسخ الكوبون
 
+
 </button>
+
+
+
 
 
 
@@ -339,28 +516,49 @@ coupon.affiliate
 
 coupon.affiliate &&
 
+
+
 <p className="affiliate">
+
 
 🔗 رابط أفلييت جاهز
 
+
 </p>
+
 
 
 }
 
 
 
+
+
+
+
+
 </div>
+
+
+
 
 
 
 ))
 
 
+
 }
 
 
+
+
+
+
 </div>
+
+
+
 
 
 
@@ -369,23 +567,36 @@ coupon.affiliate &&
 
 {
 
-filteredCoupons.length===0 &&
+filteredCoupons.length === 0 &&
+
+
 
 <p className="empty">
 
+
 لا توجد كوبونات مطابقة للبحث.
 
+
 </p>
+
 
 
 }
 
 
 
+
+
+
+
+
 </section>
 
 
+
+
 );
+
 
 
 }
