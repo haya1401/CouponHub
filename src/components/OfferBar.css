@@ -1,1 +1,106 @@
+.offer-bar{
 
+width:100%;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+90deg,
+#ffb300,
+#ffd54f
+);
+
+padding:15px 0;
+
+position:relative;
+
+z-index:20;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.15);
+
+}
+
+
+
+.offer-track{
+
+display:flex;
+
+width:max-content;
+
+animation:
+offerMove 25s linear infinite;
+
+}
+
+
+
+.offer-item{
+
+white-space:nowrap;
+
+margin:0 35px;
+
+font-size:18px;
+
+font-weight:900;
+
+color:#111827;
+
+background:
+
+rgba(255,255,255,.35);
+
+padding:
+
+10px 25px;
+
+border-radius:50px;
+
+backdrop-filter:blur(10px);
+
+}
+
+
+
+@keyframes offerMove{
+
+
+from{
+
+transform:translateX(0);
+
+}
+
+
+to{
+
+transform:translateX(-50%);
+
+}
+
+
+}
+
+
+
+/* الجوال */
+
+
+@media(max-width:768px){
+
+
+.offer-item{
+
+font-size:14px;
+
+padding:8px 18px;
+
+margin:0 15px;
+
+}
+
+
+}
