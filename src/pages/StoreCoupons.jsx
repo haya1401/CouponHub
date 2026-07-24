@@ -14,9 +14,10 @@ import "./StoreCoupons.css";
 export default function StoreCoupons(){
 
 
-  const { store } = useParams();
+  const { id } = useParams();
 
   const [coupons,setCoupons] = useState([]);
+
 
 
 
@@ -34,6 +35,7 @@ export default function StoreCoupons(){
         );
 
 
+
         const data = snapshot.docs.map(doc => ({
 
           id: doc.id,
@@ -44,8 +46,8 @@ export default function StoreCoupons(){
 
 
 
-        const decodedStore =
-          decodeURIComponent(store);
+        const storeName =
+          decodeURIComponent(id).trim();
 
 
 
@@ -53,7 +55,7 @@ export default function StoreCoupons(){
 
           coupon =>
 
-          coupon.store === decodedStore
+          coupon.store?.trim() === storeName
 
         );
 
@@ -64,7 +66,7 @@ export default function StoreCoupons(){
 
 
         document.title =
-        `كوبونات ${decodedStore} | CouponHub`;
+        `كوبونات ${storeName} | CouponHub`;
 
 
 
@@ -84,15 +86,16 @@ export default function StoreCoupons(){
 
 
 
-    if(store){
+    if(id){
 
       loadCoupons();
 
     }
 
 
+  },[id]);
 
-  },[store]);
+
 
 
 
@@ -132,6 +135,15 @@ export default function StoreCoupons(){
 
 
 
+
+
+  const storeName =
+  decodeURIComponent(id || "");
+
+
+
+
+
   return (
 
 
@@ -143,9 +155,10 @@ export default function StoreCoupons(){
 
         <h1>
 
-          🔥 كوبونات {decodeURIComponent(store)}
+          🔥 كوبونات {storeName}
 
         </h1>
+
 
 
 
@@ -153,7 +166,9 @@ export default function StoreCoupons(){
         <div className="coupon-grid">
 
 
+
         {
+
 
           coupons.map((coupon)=>(
 
@@ -210,6 +225,7 @@ export default function StoreCoupons(){
 
 
 
+
               <small>
 
                 كود الخصم:
@@ -234,6 +250,7 @@ export default function StoreCoupons(){
 
 
 
+
         {
 
           coupons.length === 0 &&
@@ -245,6 +262,7 @@ export default function StoreCoupons(){
           </p>
 
         }
+
 
 
 
