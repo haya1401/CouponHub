@@ -7,30 +7,34 @@ const coupons = [
     title:"خصم 50% على أول طلب",
     store:"Amazon",
     code:"SAVE50",
-    link:"https://www.amazon.com"
+    link:"https://www.amazon.com/"
   },
-
 
   {
     title:"خصم 30% على المنتجات",
     store:"Noon",
     code:"SALE30",
-    link:"https://www.noon.com"
+    link:"https://www.noon.com/"
   },
-
 
   {
     title:"عرض خاص اليوم",
     store:"SHEIN",
     code:"DEAL2026",
-    link:"https://www.shein.com"
+    link:"https://www.shein.com/"
   }
 
 ];
 
 
-
 export default function FeaturedCoupons(){
+
+
+  function openCoupon(link){
+
+    window.location.href = link;
+
+  }
 
 
   return (
@@ -71,23 +75,19 @@ export default function FeaturedCoupons(){
 
 
 
-              <a
-                href={coupon.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="coupon-button"
+              <button
+                onClick={() => openCoupon(coupon.link)}
               >
 
-                🚀 استخدم الكوبون
+                🚀 اذهب للمتجر
 
-              </a>
+              </button>
 
 
 
               <small>
                 كود الخصم: {coupon.code}
               </small>
-
 
 
             </div>
