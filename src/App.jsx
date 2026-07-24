@@ -30,9 +30,7 @@ export default function App() {
       <Header />
 
 
-
       <Routes>
-
 
 
         {/* الرئيسية */}
@@ -61,8 +59,6 @@ export default function App() {
 
 
 
-
-
         {/* المتاجر */}
 
         <Route
@@ -72,8 +68,6 @@ export default function App() {
           element={<Stores />}
 
         />
-
-
 
 
 
@@ -89,19 +83,15 @@ export default function App() {
 
 
 
-
-
         {/* كوبونات متجر محدد */}
 
         <Route
 
           path="/coupons/:store"
 
-          element={<Coupons />}
+          element={<StoreCoupons />}
 
         />
-
-
 
 
 
@@ -117,8 +107,6 @@ export default function App() {
 
 
 
-
-
         {/* الإدارة */}
 
         <Route
@@ -131,7 +119,6 @@ export default function App() {
 
 
 
-
         <Route
 
           path="/dashboard"
@@ -141,13 +128,10 @@ export default function App() {
         />
 
 
-
       </Routes>
 
 
-
       <Footer />
-
 
 
     </div>
