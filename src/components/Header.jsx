@@ -11,9 +11,7 @@ export default function Header() {
 
 
         <h2 className="logo">
-
           CouponHub
-
         </h2>
 
 
@@ -21,9 +19,10 @@ export default function Header() {
         <nav className="nav">
 
 
-          <Link to="/" >
+          <Link to="/">
             الرئيسية
           </Link>
+
 
 
           <Link to="/stores">
@@ -31,19 +30,23 @@ export default function Header() {
           </Link>
 
 
+
           <Link to="/coupons">
             الكوبونات
           </Link>
 
 
-          <Link to="/categories">
+
+          <Link to="/#categories">
             التصنيفات
           </Link>
 
 
-          <Link to="/contact">
+
+          <Link to="/#contact">
             اتصل بنا
           </Link>
+
 
 
         </nav>
