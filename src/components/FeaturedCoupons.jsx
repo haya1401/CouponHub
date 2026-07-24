@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./FeaturedCoupons.css";
 
 
@@ -6,43 +5,43 @@ const coupons = [
 
   {
     title:"خصم 50% على أول طلب",
-    store:"متجر إلكتروني",
-    code:"SAVE50"
+    store:"Amazon",
+    code:"SAVE50",
+    link:"https://YOUR-AFFILIATE-LINK-1"
   },
 
   {
     title:"خصم 30% على المنتجات",
-    store:"متجر عالمي",
-    code:"SALE30"
+    store:"Noon",
+    code:"SALE30",
+    link:"https://YOUR-AFFILIATE-LINK-2"
   },
 
   {
     title:"عرض خاص اليوم",
-    store:"أفضل المتاجر",
-    code:"DEAL2026"
+    store:"SHEIN",
+    code:"DEAL2026",
+    link:"https://YOUR-AFFILIATE-LINK-3"
   }
 
 ];
 
 
+
 export default function FeaturedCoupons(){
 
-  const [copied, setCopied] = useState("");
 
+  function openCoupon(coupon){
 
-  function copyCode(code){
+    navigator.clipboard.writeText(coupon.code);
 
-    navigator.clipboard.writeText(code);
-
-    setCopied(code);
-
-    setTimeout(()=>{
-
-      setCopied("");
-
-    },2000);
+    window.open(
+      coupon.link,
+      "_blank"
+    );
 
   }
+
 
 
   return (
@@ -84,14 +83,12 @@ export default function FeaturedCoupons(){
               </p>
 
 
+
               <button
-                onClick={()=>copyCode(coupon.code)}
+                onClick={() => openCoupon(coupon)}
               >
 
-                {copied === coupon.code
-                  ? "✅ تم النسخ"
-                  : coupon.code
-                }
+                {coupon.code}
 
               </button>
 
