@@ -18,16 +18,21 @@ import Dashboard from "./pages/Dashboard";
 
 export default function App() {
 
+
   // CouponHub main application routes
+
 
   return (
 
     <div className="app">
 
+
       <Header />
 
 
+
       <Routes>
+
 
 
         {/* الرئيسية */}
@@ -56,8 +61,9 @@ export default function App() {
 
 
 
-        {/* الصفحات العامة */}
 
+
+        {/* المتاجر */}
 
         <Route
 
@@ -69,6 +75,10 @@ export default function App() {
 
 
 
+
+
+        {/* جميع الكوبونات */}
+
         <Route
 
           path="/coupons"
@@ -78,6 +88,24 @@ export default function App() {
         />
 
 
+
+
+
+        {/* كوبونات متجر محدد */}
+
+        <Route
+
+          path="/coupons/:store"
+
+          element={<Coupons />}
+
+        />
+
+
+
+
+
+        {/* صفحة المتجر القديمة */}
 
         <Route
 
@@ -89,8 +117,9 @@ export default function App() {
 
 
 
-        {/* الإدارة */}
 
+
+        {/* الإدارة */}
 
         <Route
 
@@ -99,6 +128,7 @@ export default function App() {
           element={<AdminLogin />}
 
         />
+
 
 
 
@@ -115,7 +145,9 @@ export default function App() {
       </Routes>
 
 
+
       <Footer />
+
 
 
     </div>
