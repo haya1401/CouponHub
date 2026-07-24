@@ -16,13 +16,17 @@ export default function Categories() {
 
   useEffect(() => {
 
+
     async function loadCategories(){
 
+
       try {
+
 
         const snapshot = await getDocs(
           collection(db,"categories")
         );
+
 
 
         setCategories(
@@ -30,7 +34,7 @@ export default function Categories() {
           snapshot.docs.map((doc)=>(
 
             {
-              id:doc.id,
+              id: doc.id,
               ...doc.data()
             }
 
@@ -39,33 +43,51 @@ export default function Categories() {
         );
 
 
-      } catch(err){
+
+      } catch(err) {
+
 
         console.error(
           "Categories loading error:",
           err
         );
 
+
         setError(true);
 
+
       }
+
 
     }
 
 
+
     loadCategories();
+
 
 
   },[]);
 
 
 
+
+
   return (
 
-    <section className="categories-section">
+
+    <section
+
+      id="categories"
+
+      className="categories-section"
+
+    >
+
 
 
       <div className="container">
+
 
 
         <h2 className="categories-title">
@@ -76,7 +98,9 @@ export default function Categories() {
 
 
 
+
         <div className="categories-grid">
+
 
 
           {categories.map((item)=>(
@@ -91,11 +115,13 @@ export default function Categories() {
             >
 
 
+
               <div className="category-icon">
 
                 {item.icon}
 
               </div>
+
 
 
 
@@ -107,17 +133,26 @@ export default function Categories() {
 
 
 
-              <button className="category-btn">
+
+              <button
+
+                className="category-btn"
+
+              >
 
                 عرض الكوبونات
 
               </button>
 
 
+
+
             </div>
 
 
+
           ))}
+
 
 
         </div>
@@ -125,7 +160,9 @@ export default function Categories() {
 
 
 
+
         {categories.length === 0 && !error && (
+
 
           <p className="empty-category">
 
@@ -133,11 +170,15 @@ export default function Categories() {
 
           </p>
 
+
         )}
 
 
 
+
+
         {error && (
+
 
           <p className="empty-category">
 
@@ -145,14 +186,19 @@ export default function Categories() {
 
           </p>
 
+
         )}
+
+
 
 
 
       </div>
 
 
+
     </section>
+
 
   );
 
