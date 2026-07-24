@@ -2,14 +2,22 @@ import "./Hero.css";
 
 export default function Hero() {
 
+
   function scrollToCoupons() {
 
-    const section = document.getElementById("featured-coupons");
+    const section = document.getElementById(
+      "featured-coupons"
+    );
 
-    if(section){
+
+    if (section) {
 
       section.scrollIntoView({
-        behavior:"smooth"
+
+        behavior: "smooth",
+
+        block: "start"
+
       });
 
     }
@@ -17,11 +25,14 @@ export default function Hero() {
   }
 
 
+
   return (
 
     <section className="hero">
 
+
       <div className="container">
+
 
         <div className="hero-content">
 
@@ -46,6 +57,7 @@ export default function Hero() {
 
 
 
+
           <p>
 
             اكتشف أحدث أكواد الخصم والعروض الحصرية
@@ -55,9 +67,13 @@ export default function Hero() {
 
 
 
+
           <button
+
             className="hero-btn"
+
             onClick={scrollToCoupons}
+
           >
 
             🚀 استعرض أفضل الكوبونات
@@ -72,19 +88,17 @@ export default function Hero() {
 
             <div>
 
-              <h2>500+</h2>
+              <h2>
 
-              <span>متجر</span>
+                500+
 
-            </div>
+              </h2>
 
+              <span>
 
+                متجر
 
-            <div>
-
-              <h2>10000+</h2>
-
-              <span>كوبون</span>
+              </span>
 
             </div>
 
@@ -92,19 +106,49 @@ export default function Hero() {
 
             <div>
 
-              <h2>24/7</h2>
+              <h2>
 
-              <span>تحديث يومي</span>
+                10000+
+
+              </h2>
+
+              <span>
+
+                كوبون
+
+              </span>
 
             </div>
+
+
+
+            <div>
+
+              <h2>
+
+                24/7
+
+              </h2>
+
+              <span>
+
+                تحديث يومي
+
+              </span>
+
+            </div>
+
 
 
           </div>
 
 
+
         </div>
 
+
       </div>
+
 
     </section>
 
