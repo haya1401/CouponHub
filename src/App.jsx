@@ -14,45 +14,27 @@ import StoreCoupons from "./pages/StoreCoupons";
 export default function App() {
   return (
     <div className="app">
-
       <Header />
 
       <Routes>
-
         <Route
           path="/"
           element={
             <>
               <Hero />
-
               <StoreLogos />
-
               <FeaturedCoupons />
-
               <Categories />
             </>
           }
         />
 
-        <Route
-          path="/stores"
-          element={<Stores />}
-        />
-
-        <Route
-          path="/coupons"
-          element={<Coupons />}
-        />
-
-        <Route
-          path="/store/:id"
-          element={<StoreCoupons />}
-        />
-
+        <Route path="/stores" element={<Stores />} />
+        <Route path="/coupons" element={<Coupons />} />
+        <Route path="/store/:id" element={<StoreCoupons />} />
       </Routes>
 
       <Footer />
-
     </div>
   );
 }
