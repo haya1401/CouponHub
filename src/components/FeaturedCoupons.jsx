@@ -1,42 +1,37 @@
-// import "./FeaturedCoupons.css";
+import "./FeaturedCoupons.css";
 
 
 const coupons = [
-
   {
     title:"خصم 50% على أول طلب",
     store:"Amazon",
     code:"SAVE50",
-    link:"https://YOUR-AFFILIATE-LINK-1"
+    link:"ضع رابط أفلييت أمازون هنا"
   },
 
   {
     title:"خصم 30% على المنتجات",
     store:"Noon",
     code:"SALE30",
-    link:"https://YOUR-AFFILIATE-LINK-2"
+    link:"ضع رابط أفلييت نون هنا"
   },
 
   {
     title:"عرض خاص اليوم",
     store:"SHEIN",
     code:"DEAL2026",
-    link:"https://YOUR-AFFILIATE-LINK-3"
+    link:"ضع رابط أفلييت شي إن هنا"
   }
-
 ];
-
 
 
 export default function FeaturedCoupons(){
 
 
-  function openCoupon(coupon){
-
-    navigator.clipboard.writeText(coupon.code);
+  function openCoupon(link){
 
     window.open(
-      coupon.link,
+      link,
       "_blank"
     );
 
@@ -55,9 +50,7 @@ export default function FeaturedCoupons(){
 
 
         <h2 className="featured-title">
-
-          🔥 كوبونات مميزة
-
+          🔥 جميع الكوبونات
         </h2>
 
 
@@ -83,14 +76,18 @@ export default function FeaturedCoupons(){
               </p>
 
 
-
               <button
-                onClick={() => openCoupon(coupon)}
+                onClick={() => openCoupon(coupon.link)}
               >
 
-                {coupon.code}
+                استخدم الكوبون
 
               </button>
+
+
+              <small>
+                كود الخصم: {coupon.code}
+              </small>
 
 
             </div>
