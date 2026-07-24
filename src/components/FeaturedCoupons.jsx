@@ -49,24 +49,28 @@ export default function FeaturedCoupons(){
 
 
 
-  function openCoupon(link){
+  function openCoupon(coupon){
 
 
-    if(link){
+    const link =
+      coupon.affiliate ||
+      coupon.link ||
+      "";
 
 
-      window.open(
 
-        link,
-
-        "_blank",
-
-        "noopener,noreferrer"
-
-      );
+    const cleanLink = link.trim();
 
 
-    }else{
+
+    console.log(
+      "Affiliate URL:",
+      cleanLink
+    );
+
+
+
+    if(!cleanLink){
 
 
       alert(
@@ -74,10 +78,23 @@ export default function FeaturedCoupons(){
       );
 
 
+      return;
+
     }
 
 
+
+    window.open(
+
+      cleanLink,
+
+      "_blank"
+
+    );
+
+
   }
+
 
 
 
@@ -143,7 +160,7 @@ export default function FeaturedCoupons(){
 
               <button
 
-                onClick={()=>openCoupon(coupon.affiliate)}
+                onClick={() => openCoupon(coupon)}
 
               >
 
