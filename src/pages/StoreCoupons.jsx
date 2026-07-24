@@ -14,10 +14,9 @@ import "./StoreCoupons.css";
 export default function StoreCoupons(){
 
 
-  const { id } = useParams();
+  const { store } = useParams();
 
   const [coupons,setCoupons] = useState([]);
-
 
 
 
@@ -27,43 +26,73 @@ export default function StoreCoupons(){
     async function loadCoupons(){
 
 
-      const snapshot = await getDocs(
-        collection(db,"coupons")
-      );
+      try {
 
 
-      const data = snapshot.docs.map(doc=>({
-
-        id:doc.id,
-
-        ...doc.data()
-
-      }));
+        const snapshot = await getDocs(
+          collection(db,"coupons")
+        );
 
 
-      const filtered = data.filter(
+        const data = snapshot.docs.map(doc => ({
 
-        coupon =>
+          id: doc.id,
 
-        coupon.store === id
+          ...doc.data()
 
-      );
-
-
-      setCoupons(filtered);
+        }));
 
 
-      document.title =
-      `كوبونات ${id} | CouponHub`;
+
+        const decodedStore =
+          decodeURIComponent(store);
+
+
+
+        const filtered = data.filter(
+
+          coupon =>
+
+          coupon.store === decodedStore
+
+        );
+
+
+
+        setCoupons(filtered);
+
+
+
+        document.title =
+        `كوبونات ${decodedStore} | CouponHub`;
+
+
+
+      } catch(error){
+
+
+        console.error(
+          "Loading store coupons error:",
+          error
+        );
+
+
+      }
 
 
     }
 
 
-    loadCoupons();
+
+    if(store){
+
+      loadCoupons();
+
+    }
 
 
-  },[id]);
+
+  },[store]);
 
 
 
@@ -79,7 +108,9 @@ export default function StoreCoupons(){
 
         link,
 
-        "_blank"
+        "_blank",
+
+        "noopener,noreferrer"
 
       );
 
@@ -88,7 +119,7 @@ export default function StoreCoupons(){
 
 
       alert(
-        "لا يوجد رابط أفلييت"
+        "لا يوجد رابط أفلييت لهذا الكوبون"
       );
 
 
@@ -112,20 +143,19 @@ export default function StoreCoupons(){
 
         <h1>
 
-          🔥 كوبونات {id}
+          🔥 كوبونات {decodeURIComponent(store)}
 
         </h1>
+
 
 
 
         <div className="coupon-grid">
 
 
-
         {
 
-
-          coupons.map(coupon=>(
+          coupons.map((coupon)=>(
 
 
             <div
@@ -167,11 +197,13 @@ export default function StoreCoupons(){
 
               <button
 
-              onClick={()=>openCoupon(coupon.affiliate)}
+                onClick={() =>
+                  openCoupon(coupon.affiliate)
+                }
 
               >
 
-              🚀 استخدم الكوبون
+                🚀 استخدم الكوبون
 
               </button>
 
@@ -180,9 +212,9 @@ export default function StoreCoupons(){
 
               <small>
 
-              كود الخصم:
-              {" "}
-              {coupon.code}
+                كود الخصم:
+                {" "}
+                {coupon.code}
 
               </small>
 
@@ -197,18 +229,18 @@ export default function StoreCoupons(){
 
 
 
-
         </div>
 
 
 
 
         {
+
           coupons.length === 0 &&
 
           <p>
 
-          لا توجد كوبونات لهذا المتجر حالياً
+            لا توجد كوبونات لهذا المتجر حالياً
 
           </p>
 
