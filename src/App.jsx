@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
+import FeaturedCoupons from "./components/FeaturedCoupons";
 import Categories from "./components/Categories";
 
 import Stores from "./pages/Stores";
@@ -16,66 +17,106 @@ import Dashboard from "./pages/Dashboard";
 
 
 export default function App() {
-// CouponHub main application routes
+
+  // CouponHub main application routes
+
   return (
 
     <div className="app">
 
       <Header />
 
+
       <Routes>
 
+
         {/* الرئيسية */}
+
         <Route
+
           path="/"
+
           element={
+
             <>
+
               <Hero />
+
+              <FeaturedCoupons />
+
               <StoreLogos />
+
               <Categories />
+
             </>
+
           }
+
         />
+
 
 
         {/* الصفحات العامة */}
 
+
         <Route
+
           path="/stores"
+
           element={<Stores />}
+
         />
 
 
+
         <Route
+
           path="/coupons"
+
           element={<Coupons />}
+
         />
+
 
 
         <Route
+
           path="/store/:id"
+
           element={<StoreCoupons />}
+
         />
+
 
 
         {/* الإدارة */}
 
+
         <Route
+
           path="/admin"
+
           element={<AdminLogin />}
+
         />
+
 
 
         <Route
+
           path="/dashboard"
+
           element={<Dashboard />}
+
         />
+
 
 
       </Routes>
 
 
       <Footer />
+
 
     </div>
 
