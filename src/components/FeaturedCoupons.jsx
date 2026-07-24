@@ -33,24 +33,6 @@ const coupons = [
 export default function FeaturedCoupons(){
 
 
-
-  function openCoupon(link){
-
-    if(link){
-
-      window.open(
-        link,
-        "_blank",
-        "noopener,noreferrer"
-      );
-
-    }
-
-  }
-
-
-
-
   return (
 
     <section
@@ -89,13 +71,16 @@ export default function FeaturedCoupons(){
 
 
 
-              <button
-                onClick={() => openCoupon(coupon.link)}
+              <a
+                href={coupon.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="coupon-button"
               >
 
                 🚀 استخدم الكوبون
 
-              </button>
+              </a>
 
 
 
