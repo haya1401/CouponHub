@@ -3,22 +3,29 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
 
+
 export default function Stores() {
+
 
   const [stores, setStores] = useState([]);
 
 
+
+
   useEffect(() => {
+
 
     document.title =
       "أفضل المتاجر مع كوبونات الخصم | CouponHub";
+
 
 
     const description =
       document.querySelector('meta[name="description"]');
 
 
-    if (description) {
+
+    if(description){
 
       description.setAttribute(
         "content",
@@ -29,66 +36,100 @@ export default function Stores() {
 
 
 
-    async function loadData() {
-
-      const storesSnapshot =
-        await getDocs(collection(db, "stores"));
 
 
-      const storesData =
-        storesSnapshot.docs.map((doc) => ({
+    async function loadData(){
 
-          id: doc.id,
 
-          ...doc.data(),
+      try{
 
-        }));
+
+        const storesSnapshot =
+          await getDocs(
+            collection(db,"stores")
+          );
 
 
 
-      const couponsSnapshot =
-        await getDocs(collection(db, "coupons"));
+        const storesData =
+          storesSnapshot.docs.map(doc => ({
+
+            id:doc.id,
+
+            ...doc.data()
+
+          }));
 
 
 
-      const coupons =
-        couponsSnapshot.docs.map((doc) => doc.data());
+
+        const couponsSnapshot =
+          await getDocs(
+            collection(db,"coupons")
+          );
 
 
 
-      const storesWithCount =
-        storesData.map((store) => ({
+        const coupons =
+          couponsSnapshot.docs.map(doc => doc.data());
+
+
+
+
+
+        const storesWithCount =
+
+        storesData.map(store => ({
 
 
           ...store,
 
 
+
           couponsCount:
 
-            coupons.filter(
+          coupons.filter(coupon =>
 
-              (coupon) =>
+            coupon.store?.trim() === store.name?.trim()
 
-                coupon.store === store.name
+          ).length
 
-            ).length,
 
 
         }));
 
 
 
-      setStores(storesWithCount);
+
+        setStores(storesWithCount);
+
+
+
+      }catch(error){
+
+
+        console.error(
+          "Stores loading error:",
+          error
+        );
+
+
+      }
 
 
     }
 
 
 
+
+
     loadData();
 
 
-  }, []);
+
+  },[]);
+
+
 
 
 
@@ -96,15 +137,16 @@ export default function Stores() {
 
   return (
 
+
     <section
 
       style={{
 
-        padding: "60px 20px",
+        padding:"60px 20px",
 
-        background: "#f8fafc",
+        background:"#f8fafc",
 
-        minHeight: "100vh",
+        minHeight:"100vh"
 
       }}
 
@@ -112,15 +154,16 @@ export default function Stores() {
 
 
 
+
       <h1
 
         style={{
 
-          textAlign: "center",
+          textAlign:"center",
 
-          marginBottom: "40px",
+          marginBottom:"40px",
 
-          fontSize: "36px",
+          fontSize:"36px"
 
         }}
 
@@ -138,11 +181,11 @@ export default function Stores() {
 
         style={{
 
-          textAlign: "center",
+          textAlign:"center",
 
-          marginBottom: "35px",
+          marginBottom:"35px",
 
-          color: "#555",
+          color:"#555"
 
         }}
 
@@ -156,21 +199,22 @@ export default function Stores() {
 
 
 
+
+
       <div
 
         style={{
 
-          display: "grid",
+          display:"grid",
 
           gridTemplateColumns:
+          "repeat(auto-fit,minmax(220px,1fr))",
 
-            "repeat(auto-fit,minmax(220px,1fr))",
+          gap:"25px",
 
-          gap: "25px",
+          maxWidth:"1100px",
 
-          maxWidth: "1100px",
-
-          margin: "auto",
+          margin:"auto"
 
         }}
 
@@ -178,132 +222,145 @@ export default function Stores() {
 
 
 
-        {stores.map((store) => (
+
+
+      {stores.map(store => (
 
 
 
-          <div
+        <div
 
-            key={store.id}
+          key={store.id}
+
+          style={{
+
+            background:"#fff",
+
+            padding:"25px",
+
+            borderRadius:"16px",
+
+            textAlign:"center",
+
+            boxShadow:
+            "0 8px 20px rgba(0,0,0,.08)"
+
+          }}
+
+        >
+
+
+
+
+
+          <img
+
+            src={store.logo}
+
+            alt={`كوبونات ${store.name}`}
+
+            onError={(e)=>{
+
+              e.target.src="/logos/default.png";
+
+            }}
 
             style={{
 
-              background:"#fff",
+              width:"80px",
 
-              padding:"25px",
+              height:"80px",
 
-              borderRadius:"16px",
+              objectFit:"contain",
 
-              textAlign:"center",
+              marginBottom:"15px"
 
-              boxShadow:
+            }}
 
-              "0 8px 20px rgba(0,0,0,.08)",
+          />
+
+
+
+
+
+
+
+          <h2>
+
+            كوبونات {store.name}
+
+          </h2>
+
+
+
+
+
+
+
+          <p
+
+            style={{
+
+              color:"#666",
+
+              marginTop:"10px",
+
+              marginBottom:"20px"
 
             }}
 
           >
 
+            {store.couponsCount} كوبون متوفر
 
-
-            <img
-
-              src={store.logo}
-
-              alt={`كوبونات ${store.name}`}
-
-              onError={(e)=>{
-
-                e.target.src="/logos/default.png";
-
-              }}
-
-              style={{
-
-                width:"80px",
-
-                height:"80px",
-
-                objectFit:"contain",
-
-                marginBottom:"15px",
-
-              }}
-
-            />
+          </p>
 
 
 
 
 
-            <h2>
-
-              كوبونات {store.name}
-
-            </h2>
 
 
+          <Link
 
+            to={`/store/${encodeURIComponent(store.name)}`}
 
+            style={{
 
-            <p
+              display:"inline-block",
 
-              style={{
+              background:"#2563eb",
 
-                color:"#666",
+              color:"#fff",
 
-                marginTop:"10px",
+              padding:"12px 25px",
 
-                marginBottom:"20px",
+              borderRadius:"10px",
 
-              }}
+              textDecoration:"none",
 
-            >
+              fontWeight:"bold"
 
-              {store.couponsCount} كوبون متوفر
+            }}
 
-            </p>
+          >
 
+            عرض الكوبونات
 
-
-
-
-            <Link
-
-              to={`/store/${encodeURIComponent(store.name)}`}
-
-              style={{
-
-                display:"inline-block",
-
-                background:"#2563eb",
-
-                color:"#fff",
-
-                padding:"12px 25px",
-
-                borderRadius:"10px",
-
-                textDecoration:"none",
-
-                fontWeight:"bold",
-
-              }}
-
-            >
-
-              عرض الكوبونات
-
-            </Link>
+          </Link>
 
 
 
 
-          </div>
+
+
+        </div>
 
 
 
-        ))}
+      ))}
+
+
 
 
 
@@ -311,7 +368,10 @@ export default function Stores() {
 
 
 
+
+
     </section>
+
 
   );
 
