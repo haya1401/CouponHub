@@ -1,142 +1,101 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import {
   collection,
-  getDocs,
+  getDocs
 } from "firebase/firestore";
 
 import { db } from "../firebase";
 
+import "./StoreCoupons.css";
 
 
-// نسخ الكود وفتح رابط الأفلييت
-async function copyCode(code, affiliate) {
+export default function StoreCoupons(){
 
-  console.log("الكود:", code);
-  console.log("رابط الأفلييت:", affiliate);
 
-  // افتح الرابط مباشرة
-  if (
-    affiliate &&
-    affiliate.startsWith("http")
-  ) {
-    window.open(
-      affiliate,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  }
+  const { id } = useParams();
 
-  // حاول نسخ الكود
-  try {
-
-    if (
-      navigator.clipboard &&
-      window.isSecureContext
-    ) {
-
-      await navigator.clipboard.writeText(code);
-
-    } else {
-
-      const textarea =
-        document.createElement("textarea");
-
-      textarea.value = code;
-
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-
-      document.body.appendChild(textarea);
-
-      textarea.focus();
-      textarea.select();
-
-      document.execCommand("copy");
-
-      document.body.removeChild(textarea);
-
-    }
-
-    alert(`✅ تم نسخ الكود: ${code}`);
-
-  } catch (err) {
-
-    console.error("خطأ النسخ:", err);
-
-    alert(`📋 انسخ الكود يدوياً:\n${code}`);
-
-  }
-
-}
+  const [coupons,setCoupons] = useState([]);
 
 
 
 
-export default function StoreCoupons() {
-
-  const { store } = useParams();
-
-  const [coupons, setCoupons] = useState([]);
+  useEffect(()=>{
 
 
+    async function loadCoupons(){
 
 
-  useEffect(() => {
-
-    document.title =
-      `كوبونات خصم ${store} | CouponHub`;
-
-
-
-    async function loadCoupons() {
-
-      const snapshot =
-        await getDocs(
-          collection(db, "coupons")
-        );
-
-      const data =
-        snapshot.docs.map((doc) => ({
-
-          id: doc.id,
-
-          ...doc.data(),
-
-          affiliate:
-            doc.data().affiliate || ""
-
-        }));
-
-
-      const filtered =
-        data.filter((coupon) =>
-
-          (coupon.store || "")
-            .trim()
-            .toLowerCase() ===
-
-          (store || "")
-            .trim()
-            .toLowerCase()
-
-        );
-
-
-      console.log(
-        "كوبونات المتجر:",
-        filtered
+      const snapshot = await getDocs(
+        collection(db,"coupons")
       );
+
+
+      const data = snapshot.docs.map(doc=>({
+
+        id:doc.id,
+
+        ...doc.data()
+
+      }));
+
+
+      const filtered = data.filter(
+
+        coupon =>
+
+        coupon.store === id
+
+      );
+
 
       setCoupons(filtered);
 
+
+      document.title =
+      `كوبونات ${id} | CouponHub`;
+
+
     }
+
 
     loadCoupons();
 
-  }, [store]);
 
+  },[id]);
+
+
+
+
+
+  function openCoupon(link){
+
+
+    if(link){
+
+
+      window.open(
+
+        link,
+
+        "_blank"
+
+      );
+
+
+    }else{
+
+
+      alert(
+        "لا يوجد رابط أفلييت"
+      );
+
+
+    }
+
+
+  }
 
 
 
@@ -144,248 +103,126 @@ export default function StoreCoupons() {
 
   return (
 
-    <section
 
-      style={{
+    <section className="store-coupons">
 
-        maxWidth: "1100px",
 
-        margin: "auto",
+      <div className="container">
 
-        padding: "60px 20px",
 
-      }}
+        <h1>
 
-    >
+          🔥 كوبونات {id}
 
-      <h1
-
-        style={{
-
-          textAlign: "center",
-
-          marginBottom: "20px",
-
-        }}
-
-      >
-
-        🎟️ كوبونات خصم {store}
-
-      </h1>
+        </h1>
 
 
 
-      <p
-
-        style={{
-
-          textAlign: "center",
-
-          color: "#555",
-
-          marginBottom: "40px",
-
-        }}
-
-      >
-
-        استخدم أحدث أكواد الخصم والعروض الخاصة بـ {store}
-        واحصل على أفضل التخفيضات عبر CouponHub.
-
-      </p>
+        <div className="coupon-grid">
 
 
-
-
-
-      <div
-
-        style={{
-
-          display: "grid",
-
-          gridTemplateColumns:
-            "repeat(auto-fit,minmax(280px,1fr))",
-
-          gap: "25px",
-
-        }}
-
-      >
 
         {
 
-          coupons.map((coupon) => (
+
+          coupons.map(coupon=>(
+
 
             <div
 
+              className="coupon-card"
+
               key={coupon.id}
-
-              style={{
-
-                background: "#fff",
-
-                borderRadius: "16px",
-
-                padding: "25px",
-
-                boxShadow:
-                  "0 8px 20px rgba(0,0,0,.08)",
-
-              }}
 
             >
 
-              <h2>
 
-                {
-                  coupon.title ||
-                  `خصم ${coupon.discount}`
-                }
 
-              </h2>
+              <h3>
+
+                {coupon.title}
+
+              </h3>
+
+
 
 
               <p>
 
-                خصم: {coupon.discount}
+                {coupon.store}
 
               </p>
 
 
 
-              <div
 
-                style={{
+              <strong>
 
-                  background: "#eef2ff",
+                {coupon.discount}
 
-                  padding: "12px",
-
-                  borderRadius: "10px",
-
-                  textAlign: "center",
-
-                  fontWeight: "bold",
-
-                  margin: "20px 0",
-
-                }}
-
-              >
-
-                {coupon.code}
-
-              </div>
+              </strong>
 
 
 
 
               <button
 
-                onClick={() =>
-                  copyCode(
-                    coupon.code,
-                    coupon.affiliate
-                  )
-                }
-
-                style={{
-
-                  width: "100%",
-
-                  padding: "14px",
-
-                  border: "none",
-
-                  borderRadius: "10px",
-
-                  background: "#2563eb",
-
-                  color: "#fff",
-
-                  cursor: "pointer",
-
-                  fontSize: "16px",
-
-                }}
+              onClick={()=>openCoupon(coupon.affiliate)}
 
               >
 
-                📋 نسخ كود الخصم
+              🚀 استخدم الكوبون
 
               </button>
 
 
 
 
-              {
+              <small>
 
-                coupon.affiliate && (
+              كود الخصم:
+              {" "}
+              {coupon.code}
 
-                  <p
+              </small>
 
-                    style={{
-
-                      marginTop: "10px",
-
-                      textAlign: "center",
-
-                      fontSize: "12px",
-
-                      color: "#16a34a"
-
-                    }}
-
-                  >
-
-                    🔗 رابط أفلييت متوفر
-
-                  </p>
-
-                )
-
-              }
 
 
             </div>
+
 
           ))
 
         }
 
-      </div>
+
+
+
+        </div>
 
 
 
 
-      {
+        {
+          coupons.length === 0 &&
 
-        coupons.length === 0 && (
+          <p>
 
-          <p
-
-            style={{
-
-              textAlign: "center",
-
-              marginTop: "40px"
-
-            }}
-
-          >
-
-            لا توجد كوبونات متاحة لهذا المتجر حالياً.
+          لا توجد كوبونات لهذا المتجر حالياً
 
           </p>
 
-        )
+        }
 
-      }
+
+
+      </div>
+
 
     </section>
 
+
   );
+
 
 }
