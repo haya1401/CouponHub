@@ -5,7 +5,6 @@ import Footer from "./components/Footer";
 
 import Hero from "./components/Hero";
 import StoreLogos from "./components/StoreLogos";
-import FeaturedCoupons from "./components/FeaturedCoupons";
 import Categories from "./components/Categories";
 
 import Stores from "./pages/Stores";
@@ -22,88 +21,61 @@ export default function App() {
 
     <div className="app">
 
+      <Header />
 
       <Routes>
 
-
-        {/* صفحات الموقع */}
-
+        {/* الرئيسية */}
         <Route
           path="/"
           element={
             <>
-              <Header />
-
               <Hero />
-
               <StoreLogos />
-
-              <FeaturedCoupons />
-
               <Categories />
-
-              <Footer />
             </>
           }
         />
 
 
+        {/* الصفحات العامة */}
+
         <Route
           path="/stores"
-          element={
-            <>
-              <Header />
-              <Stores />
-              <Footer />
-            </>
-          }
+          element={<Stores />}
         />
 
 
         <Route
           path="/coupons"
-          element={
-            <>
-              <Header />
-              <Coupons />
-              <Footer />
-            </>
-          }
+          element={<Coupons />}
         />
 
 
         <Route
           path="/store/:id"
-          element={
-            <>
-              <Header />
-              <StoreCoupons />
-              <Footer />
-            </>
-          }
+          element={<StoreCoupons />}
         />
 
 
-        {/* لوحة الإدارة */}
+        {/* الإدارة */}
 
         <Route
           path="/admin"
-          element={
-            <AdminLogin />
-          }
+          element={<AdminLogin />}
         />
 
 
         <Route
           path="/dashboard"
-          element={
-            <Dashboard />
-          }
+          element={<Dashboard />}
         />
 
 
       </Routes>
 
+
+      <Footer />
 
     </div>
 
