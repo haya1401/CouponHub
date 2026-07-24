@@ -93,6 +93,7 @@ export default function Stores() {
 
 
 
+
   return (
 
     <section
@@ -269,7 +270,7 @@ export default function Stores() {
 
             <Link
 
-              to="/coupons"
+              to={`/store/${encodeURIComponent(store.name)}`}
 
               style={{
 
