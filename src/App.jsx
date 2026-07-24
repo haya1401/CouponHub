@@ -22,41 +22,65 @@ export default function App() {
 
     <div className="app">
 
-      <Header />
 
       <Routes>
 
-        {/* الصفحة الرئيسية */}
+
+        {/* صفحات الموقع */}
+
         <Route
           path="/"
           element={
             <>
+              <Header />
+
               <Hero />
+
               <StoreLogos />
+
               <FeaturedCoupons />
+
               <Categories />
+
+              <Footer />
             </>
           }
         />
 
 
-        {/* الصفحات العامة */}
-
         <Route
           path="/stores"
-          element={<Stores />}
+          element={
+            <>
+              <Header />
+              <Stores />
+              <Footer />
+            </>
+          }
         />
 
 
         <Route
           path="/coupons"
-          element={<Coupons />}
+          element={
+            <>
+              <Header />
+              <Coupons />
+              <Footer />
+            </>
+          }
         />
 
 
         <Route
           path="/store/:id"
-          element={<StoreCoupons />}
+          element={
+            <>
+              <Header />
+              <StoreCoupons />
+              <Footer />
+            </>
+          }
         />
 
 
@@ -64,22 +88,25 @@ export default function App() {
 
         <Route
           path="/admin"
-          element={<AdminLogin />}
+          element={
+            <AdminLogin />
+          }
         />
 
 
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <Dashboard />
+          }
         />
 
 
       </Routes>
 
 
-      <Footer />
-
     </div>
 
   );
+
 }
