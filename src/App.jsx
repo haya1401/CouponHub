@@ -16,7 +16,7 @@ import Dashboard from "./pages/Dashboard";
 
 
 export default function App() {
-
+// CouponHub main application routes
   return (
 
     <div className="app">
