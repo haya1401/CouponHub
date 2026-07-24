@@ -7,105 +7,105 @@ const coupons = [
     title:"خصم 50% على أول طلب",
     store:"Amazon",
     code:"SAVE50",
-    link:"ضع رابط أفلييت Amazon هنا"
+    link:"https://www.amazon.com"
   },
 
   {
     title:"خصم 30% على المنتجات",
     store:"Noon",
     code:"SALE30",
-    link:"ضع رابط أفلييت Noon هنا"
+    link:"https://www.noon.com"
   },
 
   {
     title:"خصم 20% على الأزياء",
     store:"SHEIN",
     code:"SHEIN20",
-    link:"ضع رابط أفلييت SHEIN هنا"
+    link:"https://www.shein.com"
   },
 
   {
     title:"خصم على الإلكترونيات",
     store:"AliExpress",
     code:"ALI20",
-    link:"ضع رابط أفلييت AliExpress هنا"
+    link:"https://www.aliexpress.com"
   },
 
   {
     title:"خصم خاص اليوم",
     store:"Temu",
     code:"TEMU15",
-    link:"ضع رابط أفلييت Temu هنا"
+    link:"https://www.temu.com"
   },
 
   {
     title:"خصم الفنادق والسفر",
     store:"Booking",
     code:"BOOK25",
-    link:"ضع رابط أفلييت Booking هنا"
+    link:"https://www.booking.com"
   },
 
   {
     title:"خصم الرحلات",
     store:"Expedia",
     code:"TRAVEL20",
-    link:"ضع رابط أفلييت Expedia هنا"
+    link:"https://www.expedia.com"
   },
 
   {
     title:"خصم المنتجات",
     store:"eBay",
     code:"EBAY10",
-    link:"ضع رابط أفلييت eBay هنا"
+    link:"https://www.ebay.com"
   },
 
   {
     title:"خصم الأحذية والملابس",
     store:"Nike",
     code:"NIKE15",
-    link:"ضع رابط أفلييت Nike هنا"
+    link:"https://www.nike.com"
   },
 
   {
     title:"خصم الملابس الرياضية",
     store:"Adidas",
     code:"ADIDAS20",
-    link:"ضع رابط أفلييت Adidas هنا"
+    link:"https://www.adidas.com"
   },
 
   {
     title:"خصم الأجهزة",
     store:"Samsung",
     code:"SAM10",
-    link:"ضع رابط أفلييت Samsung هنا"
+    link:"https://www.samsung.com"
   },
 
   {
     title:"خصم الكمبيوترات",
     store:"Lenovo",
     code:"LENOVO15",
-    link:"ضع رابط أفلييت Lenovo هنا"
+    link:"https://www.lenovo.com"
   },
 
   {
     title:"خصم الاستضافة",
     store:"Hostinger",
     code:"HOST50",
-    link:"ضع رابط أفلييت Hostinger هنا"
+    link:"https://www.hostinger.com"
   },
 
   {
     title:"خصم التصميم",
     store:"Canva",
     code:"CANVA20",
-    link:"ضع رابط أفلييت Canva هنا"
+    link:"https://www.canva.com"
   },
 
   {
     title:"خصم الدورات",
     store:"Udemy",
     code:"UDEMY30",
-    link:"ضع رابط أفلييت Udemy هنا"
+    link:"https://www.udemy.com"
   }
 
 ];
@@ -117,18 +117,11 @@ export default function FeaturedCoupons(){
 
   function openCoupon(link){
 
-    if(link && !link.includes("ضع رابط")){
-
-      window.open(
-        link,
-        "_blank"
-      );
-
-    }else{
-
-      alert("لم يتم إضافة رابط الأفلييت لهذا المتجر بعد");
-
-    }
+    window.open(
+      link,
+      "_blank",
+      "noopener,noreferrer"
+    );
 
   }
 
