@@ -2,40 +2,52 @@ import "./FeaturedCoupons.css";
 
 
 const coupons = [
+
   {
     title:"خصم 50% على أول طلب",
     store:"Amazon",
     code:"SAVE50",
-    link:"ضع رابط أفلييت أمازون هنا"
+    link:"https://www.amazon.com"
   },
+
 
   {
     title:"خصم 30% على المنتجات",
     store:"Noon",
     code:"SALE30",
-    link:"ضع رابط أفلييت نون هنا"
+    link:"https://www.noon.com"
   },
+
 
   {
     title:"عرض خاص اليوم",
     store:"SHEIN",
     code:"DEAL2026",
-    link:"ضع رابط أفلييت شي إن هنا"
+    link:"https://www.shein.com"
   }
+
 ];
+
 
 
 export default function FeaturedCoupons(){
 
 
+
   function openCoupon(link){
 
-    window.open(
-      link,
-      "_blank"
-    );
+    if(link){
+
+      window.open(
+        link,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
 
   }
+
 
 
 
@@ -76,18 +88,21 @@ export default function FeaturedCoupons(){
               </p>
 
 
+
               <button
                 onClick={() => openCoupon(coupon.link)}
               >
 
-                استخدم الكوبون
+                🚀 استخدم الكوبون
 
               </button>
+
 
 
               <small>
                 كود الخصم: {coupon.code}
               </small>
+
 
 
             </div>
