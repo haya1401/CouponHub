@@ -1,4 +1,4 @@
-import "./FeaturedCoupons.css";
+// import "./FeaturedCoupons.css";
 
 
 const coupons = [
