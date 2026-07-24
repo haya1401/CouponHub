@@ -11,7 +11,9 @@ export default function Header() {
 
 
         <h2 className="logo">
+
           CouponHub
+
         </h2>
 
 
