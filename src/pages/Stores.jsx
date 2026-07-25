@@ -7,32 +7,35 @@ export default function Stores() {
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // خريطة الشعارات الأصلية والنطاقات للمتاجر الموضحة في الصورة
-  const originalLogos = {
-    'برفيوم كو': 'https://logo.clearbit.com/perfumeco.sa',
-    'أفلام الألغاز': 'https://logo.clearbit.com/puzzlemovies.com',
-    'سكون': 'https://logo.clearbit.com/sakoon.sa',
-    'سمارت هب1': 'https://logo.clearbit.com/smarthub1.com',
-    'سارت هب1': 'https://logo.clearbit.com/smarthub1.com',
-    'مجوهرات الغنيم': 'https://logo.clearbit.com/alghoneim.com',
-    'مجوهرا الغنيم': 'https://logo.clearbit.com/alghoneim.com',
-    'huawei': 'https://logo.clearbit.com/huawei.com',
-    'sukkarstore': 'https://logo.clearbit.com/sukkarstore.com',
-    'زمرد ذهب و الماس': 'https://logo.clearbit.com/zomorod.sa',
-    'زمرد ذهب و ألمس': 'https://logo.clearbit.com/zomorod.sa',
-    'مترو برازيل': 'https://logo.clearbit.com/metrobrazil.com',
-    'الشنيفي للمسكات والكوالين': 'https://logo.clearbit.com/alshneifi.com',
-    'aliexpress': 'https://logo.clearbit.com/aliexpress.com',
-    'علي إكسبريس العالمية': 'https://logo.clearbit.com/aliexpress.com',
-    'ناتفيتا': 'https://logo.clearbit.com/natvita.sa',
-    'ناتفِيتا': 'https://logo.clearbit.com/natvita.sa',
-    'نون': 'https://logo.clearbit.com/noon.com',
-    'dkny': 'https://logo.clearbit.com/dkny.com',
-    'شنطتي': 'https://logo.clearbit.com/shentaty.com',
-    'lg': 'https://logo.clearbit.com/lg.com',
-    'amazon': 'https://logo.clearbit.com/amazon.com',
-    'أمازون': 'https://logo.clearbit.com/amazon.com',
-    'salla': 'https://logo.clearbit.com/salla.sa'
+  // خريطة النطاقات الصريحة لضمان جلب الشعار الأصلي من النطاق المباشر
+  const storeDomains = {
+    'برفيوم كو': 'perfumeco.sa',
+    'أفلام الألغاز': 'puzzlemovies.com',
+    'سكون': 'sakoon.sa',
+    'سمارت هب1': 'smarthub1.com',
+    'سارت هب1': 'smarthub1.com',
+    'مجوهرات الغنيم': 'alghoneim.com',
+    'مجوهرا الغنيم': 'alghoneim.com',
+    'huawei': 'huawei.com',
+    'sukkarstore': 'sukkarstore.com',
+    'زمرد ذهب و الماس': 'zomorod.sa',
+    'زمرد ذهب و ألمس': 'zomorod.sa',
+    'مترو برازيل': 'metrobrazil.com',
+    'الشنيفي للمسكات والكوالين': 'alshneifi.com',
+    'aliexpress': 'aliexpress.com',
+    'علي إكسبريس العالمية': 'aliexpress.com',
+    'ناتفيتا': 'natvita.sa',
+    'ناتفِيتا': 'natvita.sa',
+    'نون': 'noon.com',
+    'dkny': 'dkny.com',
+    'شنطتي': 'shentaty.com',
+    'lg': 'lg.com',
+    'amazon': 'amazon.com',
+    'أمازون': 'amazon.com',
+    'salla': 'salla.sa',
+    'bshti': 'bshti.com',
+    'سمو': 'samou.sa',
+    'مصاغات الأربش للذهب': 'alarbashgold.com'
   };
 
   useEffect(() => {
@@ -71,25 +74,29 @@ export default function Stores() {
     fetchStores();
   }, []);
 
-  const getLogo = (store) => {
+  // دالة ذكية لتوليد جلب الشعار بجميع المحاولات
+  const getLogoUrl = (store) => {
     if (store.logo && store.logo.startsWith('http')) {
       return store.logo;
     }
 
     const cleanName = store.name.trim().toLowerCase();
 
-    for (const [key, value] of Object.entries(originalLogos)) {
+    // 1. البحث في خريطة النطاقات المخصصة
+    for (const [key, domain] of Object.entries(storeDomains)) {
       if (cleanName.includes(key.toLowerCase())) {
-        return value;
+        return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
       }
     }
 
+    // 2. إذا كان اسم المتجر بالإنجليزية
     if (/^[a-zA-Z0-9-.]+$/.test(cleanName)) {
       const domain = cleanName.includes('.') ? cleanName : `${cleanName}.com`;
-      return `https://logo.clearbit.com/${domain}`;
+      return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
     }
 
-    return "https://cdn-icons-png.flaticon.com/512/869/869636.png";
+    // 3. بديل جذاب بالأحرف الملونة بدلاً من الأيقونة الموحدة
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=1e293b&size=128&bold=true&font-size=0.4`;
   };
 
   return (
@@ -114,8 +121,7 @@ export default function Stores() {
           gap: '20px'
         }}>
           {stores.map((store, index) => {
-            const logoUrl = getLogo(store);
-            const fallbackIcon = "https://cdn-icons-png.flaticon.com/512/869/869636.png";
+            const logoUrl = getLogoUrl(store);
 
             return (
               <div 
@@ -134,7 +140,7 @@ export default function Stores() {
               >
                 <div style={{
                   height: '75px',
-                  width: '130px',
+                  width: '120px',
                   marginBottom: '14px',
                   display: 'flex',
                   alignItems: 'center',
@@ -143,10 +149,10 @@ export default function Stores() {
                   <img 
                     src={logoUrl} 
                     alt={store.name} 
-                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '8px' }}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = fallbackIcon;
+                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=2563eb&bold=true`;
                     }}
                   />
                 </div>
