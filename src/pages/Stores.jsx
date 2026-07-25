@@ -7,27 +7,33 @@ export default function Stores() {
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // خريطة الشعارات الأصلية والموثوقة للمتاجر
+  // خريطة اللوجوهات الأصلية المباشرة الظاهرة في الواجهة المعتمدة
   const originalLogos = {
-    'lg': 'https://logo.clearbit.com/lg.com',
+    'سكون': 'https://logo.clearbit.com/sakoon.sa',
+    'أفلام الألغاز': 'https://logo.clearbit.com/puzzlemovies.com',
+    'برفيوم كو': 'https://logo.clearbit.com/perfumeco.sa',
+    'سمارت هب1': 'https://logo.clearbit.com/smarthub1.com',
+    'سارت هب1': 'https://logo.clearbit.com/smarthub1.com',
+    'مجوهرات الغنيم': 'https://logo.clearbit.com/alghoneim.com',
+    'مجوهرا الغنيم': 'https://logo.clearbit.com/alghoneim.com',
+    'huawei': 'https://logo.clearbit.com/huawei.com',
     'sukkarstore': 'https://logo.clearbit.com/sukkarstore.com',
+    'زمرد ذهب و الماس': 'https://logo.clearbit.com/zomorod.sa',
+    'زمرد ذهب و ألمس': 'https://logo.clearbit.com/zomorod.sa',
+    'مترو برازيل': 'https://logo.clearbit.com/metrobrazil.com',
+    'الشنيفي للمسكات والكوالين': 'https://logo.clearbit.com/alshneifi.com',
+    'aliexpress': 'https://logo.clearbit.com/aliexpress.com',
+    'علي إكسبريس العالمية': 'https://logo.clearbit.com/aliexpress.com',
     'ناتفيتا': 'https://logo.clearbit.com/natvita.sa',
     'ناتفِيتا': 'https://logo.clearbit.com/natvita.sa',
-    'سكون': 'https://cdn.salla.sa/Forma/logo.png', // رابط مباشر
-    'مترو برازيل': 'https://logo.clearbit.com/metrobrazil.com',
-    'bshti': 'https://logo.clearbit.com/bshti.com',
-    'بشتي': 'https://logo.clearbit.com/bshti.com',
-    'سمو': 'https://ui-avatars.com/api/?name=سمو&background=0284c7&color=ffffff&bold=true&size=128',
-    'الشنيفي للمسكات والكوالين': 'https://ui-avatars.com/api/?name=الشنيفي&background=1e293b&color=ffffff&bold=true&size=128',
-    'برفيوم كو': 'https://logo.clearbit.com/perfumeco.sa',
-    'مصاغات الأربش للذهب': 'https://ui-avatars.com/api/?name=الأربش&background=d97706&color=ffffff&bold=true&size=128',
-    'salla': 'https://logo.clearbit.com/salla.sa',
-    'سلة': 'https://logo.clearbit.com/salla.sa',
+    'noon': 'https://logo.clearbit.com/noon.com',
+    'نون': 'https://logo.clearbit.com/noon.com',
+    'dkny': 'https://logo.clearbit.com/dkny.com',
+    'شنطتي': 'https://logo.clearbit.com/shentaty.com',
+    'lg': 'https://logo.clearbit.com/lg.com',
     'amazon': 'https://logo.clearbit.com/amazon.com',
     'أمازون': 'https://logo.clearbit.com/amazon.com',
-    'علي إكسبريس العالمية': 'https://logo.clearbit.com/aliexpress.com',
-    'aliexpress': 'https://logo.clearbit.com/aliexpress.com',
-    'الزامل للصناعة والتجارة والنقل': 'https://logo.clearbit.com/zamil.com'
+    'salla': 'https://logo.clearbit.com/salla.sa'
   };
 
   useEffect(() => {
@@ -67,28 +73,24 @@ export default function Stores() {
   }, []);
 
   const getStoreLogo = (store) => {
-    // 1. استخدام اللوجو المباشر من قاعدة البيانات إن وجد
     if (store.logo && store.logo.startsWith('http')) {
       return store.logo;
     }
 
     const cleanName = store.name.trim().toLowerCase();
 
-    // 2. البحث في خريطة الشعارات
     for (const [key, value] of Object.entries(originalLogos)) {
       if (cleanName.includes(key.toLowerCase())) {
         return value;
       }
     }
 
-    // 3. النطاقات الإنجليزية
     if (/^[a-zA-Z0-9-.]+$/.test(cleanName)) {
       const domain = cleanName.includes('.') ? cleanName : `${cleanName}.com`;
       return `https://logo.clearbit.com/${domain}`;
     }
 
-    // 4. رمز أنيق ومخصص بحروف اسم المتجر عند عدم وجود صورة
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=2563eb&bold=true&size=128`;
+    return "https://cdn-icons-png.flaticon.com/512/869/869636.png";
   };
 
   return (
@@ -114,6 +116,7 @@ export default function Stores() {
         }}>
           {stores.map((store, index) => {
             const logoUrl = getStoreLogo(store);
+            const fallbackIcon = "https://cdn-icons-png.flaticon.com/512/869/869636.png";
 
             return (
               <div 
@@ -131,7 +134,7 @@ export default function Stores() {
                 }}
               >
                 <div style={{
-                  height: '80px',
+                  height: '75px',
                   width: '130px',
                   marginBottom: '14px',
                   display: 'flex',
@@ -141,10 +144,10 @@ export default function Stores() {
                   <img 
                     src={logoUrl} 
                     alt={store.name} 
-                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', borderRadius: '8px' }}
+                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=2563eb&bold=true`;
+                      e.target.src = fallbackIcon;
                     }}
                   />
                 </div>
