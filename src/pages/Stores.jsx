@@ -7,6 +7,25 @@ export default function Stores() {
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // خريطة المواقع الإلكترونية للوصول للشعار الأصلي بدقة
+  const storeLogosMap = {
+    'amazon': 'https://logo.clearbit.com/amazon.com',
+    'aliexpress': 'https://logo.clearbit.com/aliexpress.com',
+    'علي إكسبريس العالمية': 'https://logo.clearbit.com/aliexpress.com',
+    'lg': 'https://logo.clearbit.com/lg.com',
+    'samsung': 'https://logo.clearbit.com/samsung.com',
+    'سامسونج': 'https://logo.clearbit.com/samsung.com',
+    'huawei': 'https://logo.clearbit.com/huawei.com',
+    'dkny': 'https://logo.clearbit.com/dkny.com',
+    'mamas & papas': 'https://logo.clearbit.com/mamasandpapas.com',
+    'ماماز اند باباز': 'https://logo.clearbit.com/mamasandpapas.com',
+    'salla': 'https://logo.clearbit.com/salla.sa',
+    'سكون': 'https://logo.clearbit.com/sakoon.sa',
+    'مترو برازيل': 'https://logo.clearbit.com/metrobrazil.com',
+    'عالم السيف': 'https://logo.clearbit.com/alsaifgallery.com',
+    'طيران ناس': 'https://logo.clearbit.com/flynas.com'
+  };
+
   useEffect(() => {
     async function fetchStores() {
       try {
@@ -17,7 +36,6 @@ export default function Stores() {
         allCoupons.forEach((coupon) => {
           const name = coupon.store?.trim();
           if (name) {
-            // البحث عن رابط الشعار بأي حقل محتمل في قاعدة البيانات
             const logoUrl = coupon.storeLogo || coupon.logo || coupon.image || coupon.img || null;
 
             if (!storeMap[name]) {
@@ -44,6 +62,23 @@ export default function Stores() {
     fetchStores();
   }, []);
 
+  const getStoreLogo = (store) => {
+    if (store.logo) return store.logo;
+
+    const lowerName = store.name.toLowerCase().trim();
+    if (storeLogosMap[lowerName]) {
+      return storeLogosMap[lowerName];
+    }
+
+    if (/^[a-zA-Z0-9-.]+$/.test(lowerName)) {
+      const cleanDomain = lowerName.includes('.') ? lowerName : `${lowerName}.com`;
+      return `https://logo.clearbit.com/${cleanDomain}`;
+    }
+
+    // صورة متجر افتراضية بدلاً من الحرفين
+    return "https://cdn-icons-png.flaticon.com/512/869/869636.png";
+  };
+
   return (
     <section style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 15px' }}>
       <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
@@ -66,8 +101,8 @@ export default function Stores() {
           gap: '20px'
         }}>
           {stores.map((store, index) => {
-            const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f8fafc&color=0f172a&size=128&bold=true`;
-            const displayLogo = store.logo || fallbackAvatar;
+            const displayLogo = getStoreLogo(store);
+            const fallbackIcon = "https://cdn-icons-png.flaticon.com/512/869/869636.png";
 
             return (
               <div 
@@ -85,8 +120,8 @@ export default function Stores() {
                 }}
               >
                 <div style={{
-                  height: '65px',
-                  width: '130px',
+                  height: '70px',
+                  width: '120px',
                   marginBottom: '14px',
                   display: 'flex',
                   alignItems: 'center',
@@ -98,7 +133,7 @@ export default function Stores() {
                     style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = fallbackAvatar;
+                      e.target.src = fallbackIcon;
                     }}
                   />
                 </div>
