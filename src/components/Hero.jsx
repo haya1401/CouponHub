@@ -25,6 +25,7 @@ const heroSlides = [
 export default function Hero() {
   return (
     <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto 2rem auto', padding: '0 15px' }}>
+      {/* Clean Hero Slider */}
       <Swiper
         spaceBetween={30}
         effect={'fade'}
