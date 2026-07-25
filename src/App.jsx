@@ -3,9 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// استبدال المكون القديم بالسلايدر المتحرك الجديد
 import HeroSlider from "./components/HeroSlider";
-import StoreLogos from "./components/StoreLogos";
 import Categories from "./components/Categories";
 
 import Stores from "./pages/Stores";
@@ -21,14 +19,13 @@ export default function App() {
       <Header />
 
       <Routes>
-        {/* الصفحة الرئيسية - تعرض المتاجر الآن مباشرة بدلاً من الكوبونات */}
+        {/* الصفحة الرئيسية - عرض شبكة المتاجر مرة واحدة فقط */}
         <Route
           path="/"
           element={
             <>
               <HeroSlider />
               <Stores />
-              <StoreLogos />
               <Categories />
             </>
           }
