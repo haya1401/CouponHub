@@ -17,7 +17,7 @@ export default function Stores() {
         allCoupons.forEach((coupon) => {
           const name = coupon.store?.trim();
           if (name) {
-            // البحث عن رابط الشعار أو الصورة من بيانات الكوبون
+            // محاولة جلب الشعار من الكوبون إن وجد
             const logoUrl = coupon.logo || coupon.storeLogo || coupon.image || coupon.img || null;
 
             if (!storeMap[name]) {
@@ -27,7 +27,6 @@ export default function Stores() {
                 logo: logoUrl
               };
             } else if (!storeMap[name].logo && logoUrl) {
-              // إذا وُجد شعار في كوبون آخر لنفس المتجر
               storeMap[name].logo = logoUrl;
             }
             storeMap[name].count += 1;
@@ -44,6 +43,14 @@ export default function Stores() {
 
     fetchStores();
   }, []);
+
+  // دالة لجلب شعار تلقائي ممتاز باللغة الإنجليزية أو العربية إذا لم يتوفر شعار في Firebase
+  const getStoreLogo = (store) => {
+    if (store.logo) return store.logo;
+    
+    // استخدام خدمة UI Avatars لتوليد شعار أنيق باختصار اسم المتجر خلفية داكنة/ملونة
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=0D8ABC&color=fff&size=128&bold=true`;
+  };
 
   return (
     <section style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 15px' }}>
@@ -74,41 +81,35 @@ export default function Stores() {
                 borderRadius: '16px',
                 padding: '24px 20px',
                 border: '1px solid #e2e8f0',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.03)',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.04)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center'
               }}
             >
-              {/* إظهار شعار المتجر */}
+              {/* شعار المتجر */}
               <div style={{
                 width: '75px',
                 height: '75px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 marginBottom: '14px',
-                border: '1px solid #e2e8f0',
-                backgroundColor: '#f8fafc',
+                border: '1px solid #f1f5f9',
+                backgroundColor: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+                boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
               }}>
-                {store.logo ? (
-                  <img 
-                    src={store.logo} 
-                    alt={store.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '6px' }}
-                    onError={(e) => {
-                      // إذا فشل تحميل الصورة يظهر شكل المتجر الافتراضي
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<span style="font-size: 2rem;">🛍️</span>';
-                    }}
-                  />
-                ) : (
-                  <span style={{ fontSize: '2rem' }}>🛍️</span>
-                )}
+                <img 
+                  src={getStoreLogo(store)} 
+                  alt={store.name} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=2563eb&color=fff`;
+                  }}
+                />
               </div>
 
               <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '6px', color: '#0f172a' }}>
