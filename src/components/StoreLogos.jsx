@@ -1,91 +1,65 @@
-import "./StoreLogos.css";
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
+import { Link } from 'react-router-dom';
+import './StoreLogos.css';
 
+export default function StoreLogos() {
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const stores = [
+  useEffect(() => {
+    async function fetchStores() {
+      try {
+        const snapshot = await getDocs(collection(db, "coupons"));
+        const allCoupons = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  {
-    name:"Amazon",
-    logo:"/logos/amazon.png",
-  },
+        const storeMap = {};
+        allCoupons.forEach((coupon) => {
+          const name = coupon.store?.trim();
+          if (name) {
+            if (!storeMap[name]) {
+              storeMap[name] = {
+                name: name,
+                count: 0,
+                logo: coupon.logo || coupon.image || coupon.storeLogo || ''
+              };
+            }
+            storeMap[name].count += 1;
+          }
+        });
 
-  {
-    name:"Noon",
-    logo:"/logos/noon.png",
-  },
+        setStores(Object.values(storeMap));
+      } catch (error) {
+        console.error("Error fetching store logos:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  {
-    name:"SHEIN",
-    logo:"/logos/shein.png",
-  },
+    fetchStores();
+  }, []);
 
-  {
-    name:"AliExpress",
-    logo:"/logos/aliexpress.png",
-  },
-
-];
-
-
-export default function StoreLogos(){
+  if (loading) return <p style={{ textAlign: 'center' }}>جاري التحميل...</p>;
 
   return (
-
-    <section className="stores-section">
-
-
-      <div className="container">
-
-
-        <h2 className="stores-title">
-
-          🏪 أشهر المتاجر
-
-        </h2>
-
-
-
-        <div className="stores-grid">
-
-
-          {stores.map((store)=>(
-
-
-            <div
-              className="store-card"
-              key={store.name}
-            >
-
-
-              <img
-
-                src={store.logo}
-
-                alt={store.name}
-
-              />
-
-
-              <h3>
-
-                {store.name}
-
-              </h3>
-
-
-            </div>
-
-
-          ))}
-
-
+    <div className="stores-grid">
+      {stores.map((store, index) => (
+        <div key={index} className="store-card">
+          <div className="logo-container">
+            {store.logo ? (
+              <img src={store.logo} alt={store.name} />
+            ) : (
+              <span>🏪</span>
+            )}
+          </div>
+          <h3>كوبونات {store.name}</h3>
+          <p>{store.count} كوبون متوفر</p>
+          <Link to={`/store/${encodeURIComponent(store.name)}`} className="btn-store">
+            عرض الكوبونات
+          </Link>
         </div>
-
-
-      </div>
-
-
-    </section>
-
+      ))}
+    </div>
   );
-
 }
