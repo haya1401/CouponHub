@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// السلايدر المتحرك في الواجهة
+// المكونات الرئيسية للواجهة
 import HeroSlider from "./components/HeroSlider";
 import Categories from "./components/Categories";
 
@@ -20,7 +20,7 @@ export default function App() {
       <Header />
 
       <Routes>
-        {/* الصفحة الرئيسية - تحتوي على السلايدر والمتاجر والتصنيفات */}
+        {/* الصفحة الرئيسية تحتوي على السلايدر، المتاجر بشعاراتها، والتصنيفات */}
         <Route
           path="/"
           element={
@@ -32,35 +32,11 @@ export default function App() {
           }
         />
 
-        {/* صفحة جميع المتاجر */}
-        <Route
-          path="/stores"
-          element={<Stores />}
-        />
-
-        {/* صفحة جميع الكوبونات */}
-        <Route
-          path="/coupons"
-          element={<Coupons />}
-        />
-
-        {/* صفحة كوبونات متجر واحد */}
-        <Route
-          path="/store/:id"
-          element={<StoreCoupons />}
-        />
-
-        {/* صفحة تسجيل دخول الأدمن */}
-        <Route
-          path="/admin"
-          element={<AdminLogin />}
-        />
-
-        {/* لوحة التحكم */}
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+        <Route path="/stores" element={<Stores />} />
+        <Route path="/coupons" element={<Coupons />} />
+        <Route path="/store/:id" element={<StoreCoupons />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
 
       <Footer />
