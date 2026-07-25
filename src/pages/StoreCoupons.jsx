@@ -37,24 +37,27 @@ export default function StoreCoupons() {
     }
   }, [id]);
 
-  // دالة فتح رابط الأفلييت ونسخ كود الخصم
-  function handleCouponClick(e, code, link) {
-    // 1. منع حدوث أي انتقال داخلي بصفحات الموقع عند الضغط على الزر
+  // دالة فتح رابط الأفلييت الفورية + نسخ الكود
+  function handleCouponClick(e, code, couponObj) {
     e.stopPropagation();
     e.preventDefault();
 
-    // 2. نسخ كود الخصم تلقائياً إذا كان موجوداً
-    if (code) {
-      navigator.clipboard.writeText(code).catch((err) => {
-        console.error("فشل نسخ الكود:", err);
-      });
+    // معرفة رابط الأفلييت الصحيح بغض النظر عن اسمه في Firebase
+    const targetUrl = couponObj.affiliate || couponObj.affiliateUrl || couponObj.link || couponObj.url;
+
+    if (!targetUrl) {
+      alert("عذراً، لم يتم إضافة رابط الأفلييت لهذا الكوبون بعد!");
+      return;
     }
 
-    // 3. فتح رابط الأفلييت في تبويب جديد فقط
-    if (link) {
-      window.open(link, "_blank", "noopener,noreferrer");
-    } else {
-      alert("لا يوجد رابط أفلييت لهذا الكوبون");
+    // 1. فتح رابط الأفلييت فوراً لتجاوز مانع النوافذ المنبثقة (Pop-up Blocker)
+    window.open(targetUrl, "_blank", "noopener,noreferrer");
+
+    // 2. نسخ كود الخصم في الخلفية تلقائياً
+    if (code) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).catch(() => {});
+      }
     }
   }
 
@@ -72,10 +75,10 @@ export default function StoreCoupons() {
               <p>{coupon.store}</p>
               <strong>{coupon.discount}</strong>
 
-              {/* زر الكوبون التفاعلي */}
+              {/* زر الكوبون */}
               <button
                 onClick={(e) =>
-                  handleCouponClick(e, coupon.code, coupon.affiliate)
+                  handleCouponClick(e, coupon.code, coupon)
                 }
               >
                 🚀 استخدم الكوبون
