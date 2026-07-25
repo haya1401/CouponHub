@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 // استبدال المكون القديم بالسلايدر المتحرك الجديد
 import HeroSlider from "./components/HeroSlider";
 import StoreLogos from "./components/StoreLogos";
-import FeaturedCoupons from "./components/FeaturedCoupons";
 import Categories from "./components/Categories";
 
 import Stores from "./pages/Stores";
@@ -22,18 +21,14 @@ export default function App() {
       <Header />
 
       <Routes>
-        {/* الصفحة الرئيسية */}
+        {/* الصفحة الرئيسية - تعرض المتاجر الآن مباشرة بدلاً من الكوبونات */}
         <Route
           path="/"
           element={
             <>
-              {/* السلايدر المتحرك في الواجهة */}
               <HeroSlider />
-
-              <FeaturedCoupons />
-
+              <Stores />
               <StoreLogos />
-
               <Categories />
             </>
           }
