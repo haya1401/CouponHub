@@ -7,23 +7,29 @@ export default function Stores() {
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // خريطة المواقع الإلكترونية للوصول للشعار الأصلي بدقة
-  const storeLogosMap = {
-    'amazon': 'https://logo.clearbit.com/amazon.com',
-    'aliexpress': 'https://logo.clearbit.com/aliexpress.com',
-    'علي إكسبريس العالمية': 'https://logo.clearbit.com/aliexpress.com',
-    'lg': 'https://logo.clearbit.com/lg.com',
-    'samsung': 'https://logo.clearbit.com/samsung.com',
-    'سامسونج': 'https://logo.clearbit.com/samsung.com',
-    'huawei': 'https://logo.clearbit.com/huawei.com',
-    'dkny': 'https://logo.clearbit.com/dkny.com',
-    'mamas & papas': 'https://logo.clearbit.com/mamasandpapas.com',
-    'ماماز اند باباز': 'https://logo.clearbit.com/mamasandpapas.com',
-    'salla': 'https://logo.clearbit.com/salla.sa',
-    'سكون': 'https://logo.clearbit.com/sakoon.sa',
-    'مترو برازيل': 'https://logo.clearbit.com/metrobrazil.com',
-    'عالم السيف': 'https://logo.clearbit.com/alsaifgallery.com',
-    'طيران ناس': 'https://logo.clearbit.com/flynas.com'
+  // خريطة النطاقات للوصول المباشر للشعار
+  const storeDomainsMap = {
+    'amazon': 'amazon.com',
+    'أمازون': 'amazon.com',
+    'aliexpress': 'aliexpress.com',
+    'علي إكسبريس العالمية': 'aliexpress.com',
+    'علي إكسبريس': 'aliexpress.com',
+    'lg': 'lg.com',
+    'samsung': 'samsung.com',
+    'سامسونج': 'samsung.com',
+    'huawei': 'huawei.com',
+    'dkny': 'dkny.com',
+    'mamas & papas': 'mamasandpapas.com',
+    'ماماز اند باباز': 'mamasandpapas.com',
+    'salla': 'salla.sa',
+    'سلة': 'salla.sa',
+    'سكون': 'sakoon.sa',
+    'مترو برازيل': 'metrobrazil.com',
+    'عالم السيف': 'alsaifgallery.com',
+    'طيران ناس': 'flynas.com',
+    'sukkarstore': 'sukkarstore.com',
+    'bshti': 'bshti.com',
+    'nazih': 'nazih.sa'
   };
 
   useEffect(() => {
@@ -63,19 +69,23 @@ export default function Stores() {
   }, []);
 
   const getStoreLogo = (store) => {
+    // 1. إذا توفر الشعار مباشرة في قاعدة البيانات
     if (store.logo) return store.logo;
 
     const lowerName = store.name.toLowerCase().trim();
-    if (storeLogosMap[lowerName]) {
-      return storeLogosMap[lowerName];
+
+    // 2. البحث في خريطة النطاقات المعرفة
+    if (storeDomainsMap[lowerName]) {
+      return `https://logo.clearbit.com/${storeDomainsMap[lowerName]}`;
     }
 
+    // 3. إذا كان اسم المتجر بالإنجليزية ويمكن تحويله لموقع
     if (/^[a-zA-Z0-9-.]+$/.test(lowerName)) {
       const cleanDomain = lowerName.includes('.') ? lowerName : `${lowerName}.com`;
       return `https://logo.clearbit.com/${cleanDomain}`;
     }
 
-    // صورة متجر افتراضية بدلاً من الحرفين
+    // 4. أيقونة متجر افتراضية واضحة للمتاجر التي لا تملك شعاراً معرفاً
     return "https://cdn-icons-png.flaticon.com/512/869/869636.png";
   };
 
