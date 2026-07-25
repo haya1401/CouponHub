@@ -37,27 +37,17 @@ export default function StoreCoupons() {
     }
   }, [id]);
 
-  // دالة فتح رابط الأفلييت الفورية + نسخ الكود
-  function handleCouponClick(e, code, couponObj) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    // معرفة رابط الأفلييت الصحيح بغض النظر عن اسمه في Firebase
-    const targetUrl = couponObj.affiliate || couponObj.affiliateUrl || couponObj.link || couponObj.url;
-
-    if (!targetUrl) {
-      alert("عذراً، لم يتم إضافة رابط الأفلييت لهذا الكوبون بعد!");
-      return;
+  // دالة التعامل مع الضغط على الكوبون (نسخ الكود + فتح الرابط)
+  function handleCouponAction(e, code, targetUrl) {
+    // 1. نسخ كود الخصم تلقائياً إلى الحافظة
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).catch(() => {});
     }
 
-    // 1. فتح رابط الأفلييت فوراً لتجاوز مانع النوافذ المنبثقة (Pop-up Blocker)
-    window.open(targetUrl, "_blank", "noopener,noreferrer");
-
-    // 2. نسخ كود الخصم في الخلفية تلقائياً
-    if (code) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(code).catch(() => {});
-      }
+    // 2. إذا لم يكن هناك رابط أفلييت في الفايربيس
+    if (!targetUrl) {
+      e.preventDefault();
+      alert("⚠️ عذراً، لا يوجد رابط أفلييت مضاف لهذا الكوبون في قاعدة البيانات!");
     }
   }
 
@@ -69,24 +59,39 @@ export default function StoreCoupons() {
         <h1>🔥 كوبونات {storeName}</h1>
 
         <div className="coupon-grid">
-          {coupons.map((coupon) => (
-            <div className="coupon-card" key={coupon.id}>
-              <h3>{coupon.title}</h3>
-              <p>{coupon.store}</p>
-              <strong>{coupon.discount}</strong>
+          {coupons.map((coupon) => {
+            // فحص كافّة احتمالات المسميات لرابط الأفلييت بداخل Firestore
+            const affiliateLink = 
+              coupon.affiliate || 
+              coupon.affiliateUrl || 
+              coupon.link || 
+              coupon.url || 
+              "";
 
-              {/* زر الكوبون */}
-              <button
-                onClick={(e) =>
-                  handleCouponClick(e, coupon.code, coupon)
-                }
-              >
-                🚀 استخدم الكوبون
-              </button>
+            return (
+              <div className="coupon-card" key={coupon.id}>
+                <h3>{coupon.title}</h3>
+                <p>{coupon.store}</p>
+                <strong>{coupon.discount}</strong>
 
-              <small>كود الخصم: {coupon.code}</small>
-            </div>
-          ))}
+                {/* رابط صريح لضمان عدم حظره من المتصفح أو Cloudflare */}
+                <a
+                  href={affiliateLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="coupon-btn-link"
+                  style={{ textDecoration: 'none', display: 'inline-block', width: '100%' }}
+                  onClick={(e) => handleCouponAction(e, coupon.code, affiliateLink)}
+                >
+                  <button type="button" style={{ width: '100%', cursor: 'pointer' }}>
+                    🚀 استخدم الكوبون
+                  </button>
+                </a>
+
+                <small>كود الخصم: {coupon.code}</small>
+              </div>
+            );
+          })}
         </div>
 
         {coupons.length === 0 && <p>لا توجد كوبونات لهذا المتجر حالياً</p>}
