@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // استيراد Link للتنقل السريع
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 
@@ -14,7 +15,7 @@ const heroSlides = [
     subtitle: "أحدث كوبونات الخصم لمتاجر الأجهزة والتكنولوجيا",
     image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=80",
     buttonText: "تصفح العروض",
-    link: "/coupons"
+    link: "/coupons" // يوجه لصفحة جميع الكوبونات
   },
   {
     id: 2,
@@ -22,7 +23,7 @@ const heroSlides = [
     subtitle: "وفّر على مشترياتك من أشهر الماركات العالمية",
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
     buttonText: "استكشف المتاجر",
-    link: "/stores"
+    link: "/stores" // يوجه لصفحة جميع المتاجر
   }
 ];
 
@@ -64,8 +65,10 @@ export default function Hero() {
               <p style={{ fontSize: '1rem', marginBottom: '20px', opacity: 0.9, maxWidth: '600px' }}>
                 {slide.subtitle}
               </p>
-              <a 
-                href={slide.link} 
+              
+              {/* استخدام Link للانتقال السريع بداخل التطبيق */}
+              <Link 
+                to={slide.link} 
                 style={{
                   backgroundColor: '#2563eb',
                   color: '#fff',
@@ -77,7 +80,7 @@ export default function Hero() {
                 }}
               >
                 {slide.buttonText}
-              </a>
+              </Link>
             </div>
           </SwiperSlide>
         ))}
