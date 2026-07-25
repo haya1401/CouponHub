@@ -1,378 +1,145 @@
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
+import { Link } from 'react-router-dom';
 
 export default function Stores() {
-
-
   const [stores, setStores] = useState([]);
-
-
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function fetchStores() {
+      try {
+        const snapshot = await getDocs(collection(db, "coupons"));
+        const allCoupons = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
+        const storeMap = {};
+        allCoupons.forEach((coupon) => {
+          const name = coupon.store?.trim();
+          if (name) {
+            // البحث عن رابط الشعار أو الصورة من بيانات الكوبون
+            const logoUrl = coupon.logo || coupon.storeLogo || coupon.image || coupon.img || null;
 
-    document.title =
-      "أفضل المتاجر مع كوبونات الخصم | CouponHub";
+            if (!storeMap[name]) {
+              storeMap[name] = {
+                name: name,
+                count: 0,
+                logo: logoUrl
+              };
+            } else if (!storeMap[name].logo && logoUrl) {
+              // إذا وُجد شعار في كوبون آخر لنفس المتجر
+              storeMap[name].logo = logoUrl;
+            }
+            storeMap[name].count += 1;
+          }
+        });
 
-
-
-    const description =
-      document.querySelector('meta[name="description"]');
-
-
-
-    if(description){
-
-      description.setAttribute(
-        "content",
-        "تصفح أشهر المتاجر واحصل على أحدث كوبونات الخصم والعروض الحصرية عبر CouponHub."
-      );
-
-    }
-
-
-
-
-
-    async function loadData(){
-
-
-      try{
-
-
-        const storesSnapshot =
-          await getDocs(
-            collection(db,"stores")
-          );
-
-
-
-        const storesData =
-          storesSnapshot.docs.map(doc => ({
-
-            id:doc.id,
-
-            ...doc.data()
-
-          }));
-
-
-
-
-        const couponsSnapshot =
-          await getDocs(
-            collection(db,"coupons")
-          );
-
-
-
-        const coupons =
-          couponsSnapshot.docs.map(doc => doc.data());
-
-
-
-
-
-        const storesWithCount =
-
-        storesData.map(store => ({
-
-
-          ...store,
-
-
-
-          couponsCount:
-
-          coupons.filter(coupon =>
-
-            coupon.store?.trim() === store.name?.trim()
-
-          ).length
-
-
-
-        }));
-
-
-
-
-        setStores(storesWithCount);
-
-
-
-      }catch(error){
-
-
-        console.error(
-          "Stores loading error:",
-          error
-        );
-
-
+        setStores(Object.values(storeMap));
+      } catch (error) {
+        console.error("Error fetching stores:", error);
+      } finally {
+        setLoading(false);
       }
-
-
     }
 
-
-
-
-
-    loadData();
-
-
-
-  },[]);
-
-
-
-
-
-
+    fetchStores();
+  }, []);
 
   return (
-
-
-    <section
-
-      style={{
-
-        padding:"60px 20px",
-
-        background:"#f8fafc",
-
-        minHeight:"100vh"
-
-      }}
-
-    >
-
-
-
-
-      <h1
-
-        style={{
-
-          textAlign:"center",
-
-          marginBottom:"40px",
-
-          fontSize:"36px"
-
-        }}
-
-      >
-
-        🏪 جميع المتاجر وكوبونات الخصم
-
-      </h1>
-
-
-
-
-
-      <p
-
-        style={{
-
-          textAlign:"center",
-
-          marginBottom:"35px",
-
-          color:"#555"
-
-        }}
-
-      >
-
-        اكتشف أفضل المتاجر واحصل على أحدث أكواد الخصم والعروض عبر CouponHub.
-
-      </p>
-
-
-
-
-
-
-
-      <div
-
-        style={{
-
-          display:"grid",
-
-          gridTemplateColumns:
-          "repeat(auto-fit,minmax(220px,1fr))",
-
-          gap:"25px",
-
-          maxWidth:"1100px",
-
-          margin:"auto"
-
-        }}
-
-      >
-
-
-
-
-
-      {stores.map(store => (
-
-
-
-        <div
-
-          key={store.id}
-
-          style={{
-
-            background:"#fff",
-
-            padding:"25px",
-
-            borderRadius:"16px",
-
-            textAlign:"center",
-
-            boxShadow:
-            "0 8px 20px rgba(0,0,0,.08)"
-
-          }}
-
-        >
-
-
-
-
-
-          <img
-
-            src={store.logo}
-
-            alt={`كوبونات ${store.name}`}
-
-            onError={(e)=>{
-
-              e.target.src="/logos/default.png";
-
-            }}
-
-            style={{
-
-              width:"80px",
-
-              height:"80px",
-
-              objectFit:"contain",
-
-              marginBottom:"15px"
-
-            }}
-
-          />
-
-
-
-
-
-
-
-          <h2>
-
-            كوبونات {store.name}
-
-          </h2>
-
-
-
-
-
-
-
-          <p
-
-            style={{
-
-              color:"#666",
-
-              marginTop:"10px",
-
-              marginBottom:"20px"
-
-            }}
-
-          >
-
-            {store.couponsCount} كوبون متوفر
-
-          </p>
-
-
-
-
-
-
-
-          <Link
-
-            to={`/store/${encodeURIComponent(store.name)}`}
-
-            style={{
-
-              display:"inline-block",
-
-              background:"#2563eb",
-
-              color:"#fff",
-
-              padding:"12px 25px",
-
-              borderRadius:"10px",
-
-              textDecoration:"none",
-
-              fontWeight:"bold"
-
-            }}
-
-          >
-
-            عرض الكوبونات
-
-          </Link>
-
-
-
-
-
-
-        </div>
-
-
-
-      ))}
-
-
-
-
-
+    <section style={{ maxWidth: '1200px', margin: '2rem auto', padding: '0 15px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+        <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '8px', color: '#1e293b' }}>
+          🏪 جميع المتاجر وكوبونات الخصم
+        </h2>
+        <p style={{ color: '#64748b', fontSize: '0.95rem' }}>
+          اكتشف أفضل المتاجر واحصل على أحدث أكواد الخصم والعروض عبر CouponHub.
+        </p>
       </div>
 
+      {loading ? (
+        <p style={{ textAlign: 'center', color: '#64748b' }}>جاري تحميل المتاجر...</p>
+      ) : stores.length === 0 ? (
+        <p style={{ textAlign: 'center', color: '#64748b' }}>لا توجد متاجر متاحة حالياً</p>
+      ) : (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+          gap: '20px'
+        }}>
+          {stores.map((store, index) => (
+            <div 
+              key={index} 
+              style={{
+                backgroundColor: '#ffffff',
+                borderRadius: '16px',
+                padding: '24px 20px',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.03)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center'
+              }}
+            >
+              {/* إظهار شعار المتجر */}
+              <div style={{
+                width: '75px',
+                height: '75px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                marginBottom: '14px',
+                border: '1px solid #e2e8f0',
+                backgroundColor: '#f8fafc',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+              }}>
+                {store.logo ? (
+                  <img 
+                    src={store.logo} 
+                    alt={store.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '6px' }}
+                    onError={(e) => {
+                      // إذا فشل تحميل الصورة يظهر شكل المتجر الافتراضي
+                      e.target.style.display = 'none';
+                      e.target.parentElement.innerHTML = '<span style="font-size: 2rem;">🛍️</span>';
+                    }}
+                  />
+                ) : (
+                  <span style={{ fontSize: '2rem' }}>🛍️</span>
+                )}
+              </div>
 
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '6px', color: '#0f172a' }}>
+                كوبونات {store.name}
+              </h3>
 
+              <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '16px' }}>
+                {store.count} {store.count > 2 ? 'كوبونات متوفرة' : 'كوبون متوفر'}
+              </p>
 
-
+              <Link 
+                to={`/store/${encodeURIComponent(store.name)}`} 
+                style={{
+                  backgroundColor: '#2563eb',
+                  color: '#ffffff',
+                  padding: '9px 20px',
+                  borderRadius: '8px',
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  textDecoration: 'none',
+                  width: '100%',
+                  display: 'block',
+                  boxSizing: 'border-box'
+                }}
+              >
+                عرض الكوبونات
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
-
-
   );
-
 }
