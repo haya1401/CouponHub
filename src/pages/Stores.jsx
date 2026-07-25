@@ -17,17 +17,17 @@ export default function Stores() {
         allCoupons.forEach((coupon) => {
           const name = coupon.store?.trim();
           if (name) {
-            // البحث عن رابط الصورة بجميع الأسماء المحتملة داخل الكوبون
-            const foundImage = coupon.image || coupon.logo || coupon.storeLogo || coupon.img || coupon.store_image || null;
+            // البحث عن رابط الشعار بأي حقل محتمل في قاعدة البيانات
+            const logoUrl = coupon.storeLogo || coupon.logo || coupon.image || coupon.img || null;
 
             if (!storeMap[name]) {
               storeMap[name] = {
                 name: name,
                 count: 0,
-                image: foundImage
+                logo: logoUrl
               };
-            } else if (!storeMap[name].image && foundImage) {
-              storeMap[name].image = foundImage;
+            } else if (!storeMap[name].logo && logoUrl) {
+              storeMap[name].logo = logoUrl;
             }
             storeMap[name].count += 1;
           }
@@ -35,7 +35,7 @@ export default function Stores() {
 
         setStores(Object.values(storeMap));
       } catch (error) {
-        console.error("Error fetching stores:", error);
+        console.error("Error loading stores:", error);
       } finally {
         setLoading(false);
       }
@@ -66,9 +66,8 @@ export default function Stores() {
           gap: '20px'
         }}>
           {stores.map((store, index) => {
-            // شعار بديل نظيف باسم المتجر إذا لم يوجد رابط صورة في الفايربيس
-            const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=0f172a&size=128&bold=true`;
-            const imageUrl = store.image || fallbackAvatar;
+            const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f8fafc&color=0f172a&size=128&bold=true`;
+            const displayLogo = store.logo || fallbackAvatar;
 
             return (
               <div 
@@ -85,11 +84,18 @@ export default function Stores() {
                   textAlign: 'center'
                 }}
               >
-                <div style={{ height: '70px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '12px' }}>
+                <div style={{
+                  height: '65px',
+                  width: '130px',
+                  marginBottom: '14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
                   <img 
-                    src={imageUrl} 
+                    src={displayLogo} 
                     alt={store.name} 
-                    style={{ maxHeight: '100%', maxWidth: '140px', objectFit: 'contain' }}
+                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = fallbackAvatar;
