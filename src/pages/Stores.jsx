@@ -17,6 +17,7 @@ export default function Stores() {
         allCoupons.forEach((coupon) => {
           const name = coupon.store?.trim();
           if (name) {
+            // جلب صورة المتجر/الشعار من الحقول المحتملة في قاعدة البيانات
             const logoUrl = coupon.logo || coupon.storeLogo || coupon.image || coupon.img || null;
 
             if (!storeMap[name]) {
@@ -61,79 +62,80 @@ export default function Stores() {
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           gap: '20px'
         }}>
-          {stores.map((store, index) => (
-            <div 
-              key={index} 
-              style={{
-                backgroundColor: '#ffffff',
-                borderRadius: '16px',
-                padding: '24px 20px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.03)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center'
-              }}
-            >
-              <div style={{
-                width: '75px',
-                height: '75px',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                marginBottom: '14px',
-                border: '1px solid #e2e8f0',
-                backgroundColor: '#f8fafc',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
-              }}>
-                {store.logo ? (
-                  <img 
-                    src={store.logo} 
-                    alt={store.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '6px' }}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = '<span style="font-size: 2rem;">🛍️</span>';
-                    }}
-                  />
-                ) : (
-                  <span style={{ fontSize: '2rem' }}>🛍️</span>
-                )}
-              </div>
+          {stores.map((store, index) => {
+            // صورة بديلة بحروف المتجر في حال عدم وجود شعار
+            const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=334155&size=128&bold=true`;
 
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '6px', color: '#0f172a' }}>
-                كوبونات {store.name}
-              </h3>
-
-              <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '16px' }}>
-                {store.count} {store.count > 2 ? 'كوبونات متوفرة' : 'كوبون متوفر'}
-              </p>
-
-              <Link 
-                to={`/store/${encodeURIComponent(store.name)}`} 
+            return (
+              <div 
+                key={index} 
                 style={{
-                  backgroundColor: '#2563eb',
-                  color: '#ffffff',
-                  padding: '9px 20px',
-                  borderRadius: '8px',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  textDecoration: 'none',
-                  width: '100%',
-                  display: 'block',
-                  boxSizing: 'border-box'
+                  backgroundColor: '#ffffff',
+                  borderRadius: '16px',
+                  padding: '20px',
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.03)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center'
                 }}
               >
-                عرض الكوبونات
-              </Link>
-            </div>
-          ))}
+                {/* حاوية الشعار المربعة مثل الصورة تماماً */}
+                <div style={{
+                  width: '100px',
+                  height: '60px',
+                  marginBottom: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <img 
+                    src={store.logo || fallbackAvatar} 
+                    alt={store.name} 
+                    style={{ 
+                      maxWidth: '100%', 
+                      maxHeight: '100%', 
+                      objectFit: 'contain' 
+                    }}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = fallbackAvatar;
+                    }}
+                  />
+                </div>
+
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 'bold', marginBottom: '6px', color: '#0f172a' }}>
+                  كوبونات {store.name}
+                </h3>
+
+                <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '16px' }}>
+                  {store.count} {store.count > 2 ? 'كوبونات متوفرة' : 'كوبون متوفر'}
+                </p>
+
+                <Link 
+                  to={`/store/${encodeURIComponent(store.name)}`} 
+                  style={{
+                    backgroundColor: '#2563eb',
+                    color: '#ffffff',
+                    padding: '9px 20px',
+                    borderRadius: '8px',
+                    fontSize: '0.9rem',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                    width: '100%',
+                    display: 'block',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  عرض الكوبونات
+                </Link>
+              </div>
+            );
+          })}
         </div>
       )}
     </section>
