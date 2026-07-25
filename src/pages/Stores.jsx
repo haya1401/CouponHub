@@ -7,35 +7,27 @@ export default function Stores() {
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // خريطة النطاقات الصريحة لضمان جلب الشعار الأصلي من النطاق المباشر
-  const storeDomains = {
-    'برفيوم كو': 'perfumeco.sa',
-    'أفلام الألغاز': 'puzzlemovies.com',
-    'سكون': 'sakoon.sa',
-    'سمارت هب1': 'smarthub1.com',
-    'سارت هب1': 'smarthub1.com',
-    'مجوهرات الغنيم': 'alghoneim.com',
-    'مجوهرا الغنيم': 'alghoneim.com',
-    'huawei': 'huawei.com',
-    'sukkarstore': 'sukkarstore.com',
-    'زمرد ذهب و الماس': 'zomorod.sa',
-    'زمرد ذهب و ألمس': 'zomorod.sa',
-    'مترو برازيل': 'metrobrazil.com',
-    'الشنيفي للمسكات والكوالين': 'alshneifi.com',
-    'aliexpress': 'aliexpress.com',
-    'علي إكسبريس العالمية': 'aliexpress.com',
-    'ناتفيتا': 'natvita.sa',
-    'ناتفِيتا': 'natvita.sa',
-    'نون': 'noon.com',
-    'dkny': 'dkny.com',
-    'شنطتي': 'shentaty.com',
-    'lg': 'lg.com',
-    'amazon': 'amazon.com',
-    'أمازون': 'amazon.com',
-    'salla': 'salla.sa',
-    'bshti': 'bshti.com',
-    'سمو': 'samou.sa',
-    'مصاغات الأربش للذهب': 'alarbashgold.com'
+  // خريطة الشعارات الأصلية والموثوقة للمتاجر
+  const originalLogos = {
+    'lg': 'https://logo.clearbit.com/lg.com',
+    'sukkarstore': 'https://logo.clearbit.com/sukkarstore.com',
+    'ناتفيتا': 'https://logo.clearbit.com/natvita.sa',
+    'ناتفِيتا': 'https://logo.clearbit.com/natvita.sa',
+    'سكون': 'https://cdn.salla.sa/Forma/logo.png', // رابط مباشر
+    'مترو برازيل': 'https://logo.clearbit.com/metrobrazil.com',
+    'bshti': 'https://logo.clearbit.com/bshti.com',
+    'بشتي': 'https://logo.clearbit.com/bshti.com',
+    'سمو': 'https://ui-avatars.com/api/?name=سمو&background=0284c7&color=ffffff&bold=true&size=128',
+    'الشنيفي للمسكات والكوالين': 'https://ui-avatars.com/api/?name=الشنيفي&background=1e293b&color=ffffff&bold=true&size=128',
+    'برفيوم كو': 'https://logo.clearbit.com/perfumeco.sa',
+    'مصاغات الأربش للذهب': 'https://ui-avatars.com/api/?name=الأربش&background=d97706&color=ffffff&bold=true&size=128',
+    'salla': 'https://logo.clearbit.com/salla.sa',
+    'سلة': 'https://logo.clearbit.com/salla.sa',
+    'amazon': 'https://logo.clearbit.com/amazon.com',
+    'أمازون': 'https://logo.clearbit.com/amazon.com',
+    'علي إكسبريس العالمية': 'https://logo.clearbit.com/aliexpress.com',
+    'aliexpress': 'https://logo.clearbit.com/aliexpress.com',
+    'الزامل للصناعة والتجارة والنقل': 'https://logo.clearbit.com/zamil.com'
   };
 
   useEffect(() => {
@@ -74,29 +66,29 @@ export default function Stores() {
     fetchStores();
   }, []);
 
-  // دالة ذكية لتوليد جلب الشعار بجميع المحاولات
-  const getLogoUrl = (store) => {
+  const getStoreLogo = (store) => {
+    // 1. استخدام اللوجو المباشر من قاعدة البيانات إن وجد
     if (store.logo && store.logo.startsWith('http')) {
       return store.logo;
     }
 
     const cleanName = store.name.trim().toLowerCase();
 
-    // 1. البحث في خريطة النطاقات المخصصة
-    for (const [key, domain] of Object.entries(storeDomains)) {
+    // 2. البحث في خريطة الشعارات
+    for (const [key, value] of Object.entries(originalLogos)) {
       if (cleanName.includes(key.toLowerCase())) {
-        return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        return value;
       }
     }
 
-    // 2. إذا كان اسم المتجر بالإنجليزية
+    // 3. النطاقات الإنجليزية
     if (/^[a-zA-Z0-9-.]+$/.test(cleanName)) {
       const domain = cleanName.includes('.') ? cleanName : `${cleanName}.com`;
-      return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+      return `https://logo.clearbit.com/${domain}`;
     }
 
-    // 3. بديل جذاب بالأحرف الملونة بدلاً من الأيقونة الموحدة
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=1e293b&size=128&bold=true&font-size=0.4`;
+    // 4. رمز أنيق ومخصص بحروف اسم المتجر عند عدم وجود صورة
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(store.name)}&background=f1f5f9&color=2563eb&bold=true&size=128`;
   };
 
   return (
@@ -121,7 +113,7 @@ export default function Stores() {
           gap: '20px'
         }}>
           {stores.map((store, index) => {
-            const logoUrl = getLogoUrl(store);
+            const logoUrl = getStoreLogo(store);
 
             return (
               <div 
@@ -139,8 +131,8 @@ export default function Stores() {
                 }}
               >
                 <div style={{
-                  height: '75px',
-                  width: '120px',
+                  height: '80px',
+                  width: '130px',
                   marginBottom: '14px',
                   display: 'flex',
                   alignItems: 'center',
