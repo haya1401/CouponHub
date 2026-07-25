@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 
@@ -13,23 +12,17 @@ const heroSlides = [
     id: 1,
     title: "خصومات تصل إلى 50% على الإلكترونيات",
     subtitle: "أحدث كوبونات الخصم لمتاجر الأجهزة والتكنولوجيا",
-    image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=80",
-    buttonText: "تصفح العروض",
-    link: "/coupons"
+    image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 2,
     title: "أقوى أشكال وتشكيلات الأزياء",
     subtitle: "وفّر على مشترياتك من أشهر الماركات العالمية",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
-    buttonText: "احصل على الكوبون",
-    link: "/stores"
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80"
   }
 ];
 
 export default function Hero() {
-  const navigate = useNavigate();
-
   return (
     <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto 2rem auto', padding: '0 15px' }}>
       <Swiper
@@ -37,7 +30,7 @@ export default function Hero() {
         effect={'fade'}
         centeredSlides={true}
         autoplay={{
-          delay: 4000,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         pagination={{ clickable: true }}
@@ -64,29 +57,9 @@ export default function Hero() {
               <h1 style={{ fontSize: '1.8rem', marginBottom: '10px', fontWeight: 'bold' }}>
                 {slide.title}
               </h1>
-              <p style={{ fontSize: '1rem', marginBottom: '20px', opacity: 0.9, maxWidth: '600px' }}>
+              <p style={{ fontSize: '1rem', opacity: 0.9, maxWidth: '600px' }}>
                 {slide.subtitle}
               </p>
-              
-              {/* استخدام وظيفة البرمجة لضمان الانتقال الفوري عند النقر */}
-              <button 
-                onClick={() => navigate(slide.link)}
-                style={{
-                  backgroundColor: '#2563eb',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '12px 28px',
-                  borderRadius: '30px',
-                  fontSize: '1rem',
-                  fontWeight: 'bold',
-                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
-                  cursor: 'pointer',
-                  zIndex: 99,
-                  WebkitTapHighlightColor: 'transparent'
-                }}
-              >
-                {slide.buttonText}
-              </button>
             </div>
           </SwiperSlide>
         ))}
