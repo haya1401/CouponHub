@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // استيراد Link للتنقل السريع
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 
@@ -15,15 +14,15 @@ const heroSlides = [
     subtitle: "أحدث كوبونات الخصم لمتاجر الأجهزة والتكنولوجيا",
     image: "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1200&q=80",
     buttonText: "تصفح العروض",
-    link: "/coupons" // يوجه لصفحة جميع الكوبونات
+    link: "/coupons" // يوجه لصفحة الكوبونات والعروض
   },
   {
     id: 2,
     title: "أقوى أشكال وتشكيلات الأزياء",
     subtitle: "وفّر على مشترياتك من أشهر الماركات العالمية",
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
-    buttonText: "استكشف المتاجر",
-    link: "/stores" // يوجه لصفحة جميع المتاجر
+    buttonText: "احصل على الكوبون",
+    link: "/stores" // يوجه لصفحة المتاجر
   }
 ];
 
@@ -34,6 +33,8 @@ export default function Hero() {
         spaceBetween={30}
         effect={'fade'}
         centeredSlides={true}
+        preventClicks={false} // لضمان الاستجابة الفورية للنقر
+        preventClicksPropagation={false}
         autoplay={{
           delay: 3500,
           disableOnInteraction: false,
@@ -66,21 +67,22 @@ export default function Hero() {
                 {slide.subtitle}
               </p>
               
-              {/* استخدام Link للانتقال السريع بداخل التطبيق */}
-              <Link 
-                to={slide.link} 
+              <a 
+                href={slide.link} 
                 style={{
                   backgroundColor: '#2563eb',
                   color: '#fff',
-                  padding: '10px 26px',
+                  padding: '12px 28px',
                   borderRadius: '30px',
                   textDecoration: 'none',
                   fontWeight: 'bold',
-                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)'
+                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
+                  zIndex: 10,
+                  cursor: 'pointer'
                 }}
               >
                 {slide.buttonText}
-              </Link>
+              </a>
             </div>
           </SwiperSlide>
         ))}
