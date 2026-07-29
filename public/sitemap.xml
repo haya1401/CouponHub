@@ -3,22 +3,18 @@
 
   <url>
     <loc>https://couponhub-6pd.pages.dev/</loc>
-    <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://couponhub-6pd.pages.dev/stores</loc>
-    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://couponhub-6pd.pages.dev/coupons</loc>
-    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://couponhub-6pd.pages.dev/categories</loc>
-    <priority>0.8</priority>
   </url>
 
 </urlset>
